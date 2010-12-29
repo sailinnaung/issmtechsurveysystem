@@ -1,0 +1,29 @@
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+
+    <!-- Configuration for the default package. -->
+    <package name="default" extends="tiles-default">
+        <result-types>
+            <result-type name="tiles" class="org.apache.struts2.views.tiles.TilesResult"/>
+        </result-types>
+        <global-results>
+            <result name="login" type="redirect">login</result>
+            <result type="tiles" name="error">tiles.error</result>
+            
+        </global-results>
+    </package>
+    <package name="struts" extends="default" namespace="/">
+        <action name="login" class="com.team11.surveyquestionnaire.action.LogInAction">
+            <result name="success" type="tiles" >tiles.login</result>
+            <result name="error" type="tiles" >tiles.login</result>
+        </action>
+        <action name="authenticate" class="com.team11.surveyquestionnaire.action.AuthenticateAction">
+            
+            <result name="input"    type="tiles"    >tiles.login</result>
+            <result name="failure"  type="tiles"    >tiles.login</result>
+        </action>
+    </package>
+</struts>
