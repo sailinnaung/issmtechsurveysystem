@@ -9,7 +9,7 @@ package survey.dto;
  *
  * @author A0065956N
  */
-public class TextAnswerDTO extends AnswerDTO {
+public class TextAnswerDTO extends AnswerDTO implements java.io.Serializable {
 
     private String value;
     

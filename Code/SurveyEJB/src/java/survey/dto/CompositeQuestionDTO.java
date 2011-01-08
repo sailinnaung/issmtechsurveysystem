@@ -11,7 +11,7 @@ import java.util.ArrayList;
  *
  * @author A0065956N
  */
-public class CompositeQuestionDTO extends QuestionDTO {
+public class CompositeQuestionDTO extends QuestionDTO implements java.io.Serializable {
 
     private QuestionTypes compositeType;
     private ArrayList<QuestionDTO> questions;

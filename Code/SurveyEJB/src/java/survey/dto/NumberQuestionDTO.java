@@ -11,7 +11,7 @@ import java.util.ArrayList;
  *
  * @author A0065956N
  */
-public class NumberQuestionDTO extends TextQuestionDTO {
+public class NumberQuestionDTO extends TextQuestionDTO implements java.io.Serializable {
 
     private ArrayList<NumberRangeDTO> ranges;
     

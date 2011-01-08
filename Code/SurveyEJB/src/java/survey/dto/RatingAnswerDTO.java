@@ -9,7 +9,7 @@ package survey.dto;
  *
  * @author A0065956N
  */
-public class RatingAnswerDTO extends AnswerDTO {
+public class RatingAnswerDTO extends AnswerDTO implements java.io.Serializable {
 
     private OptionDTO option;
     

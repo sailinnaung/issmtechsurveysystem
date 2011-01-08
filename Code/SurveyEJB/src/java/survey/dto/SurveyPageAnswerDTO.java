@@ -11,7 +11,7 @@ import java.util.ArrayList;
  *
  * @author A0065956N
  */
-public class SurveyPageAnswerDTO {
+public class SurveyPageAnswerDTO implements java.io.Serializable {
 
     private SurveyPageDTO page;
     private ArrayList<AnswerDTO> answers;

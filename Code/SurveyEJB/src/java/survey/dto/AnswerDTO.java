@@ -9,7 +9,7 @@ package survey.dto;
  *
  * @author A0065956N
  */
-public abstract class AnswerDTO {
+public abstract class AnswerDTO implements java.io.Serializable {
     
     private int answerID;
     private QuestionDTO question;   // Must be a clone
