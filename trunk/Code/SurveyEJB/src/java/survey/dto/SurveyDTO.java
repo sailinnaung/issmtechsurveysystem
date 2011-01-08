@@ -7,6 +7,7 @@ package survey.dto;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 /**
  *
@@ -16,10 +17,13 @@ public class SurveyDTO implements Serializable {
 
     private int surveyID;
     private UserDTO owner;
+    private Calendar createDate;
     private String title;
     private String description;
     private ActivityTypes state;
     private ArrayList<SurveyPageDTO> pages;
+    private Calendar startDate;
+    private Calendar endDate;
     
     public SurveyDTO() {
         
@@ -71,5 +75,29 @@ public class SurveyDTO implements Serializable {
 
     public void setOwner(UserDTO owner) {
         this.owner = owner;
+    }
+
+    public Calendar getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Calendar createDate) {
+        this.createDate = createDate;
+    }
+
+    public Calendar getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Calendar endDate) {
+        this.endDate = endDate;
+    }
+
+    public Calendar getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Calendar startDate) {
+        this.startDate = startDate;
     }
 }
