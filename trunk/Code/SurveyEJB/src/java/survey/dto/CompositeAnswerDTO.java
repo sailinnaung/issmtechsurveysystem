@@ -11,7 +11,7 @@ import java.util.ArrayList;
  *
  * @author A0065956N
  */
-public class CompositeAnswerDTO extends AnswerDTO {
+public class CompositeAnswerDTO extends AnswerDTO implements java.io.Serializable {
 
     private ArrayList<AnswerDTO> answers;
     

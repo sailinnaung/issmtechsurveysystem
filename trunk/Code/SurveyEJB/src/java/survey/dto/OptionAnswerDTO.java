@@ -11,7 +11,7 @@ import java.util.ArrayList;
  *
  * @author A0065956N
  */
-public class OptionAnswerDTO extends AnswerDTO {
+public class OptionAnswerDTO extends AnswerDTO implements java.io.Serializable {
 
     private ArrayList<OptionDTO> options;
     
