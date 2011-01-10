@@ -6,7 +6,7 @@
 package survey.bpo;
 
 import javax.ejb.Stateless;
-import survey.dao.DAOException;
+import survey.exception.DAOException;
 import survey.dao.DAOFactory;
 import survey.dao.*;
 import survey.dto.*;
@@ -26,6 +26,7 @@ public class RoleFacadeBean implements RoleFacadeRemote {
             
         } catch (DAOException ex) {
             ex.printStackTrace();
+            throw ex;
         }
         
         return role;

@@ -3,13 +3,15 @@
  * and open the template in the editor.
  */
 
-package survey.dao;
+package survey.exception;
+
+import java.io.Serializable;
 
 /**
  *
  * @author A0065956N
  */
-public class DAOException extends Exception {
+public class DAOException extends Exception implements Serializable {
 
     public DAOException() {}
     

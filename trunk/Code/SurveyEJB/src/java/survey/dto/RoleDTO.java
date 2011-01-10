@@ -6,7 +6,7 @@
 package survey.dto;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -17,11 +17,11 @@ public class RoleDTO implements Serializable {
     private int roleID;
     private String name;
     private String description;
-    private ArrayList<FunctionDTO> functions;
+    private List<FunctionDTO> functions;
     
     public RoleDTO() {
         
-        functions = new ArrayList<FunctionDTO>();
+        functions = null;
     }
 
     public String getDescription() {
@@ -48,11 +48,11 @@ public class RoleDTO implements Serializable {
         this.roleID = roleID;
     }
 
-    public ArrayList<FunctionDTO> getFunctions() {
+    public List<FunctionDTO> getFunctions() {
         return functions;
     }
 
-    public void setFunctions(ArrayList<FunctionDTO> functions) {
+    public void setFunctions(List<FunctionDTO> functions) {
         this.functions = functions;
     }
 }

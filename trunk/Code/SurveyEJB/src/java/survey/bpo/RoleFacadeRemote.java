@@ -6,7 +6,7 @@
 package survey.bpo;
 
 import javax.ejb.Remote;
-import survey.dao.DAOException;
+import survey.exception.DAOException;
 import survey.dto.*;
 
 /**
