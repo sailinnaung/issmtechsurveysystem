@@ -19,23 +19,11 @@ public class FunctionDTO implements Serializable {
     private String name;
     private String description;
     private int order;
-    private FunctionDTO parent;
-    private ArrayList<FunctionDTO> children;
     
     public FunctionDTO() {
         
-        children = new ArrayList<FunctionDTO>();
     }
 
-    public ArrayList<FunctionDTO> getChildren() {
-        return children;
-    }
-
-    public void addChild(FunctionDTO function) {
-        children.add(function);
-        function.setParent(this);
-    }
-    
     public int getFunctionID() {
         return functionID;
     }
@@ -74,13 +62,5 @@ public class FunctionDTO implements Serializable {
 
     public void setOrder(int order) {
         this.order = order;
-    }
-
-    public FunctionDTO getParent() {
-        return parent;
-    }
-
-    public void setParent(FunctionDTO parent) {
-        this.parent = parent;
     }
 }

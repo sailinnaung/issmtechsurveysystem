@@ -12,14 +12,14 @@ import java.util.ArrayList;
  *
  * @author A0065956N
  */
-public class UserRoleDTO implements Serializable {
+public class RoleDTO implements Serializable {
 
-    private int userRoleID;
+    private int roleID;
     private String name;
     private String description;
     private ArrayList<FunctionDTO> functions;
     
-    public UserRoleDTO() {
+    public RoleDTO() {
         
         functions = new ArrayList<FunctionDTO>();
     }
@@ -40,12 +40,12 @@ public class UserRoleDTO implements Serializable {
         this.name = name;
     }
 
-    public int getUserRoleID() {
-        return userRoleID;
+    public int getRoleID() {
+        return roleID;
     }
 
-    public void setUserRoleID(int userRoleID) {
-        this.userRoleID = userRoleID;
+    public void setRoleID(int roleID) {
+        this.roleID = roleID;
     }
 
     public ArrayList<FunctionDTO> getFunctions() {
