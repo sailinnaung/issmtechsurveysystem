@@ -18,7 +18,7 @@ public class UserDTO implements Serializable {
     private String password;
     private String email;
     private boolean deleteFlg;
-    private ArrayList<UserRoleDTO> roles;
+    private ArrayList<RoleDTO> roles;
     
     public UserDTO() {
         
@@ -56,11 +56,11 @@ public class UserDTO implements Serializable {
         this.password = password;
     }
 
-    public ArrayList<UserRoleDTO> getRoles() {
+    public ArrayList<RoleDTO> getRoles() {
         return roles;
     }
 
-    public void setRoles(ArrayList<UserRoleDTO> roles) {
+    public void setRoles(ArrayList<RoleDTO> roles) {
         this.roles = roles;
     }
 }
