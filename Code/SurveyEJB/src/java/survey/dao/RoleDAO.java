@@ -5,6 +5,7 @@
 
 package survey.dao;
 
+import survey.exception.DAOException;
 import survey.dto.*;
 
 /**

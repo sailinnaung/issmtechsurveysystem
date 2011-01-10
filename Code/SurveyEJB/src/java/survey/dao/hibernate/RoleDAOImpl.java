@@ -5,10 +5,10 @@
 
 package survey.dao.hibernate;
 
-import java.util.ArrayList;
+import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
-import survey.dao.DAOException;
+import survey.exception.DAOException;
 import survey.dao.RoleDAO;
 import survey.dto.*;
 
@@ -34,7 +34,7 @@ public class RoleDAOImpl implements RoleDAO {
 
             if (role.getFunctions() != null) {
 
-                ArrayList<FunctionDTO> functions = role.getFunctions();
+                List<FunctionDTO> functions = role.getFunctions();
                 for (FunctionDTO function : functions) {
 
                     session.saveOrUpdate(function);
