@@ -1,0 +1,24 @@
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+
+<tiles-definitions>
+    <definition name="mainLayout" template="/MainLayout.jsp">
+        <put-attribute name="header"    value="/Header.jsp"/>
+        <put-attribute name="menu"      value="/LeftMenu.jsp"/>
+        <put-attribute name="footer"    value="/Footer.jsp"/>
+        <put-attribute name="bodyTitle" value="Body Title"/>
+    </definition>
+
+    <definition name="tiles.login" extends="mainLayout">
+        <put-attribute name="menu"        value="/Blank.jsp" />
+        <put-attribute name="body"        value="/Login.jsp"/>
+        <put-attribute name="bodyTitle"   value="survey.logintitle"/>
+    </definition>
+
+    <definition name="tiles.questionnaire_list" extends="mainLayout">
+        <put-attribute name="bodyTitle"   value="survey.questionnaire_list_title"/>
+    </definition>
+
+
+</tiles-definitions>
