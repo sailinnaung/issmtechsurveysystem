@@ -35,11 +35,22 @@
 
     <!-- EJB Reference Start Here -->
     <ejb-ref>
-        <ejb-ref-name>ejb/SurveyFacadeBean</ejb-ref-name>
+        <ejb-ref-name>bpo/SurveyFacadeBean</ejb-ref-name>
         <ejb-ref-type>Session</ejb-ref-type>
         <remote>survey.bpo.SurveyFacadeRemote</remote>
     </ejb-ref>
 
+    <ejb-ref>
+        <ejb-ref-name>bpo/UserFacadeBean</ejb-ref-name>
+        <ejb-ref-type>Session</ejb-ref-type>
+        <remote>survey.bpo.UserFacadeRemote</remote>
+    </ejb-ref>
+
+    <ejb-ref>
+        <ejb-ref-name>bpo/RoleFacadeBean</ejb-ref-name>
+        <ejb-ref-type>Session</ejb-ref-type>
+        <remote>survey.bpo.RoleFacadeRemote</remote>
+    </ejb-ref>
     <!-- EJB Reference End Here -->
  </web-app>
 
