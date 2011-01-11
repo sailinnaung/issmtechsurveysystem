@@ -6,6 +6,11 @@
 package survey.action;
 
 import com.opensymphony.xwork2.Action;
+import java.rmi.RemoteException;
+import survey.config.SurveyActionConstants;
+import survey.delegates.UserDelegate;
+import survey.dto.UserDTO;
+import survey.exception.NoLoginException;
 
 /**
  *
@@ -23,18 +28,28 @@ public class AuthenticateAction extends SurveyActionSupport {
        // below implemenation is for testing purpose only, later will have to change
        System.out.println("inside AuthenticateAction");
        System.out.println("username="+getUsername());
-       if(getUsername()!=null){
-           if(getUsername().equalsIgnoreCase("james") && getPassword().equalsIgnoreCase("password") ){
-               System.out.println("@@ before success return");
-               return Action.SUCCESS;
-           }else{
-               System.out.println("@@ before error return");
-               return Action.ERROR;
+
+       try{
+           if(getUsername()== null || getPassword()==null){
+               throw new NoLoginException("User has not logged in.");
            }
-       }else{
-           System.out.println("@@ before redirect to log in: username is null");
-           return Action.INPUT;
+
+           UserDelegate usrD = new UserDelegate();
+           //for current testing only
+           if(getUsername().equals("Researcher") && getPassword().equals("password"))
+               return SurveyActionConstants.Reseacher_Recent_List;
+
+           if(getUsername().equals("Respondant") && getPassword().equals("password"))
+               return SurveyActionConstants.Respondant_Recent_List;
+
+           //for current testing only - end here
+       }catch (NoLoginException ne) {
+		addActionError(getText("error.login.mismatch"));
+		return SurveyActionConstants.Failure;
+       }catch (Exception e){
+           return SurveyActionConstants.Failure;
        }
+       return SurveyActionConstants.Failure;
     }
 
     /**

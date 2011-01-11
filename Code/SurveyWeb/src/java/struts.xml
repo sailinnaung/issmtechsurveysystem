@@ -17,7 +17,8 @@
         </action>
 
         <action name="authenticate" class="survey.action.AuthenticateAction">
-            <result name="success"  type="redirect" >tiles.questionnaire_list</result>
+            <result name="rshr_recent"  type="tiles" >tiles.questionnairelist</result>
+            <result name="rspd_recent"  type="tiles" >tiles.questionnairelist</result>
             <result name="input"    type="tiles"    >tiles.login</result>
             <result name="failure"  type="tiles"    >tiles.login</result>            
         </action>

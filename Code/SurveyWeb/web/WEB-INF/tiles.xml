@@ -16,7 +16,8 @@
         <put-attribute name="bodyTitle"   value="survey.logintitle"/>
     </definition>
 
-    <definition name="tiles.questionnaire_list" extends="mainLayout">
+    <definition name="tiles.questionnairelist" extends="mainLayout">
+        <put-attribute name="body"        value="/Questionnaire_list.jsp"/>
         <put-attribute name="bodyTitle"   value="survey.questionnaire_list_title"/>
     </definition>
 
