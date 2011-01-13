@@ -5,7 +5,7 @@
 
 package survey.dao;
 
-import survey.dao.hibernate.RoleDAOImpl;
+import survey.dao.hibernate.*;
 
 /**
  *
@@ -16,5 +16,10 @@ public class DAOFactory {
     public static RoleDAO getRoleDAO() {
         
         return new RoleDAOImpl();
+    }
+    
+    public static UserDAO getUserDAO() {
+        
+        return new UserDAOImpl();
     }
 }

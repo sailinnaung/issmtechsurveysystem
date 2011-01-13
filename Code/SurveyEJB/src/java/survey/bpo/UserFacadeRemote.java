@@ -5,8 +5,10 @@
 
 package survey.bpo;
 
+import java.util.ArrayList;
 import javax.ejb.Remote;
 import survey.dto.*;
+import survey.exception.*;
 
 /**
  *
@@ -15,7 +17,7 @@ import survey.dto.*;
 @Remote
 public interface UserFacadeRemote {
 
-    UserDTO createUser(UserDTO user);
+    UserDTO createUser(UserDTO user) throws RecordExistsException;
 
     UserDTO updateUser(UserDTO user);
 
@@ -26,8 +28,10 @@ public interface UserFacadeRemote {
     UserDTO getUserByID(int userID);
     
     UserDTO getUserByUsername(String username);
-    
-    UserDTO addRole(int userID, RoleDTO role);
 
-    UserDTO removeRole(int userID, RoleDTO role);   
+    ArrayList<UserDTO> getUsers();
+
+    ArrayList<UserDTO> getUsersByRoleID(int roleID);
+
+    ArrayList<UserDTO> getUsersByRoleName(String roleName);
 }
