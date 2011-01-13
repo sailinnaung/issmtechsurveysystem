@@ -6,7 +6,6 @@
 package survey.dto;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
 /**
  *
@@ -14,14 +13,23 @@ import java.util.ArrayList;
  */
 public class UserDTO implements Serializable {
 
+    private int userID;
     private String username;
     private String password;
     private String email;
     private boolean deleteFlg;
-    private ArrayList<RoleDTO> roles;
+    private RoleDTO role;
     
     public UserDTO() {
         
+    }
+
+    public int getUserID() {
+        return userID;
+    }
+
+    public void setUserID(int userID) {
+        this.userID = userID;
     }
 
     public String getUsername() {
@@ -40,14 +48,14 @@ public class UserDTO implements Serializable {
         this.email = email;
     }
 
-    public boolean isDeleted() {
+    public boolean isDeleteFlg() {
         return deleteFlg;
     }
 
-    public void setDeleted(boolean deleteFlg) {
+    public void setDeleteFlg(boolean deleteFlg) {
         this.deleteFlg = deleteFlg;
     }
-
+    
     public String getPassword() {
         return password;
     }
@@ -56,11 +64,11 @@ public class UserDTO implements Serializable {
         this.password = password;
     }
 
-    public ArrayList<RoleDTO> getRoles() {
-        return roles;
+    public RoleDTO getRole() {
+        return role;
     }
 
-    public void setRoles(ArrayList<RoleDTO> roles) {
-        this.roles = roles;
+    public void setRole(RoleDTO role) {
+        this.role = role;
     }
 }
