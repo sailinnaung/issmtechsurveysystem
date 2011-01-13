@@ -21,7 +21,6 @@ import survey.exception.DAOException;
 public class HibernateUtil {
 
     private static SessionFactory sessionFactory;
-    private static Transaction transaction;
     private static Log log = LogFactory.getLog(HibernateUtil.class);
     
     /**
@@ -77,43 +76,16 @@ public class HibernateUtil {
         }
     }
     
-    public static void beginTransaction(Session session) {
-    
-        if (transaction != null && transaction.isActive()) {
-        
-            return; // use the same transaction
+    public static void rollback(Transaction tx) {
+        try {
+            if (tx != null) {
+                tx.rollback();
+            }
+        } catch (HibernateException ignored) {
+            log.error("Couldn't rollback Transaction", ignored);
         }
-        
-        transaction = session.beginTransaction();
     }
-    
-    public static void commitTransaction() {
-        
-        if (transaction != null && transaction.isActive())
-            transaction.commit();
-        
-        transaction = null;
-    }
-    
-    public static void rollbackTransaction() {
-        
-        if (transaction != null)
-            transaction.rollback();
-        
-        transaction = null;
-    }
-    
-    public static void handleException(Exception ex) throws DAOException {
-        
-        rollbackTransaction();
-        ex.printStackTrace();
-        
-        if (!(ex instanceof DAOException))
-            throw new DAOException(ex);
-        else
-            throw (DAOException) ex;
-    }
-    
+   
     /**
      *
      * @return

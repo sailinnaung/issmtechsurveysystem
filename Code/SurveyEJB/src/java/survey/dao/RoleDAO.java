@@ -5,6 +5,7 @@
 
 package survey.dao;
 
+import java.util.ArrayList;
 import survey.exception.DAOException;
 import survey.dto.*;
 
@@ -16,6 +17,7 @@ public interface RoleDAO {
 
     public RoleDTO getRole(int roleID) throws DAOException;
     public RoleDTO getRole(String roleName) throws DAOException;
+    public ArrayList<RoleDTO> getRoles() throws DAOException;
     public RoleDTO createRole(RoleDTO role) throws DAOException;
     public RoleDTO updateRole(RoleDTO role) throws DAOException;
     public boolean deleteRole(int roleID) throws DAOException;

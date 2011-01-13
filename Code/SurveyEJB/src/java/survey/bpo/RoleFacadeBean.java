@@ -5,11 +5,12 @@
 
 package survey.bpo;
 
+import java.util.ArrayList;
 import javax.ejb.Stateless;
 import survey.exception.DAOException;
-import survey.dao.DAOFactory;
 import survey.dao.*;
 import survey.dto.*;
+import survey.exception.RecordExistsException;
 
 /**
  *
@@ -18,38 +19,51 @@ import survey.dto.*;
 @Stateless(mappedName="RoleFacade")
 public class RoleFacadeBean implements RoleFacadeRemote {
 
-    public RoleDTO createRole(RoleDTO role) throws DAOException {
+    public RoleDTO createRole(RoleDTO role) throws RecordExistsException {
         
         RoleDAO dao = DAOFactory.getRoleDAO();
-        try {
-            role = dao.createRole(role);
-            
-        } catch (DAOException ex) {
-            ex.printStackTrace();
-            throw ex;
-        }
         
-        return role;
+        // Check if the role exists by name
+        RoleDTO tmpRole = dao.getRole(role.getName());
+        if (tmpRole != null)
+            throw new RecordExistsException("Role already exists for name=" + tmpRole.getName());
+        
+        return dao.createRole(role);
     }
 
-    public RoleDTO updateRole(RoleDTO role) {
-        return null;
+    public RoleDTO updateRole(RoleDTO role) throws DAOException {
+        
+        RoleDAO dao = DAOFactory.getRoleDAO();
+        return dao.updateRole(role);
     }
 
     public boolean deleteRoleByID(int roleID) {
         
         RoleDAO dao = DAOFactory.getRoleDAO();
-        try {
-            return dao.deleteRole(roleID);
-            
-        } catch (DAOException ex) {
-            ex.printStackTrace();
-        }
-        
-        return false;
+        return dao.deleteRole(roleID);
     }
 
     public boolean deleteRoleByName(String roleName) {
-        return false;
+        
+        RoleDAO dao = DAOFactory.getRoleDAO();
+        return dao.deleteRole(roleName);
+    }
+
+    public RoleDTO getRoleByID(int roleID) {
+        
+        RoleDAO dao = DAOFactory.getRoleDAO();
+        return dao.getRole(roleID);
+    }
+
+    public RoleDTO getRoleByName(String roleName) {
+        
+        RoleDAO dao = DAOFactory.getRoleDAO();
+        return dao.getRole(roleName);
+    }
+
+    public ArrayList<RoleDTO> getRoles() {
+        
+        RoleDAO dao = DAOFactory.getRoleDAO();
+        return dao.getRoles();
     }
 }

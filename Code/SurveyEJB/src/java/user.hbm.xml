@@ -7,7 +7,7 @@
     </id>
     <property column="ROLE_NAME" length="50" name="name" not-null="true" type="string" unique="true"/>
     <property column="DESCRIPTION" length="200" name="description" type="string"/>
-    <bag cascade="delete" name="functions" table="ROLE_FUNCTION">
+    <bag name="functions" table="ROLE_FUNCTION" cascade="none">
       <key column="ROLE_ID"/>
       <many-to-many class="survey.dto.FunctionDTO" column="FUNCTION_ID"/>
     </bag>

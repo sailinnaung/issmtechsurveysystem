@@ -5,9 +5,10 @@
 
 package survey.bpo;
 
+import java.util.ArrayList;
 import javax.ejb.Remote;
-import survey.exception.DAOException;
 import survey.dto.*;
+import survey.exception.*;
 
 /**
  *
@@ -16,12 +17,18 @@ import survey.dto.*;
 @Remote
 public interface RoleFacadeRemote {
 
-    RoleDTO createRole(RoleDTO role) throws DAOException;
+    RoleDTO createRole(RoleDTO role) throws RecordExistsException;
 
     RoleDTO updateRole(RoleDTO role);
 
     boolean deleteRoleByID(int roleID);
 
     boolean deleteRoleByName(String roleName);
+
+    RoleDTO getRoleByID(int roleID);
+
+    RoleDTO getRoleByName(String roleName);
+
+    ArrayList<RoleDTO> getRoles();
     
 }
