@@ -5,13 +5,11 @@
 
 package survey.exception;
 
-import java.io.Serializable;
-
 /**
  *
  * @author A0065956N
  */
-public class DAOException extends Exception implements Serializable {
+public class DAOException extends RuntimeException {
 
     public DAOException() {}
     

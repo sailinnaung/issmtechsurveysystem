@@ -5,10 +5,9 @@
 
 package survey.dao.hibernate;
 
-import java.util.List;
+import java.util.ArrayList;
+import org.hibernate.Hibernate;
 import org.hibernate.Query;
-import org.hibernate.Session;
-import survey.exception.DAOException;
 import survey.dao.RoleDAO;
 import survey.dto.*;
 
@@ -16,83 +15,83 @@ import survey.dto.*;
  *
  * @author A0065956N
  */
-public class RoleDAOImpl implements RoleDAO {
+public class RoleDAOImpl extends AbstractDAO implements RoleDAO {
 
     public RoleDAOImpl() {
         super();
     }
     
-    public RoleDTO createRole(RoleDTO role) throws DAOException {
+    public RoleDTO createRole(RoleDTO role) {
         
-        Session session = null;
-        
-        try {
-            session = HibernateUtil.openSession();
-            HibernateUtil.beginTransaction(session);
-            
-            session.saveOrUpdate(role);
-
-            if (role.getFunctions() != null) {
-
-                List<FunctionDTO> functions = role.getFunctions();
-                for (FunctionDTO function : functions) {
-
-                    session.saveOrUpdate(function);
-                }
-            }
-            
-            HibernateUtil.commitTransaction();
-        } catch (Exception ex) {
-            
-            HibernateUtil.handleException(ex);
-        }
-        
-        if (session != null)
-            session.close();
-        
+        this.saveOrUpdate(role);
         return role;
     }
 
-    public boolean deleteRole(int roleID) throws DAOException {
+    public boolean deleteRole(int roleID) {
         
-        Session session = null;
+        this.delete(roleID);
+        return true;
+    }
+
+    public boolean deleteRole(String roleName) {
         
-        try {
-            session = HibernateUtil.openSession();
-            HibernateUtil.beginTransaction(session);
-            
-            String hql = "delete from RoleDTO where roleID = :roleID";
-            Query q = session.createQuery(hql)
-                    .setInteger("roleID", roleID);
-            q.executeUpdate();
-            
-            HibernateUtil.commitTransaction();
-        } catch (Exception ex) {
-            
-            HibernateUtil.handleException(ex);
-        }
-        
-        if (session != null)
-            session.close();
+        String hql = "delete from RoleDTO where roleName = :roleName";
+        Query q = this.createQuery(hql).setString("roleName", roleName);
+        this.executeUpdate(q);
         
         return true;
     }
 
-    public boolean deleteRole(String roleName) throws DAOException {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public RoleDTO getRole(int roleID) {
+        
+        RoleDTO role = null;
+        role = (RoleDTO) this.find(RoleDTO.class, roleID);
+        if (role != null)
+            Hibernate.initialize(role.getFunctions());    // to combat lazy fetching
+        this.endOperation();
+        
+        return role;
     }
 
-    public RoleDTO getRole(int roleID) throws DAOException {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public RoleDTO getRole(String roleName) {
+        
+        RoleDTO role = null;
+        String hql = "from RoleDTO where name = :roleName";
+        
+        Query q = this.createQuery(hql).setString("roleName", roleName);
+        
+        role = (RoleDTO) this.find(q);
+        
+        if (role != null)
+            Hibernate.initialize(role.getFunctions());    // to combat lazy fetching
+        
+        this.endOperation();
+        
+        return role;
     }
 
-    public RoleDTO getRole(String roleName) throws DAOException {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public RoleDTO updateRole(RoleDTO role) {
+        
+        this.saveOrUpdate(role);
+        return role;
     }
 
-    public RoleDTO updateRole(RoleDTO role) throws DAOException {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public ArrayList<RoleDTO> getRoles() {
+        
+        ArrayList<RoleDTO> roles = null;
+        String hql = "from RoleDTO";
+        
+        Query q = this.createQuery(hql);
+        roles = new ArrayList<RoleDTO>(this.findList(q));
+        
+        if (roles != null) {
+            for (RoleDTO role : roles) {
+                Hibernate.initialize(role.getFunctions());    // to combat lazy fetching
+            }
+        }
+        
+        this.endOperation();
+        
+        return roles;
     }
-
-    
 }

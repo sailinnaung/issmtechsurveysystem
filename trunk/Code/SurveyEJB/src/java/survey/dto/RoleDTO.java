@@ -6,6 +6,7 @@
 package survey.dto;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -49,6 +50,9 @@ public class RoleDTO implements Serializable {
     }
 
     public List<FunctionDTO> getFunctions() {
+        
+        if (functions == null)
+            functions = new ArrayList<FunctionDTO>();
         return functions;
     }
 
