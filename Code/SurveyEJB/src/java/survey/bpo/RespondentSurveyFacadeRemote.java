@@ -16,13 +16,13 @@ import survey.dto.*;
 @Remote
 public interface RespondentSurveyFacadeRemote {
 
-    SurveyDTO getSurvey(int surveyID);
-    SurveyPageDTO getSurveyPage(int surveyID, int pageNo);
+    SurveyDTO getSurvey(String username, int surveyID);
+    SurveyPageDTO getSurveyPage(String username, int surveyID, int surveyPageID);
     SurveyPageDTO saveSurveyPageResponse(String username, SurveyPageDTO surveyPage);
     SurveyDTO submitResponse(String username, int surveyID);
     SurveyDTO deleteResponse(String username, int surveyID);
     
     ArrayList<SurveyDTO> findOpenSurveys(int maxRecords);
     ArrayList<SurveyDTO> findSurveysByState(String username, ActivityTypes state);
-    ArrayList<SurveyDTO> findSurveys(SurveySearchCriteriaDTO criteria);
+    ArrayList<SurveyDTO> findSurveys(String username, SurveySearchCriteriaDTO criteria);
 }
