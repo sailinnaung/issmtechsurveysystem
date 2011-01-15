@@ -43,12 +43,12 @@ public class AuthenticateAction extends SurveyActionSupport
                throw new NoLoginException("User has not logged in.");
            }
 
-//           UserDelegate usrD = new UserDelegate();
-//           UserDTO usr = usrD.getUserByUserName(getUsername());
+           UserDelegate usrD = new UserDelegate();
+           UserDTO usr = usrD.getUserByUserName(getUsername());
 
            //When binding with bean below part will be taken out
-           MockDataInterface mdi = new MockDataInterface();
-           UserDTO usr = mdi.getUserByUserName(getUsername());
+           //MockDataInterface mdi = new MockDataInterface();
+           //UserDTO usr = mdi.getUserByUserName(getUsername());
            // end here
 
            System.out.println("usr object is null :"+(usr==null));

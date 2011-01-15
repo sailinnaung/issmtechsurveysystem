@@ -12,6 +12,7 @@ import survey.bpo.UserFacadeRemote;
 import survey.dto.UserDTO;
 import survey.exception.DAOException;
 import survey.exception.RecordExistsException;
+import survey.exception.UserNotFoundException;
 import survey.servicelocator.UserServiceLocator;
 
 /**
@@ -72,6 +73,11 @@ public class UserDelegate {
     public UserDTO updateUser(UserDTO user)
     {
        return usrFacade.updateUser(user);
+    }
+    
+    public boolean authenticateUser(String username, String password) throws UserNotFoundException {
+        
+        return usrFacade.authenticateUser(username, password);
     }
 
 }

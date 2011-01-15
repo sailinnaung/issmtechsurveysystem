@@ -33,7 +33,7 @@ public class SurveyActionSupport extends ActionSupport implements
     public static final String FUNCTIONS_USER = "FUNCTIONS_USER";
 
     protected HttpServletRequest request;
-    protected Map<String, Object> session;
+    protected Map session;
 
     private SurveyDTO currentSurvey;
     private UserDTO userObj;
@@ -51,13 +51,12 @@ public class SurveyActionSupport extends ActionSupport implements
         return request;
     }
 
-    public HttpSession getSession(boolean b) {
-        return request.getSession(b);
+    public void setSession(Map arg0) {
+        this.session = arg0;
     }
 
-    //@Override
-    public void setSession(Map<String, Object> session) {
-        this.session = session;
+    public HttpSession getSession(boolean b) {
+        return request.getSession(b);
     }
     
     /**

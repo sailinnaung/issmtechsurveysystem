@@ -5,6 +5,7 @@
 
 package survey.servicelocator;
 
+import java.util.Properties;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import survey.bpo.UserFacadeRemote;
@@ -25,7 +26,9 @@ public class UserServiceLocator {
 
     private UserServiceLocator(){
         try{
-            initCtx = new InitialContext();
+            Properties props = new Properties();
+            props.put("org.omg.CORBA.ORBInitialHost", "127.0.0.1");
+            initCtx = new InitialContext(props);
         }catch(Exception e){
             e.printStackTrace(); // later will use log4j for logging
         }
