@@ -34,6 +34,29 @@ public class TestUserFacade {
         }
     }
     
+    private static boolean testUpdateUser() {
+        
+        if (userFacade == null || roleFacade == null)
+            return false;
+        
+        UserDTO user = new UserDTO();
+        user.setUserID(1);
+        user.setUsername("vivek1");
+        user.setPassword("password1");
+        user.setFullName("Vivek Narayana Shankar");
+        user.setRole(roleFacade.getRoleByName("RESPONDENT"));
+        
+        try {
+            user = userFacade.updateUser(user);
+            System.out.println("User updated with ID: " + user.getUserID());
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return false;
+        }
+        
+        return true;
+    }
+    
     private static boolean testCreateUser() {
         
         if (userFacade == null || roleFacade == null)
@@ -42,8 +65,9 @@ public class TestUserFacade {
         UserDTO user = new UserDTO();
         user.setUsername("vivek");
         user.setPassword("password");
+        user.setFullName("Vivek Shankar");
         
-        RoleDTO role = roleFacade.getRoleByName("ADMIN1");
+        RoleDTO role = roleFacade.getRoleByName("RESEARCHER");
         user.setRole(role);
         
         try {
@@ -57,11 +81,19 @@ public class TestUserFacade {
         return true;
     }
     
-    public static boolean launchTest() {
+    public static int launchTest() {
         
-        if (!testCreateUser())
-            return false;
+        int totalSuccess = 0;
         
-        return true;
+        System.out.println("testCreateUser START...");
+        if (testCreateUser())
+            totalSuccess++;
+        System.out.println("testCreateUser END...");
+        System.out.println("testUpdateUser START...");
+        if (testUpdateUser())
+            totalSuccess++;
+        System.out.println("testUpdateUser END...");
+        
+        return totalSuccess;
     }
 }
