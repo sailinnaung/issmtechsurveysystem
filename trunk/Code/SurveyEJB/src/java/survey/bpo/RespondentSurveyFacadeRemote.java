@@ -19,6 +19,8 @@ public interface RespondentSurveyFacadeRemote {
     SurveyDTO getSurvey(String username, int surveyID);
     SurveyPageDTO getSurveyPage(String username, int surveyID, int surveyPageID);
     SurveyPageDTO saveSurveyPageResponse(String username, SurveyPageDTO surveyPage);
+    SurveyAnswerDTO getSurveryReponse(String username, int surveyID);
+    SurveyPageAnswerDTO getSurveyPageResponse(String username, int surveyPageAnswerID);
     SurveyDTO submitResponse(String username, int surveyID);
     SurveyDTO deleteResponse(String username, int surveyID);
     
