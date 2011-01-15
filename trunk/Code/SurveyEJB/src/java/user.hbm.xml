@@ -72,25 +72,21 @@
       <property name="state" column="STATE" type="integer" />
       <property name="mandatoryFlg" column="MANDATORY_FLG" type="boolean" not-null="true" />
       <property name="order" column="DISPLAY_ORDER" type="integer" not-null="true" />
+      <bag name="options" table="SURVEY_QUESTION_OPTION" cascade="all">
+          <key column="SURVEY_QUESTION_ID" />
+          <one-to-many class="survey.dto.OptionDTO" />
+      </bag>
       
       <joined-subclass name="survey.dto.OptionQuestionDTO" table="SURVEY_OPTION_QUESTION">
           <key column="SURVEY_QUESTION_ID" />
           <property name="multipleFlg" column="MULTIPLE_FLG" not-null="true" type="boolean" />
           <property name="orientation" column="ORIENTATION" not-null="true" type="integer" />
           <property name="printOrder" column="PRINT_ORDER" not-null="true" type="integer" />
-          <bag name="options" table="SURVEY_QUESTION_OPTION" cascade="all">
-              <key column="SURVEY_QUESTION_ID" not-null="true" />
-              <one-to-many class="survey.dto.OptionDTO" />
-          </bag>
       </joined-subclass>
       
       <joined-subclass name="survey.dto.RatingQuestionDTO" table="SURVEY_RATING_QUESTION">
           <key column="SURVEY_QUESTION_ID" />
           <property name="orientation" column="ORIENTATION" not-null="true" type="integer" />
-          <bag name="options" table="SURVEY_QUESTION_OPTION" cascade="all">
-              <key column="SURVEY_QUESTION_ID" not-null="true" />
-              <one-to-many class="survey.dto.OptionDTO" />
-          </bag>
           <property name="valueFrom" column="VALUE_FROM" not-null="true" type="integer" />
           <property name="valueTo" column="VALUE_TO" not-null="true" type="integer" />
       </joined-subclass>
@@ -115,7 +111,7 @@
       </id>
       <property name="code" column="OPTION_CODE" type="string" not-null="true" length="30" /> 
       <property name="name" column="OPTION_NAME" type="string" not-null="true" length="400" />
-      <property name="value" column="OPTION_VALUE" type="integer" not-null="true" />
+      <property name="value" column="OPTION_VALUE" type="float" not-null="true" />
       <property name="order" column="DISPLAY_ORDER" type="integer" not-null="true" />
   </class>
 </hibernate-mapping>
