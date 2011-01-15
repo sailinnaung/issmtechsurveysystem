@@ -18,16 +18,36 @@ import java.util.ArrayList;
 public interface ResearcherSurveyFacadeRemote {
     
     ArrayList<SurveyDTO> findSurveysByState(String username, int state);
+    
     ArrayList<SurveyDTO> findSurveys(String username, SurveySearchCriteriaDTO criteria);
+    
     SurveyDTO createSurvey(String username, SurveyDTO survey) 
             throws UserNotFoundException, OperationFailedException, 
-            InvalidFieldException, RecordExistsException;
+            InvalidFieldException;
+    
+    SurveyDTO getSurvey(String username, int surveyID) 
+            throws UserNotFoundException;
+    
     SurveyDTO updateSurvey(String username, SurveyDTO survey);
+    
     boolean deleteSurvey(String username, int surveyID);
-    SurveyPageDTO createSurveyPage(int surveyID, SurveyPageDTO surveyPage);
+    
+    SurveyPageDTO getSurveyPage(String username, int surveyPageID)
+            throws UserNotFoundException;
+    
+    SurveyPageDTO createSurveyPage(String username, int surveyID, SurveyPageDTO surveyPage)
+            throws UserNotFoundException, OperationFailedException, SurveyNotFoundException,
+            InvalidFieldException, UserNotAllowedException;
+    
     SurveyPageDTO updateSurveyPage(int surveyID, SurveyPageDTO surveyPage);
+    
     boolean deleteSurveyPage(int surveyID, int surveyPageID);
-    QuestionDTO createQuestion(int surveyID, int surveyPageID, QuestionDTO question);
+    
+    QuestionDTO createQuestion(String username, int surveyID, int surveyPageID, QuestionDTO question)
+            throws UserNotFoundException, OperationFailedException, SurveyNotFoundException,
+            InvalidFieldException, UserNotAllowedException;
+    
     QuestionDTO updateQuestion(int surveyID, int surveyPageID, QuestionDTO question);
+    
     boolean deleteQuestion(int surveyID, int surveyPageID, int questionID);
 }

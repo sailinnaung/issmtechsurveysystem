@@ -19,7 +19,7 @@ public class OptionQuestionDTO extends QuestionDTO implements Serializable {
     public static final int ORDER_DEFAULT = 0;
     public static final int ORDER_RESPONSES = 1;
     
-    private ArrayList<OptionDTO> options;
+    private List<OptionDTO> options;
     private int orientation;
     private boolean multipleFlg;
     private int printOrder;
@@ -38,11 +38,11 @@ public class OptionQuestionDTO extends QuestionDTO implements Serializable {
         this.multipleFlg = multipleFlg;
     }
 
-    public ArrayList<OptionDTO> getOptions() {
+    public List<OptionDTO> getOptions() {
         return options;
     }
 
-    public void setOptions(ArrayList<OptionDTO> options) {
+    public void setOptions(List<OptionDTO> options) {
         this.options = options;
     }
 

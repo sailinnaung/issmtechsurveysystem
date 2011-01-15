@@ -31,6 +31,28 @@ public class ResearcherSurveyFacadeBean implements ResearcherSurveyFacadeRemote 
         return user;
     }
     
+    private SurveyDTO checkSurveyExists(int surveyID) throws SurveyNotFoundException {
+        
+        SurveyDAO dao = DAOFactory.getSurveyDAO();
+        // Check if this is a valid survey
+        SurveyDTO survey = dao.getSurvey(surveyID);
+        if (survey == null)
+            throw new SurveyNotFoundException("Survey not found");
+        
+        return survey;
+    }
+    
+    private SurveyPageDTO checkSurveyPageExists(int surveyPageID) throws SurveyNotFoundException {
+        
+        SurveyDAO dao = DAOFactory.getSurveyDAO();
+        // Check if this is a valid survey
+        SurveyPageDTO surveyPage = dao.getSurveyPage(surveyPageID);
+        if (surveyPage == null)
+            throw new SurveyNotFoundException("Survey Page not found");
+        
+        return surveyPage;
+    }
+    
     private boolean checkSurveyFields(SurveyDTO survey) throws InvalidFieldException {
         
         // Check if title is empty
@@ -59,16 +81,47 @@ public class ResearcherSurveyFacadeBean implements ResearcherSurveyFacadeRemote 
         return true;
     }
     
+    private boolean checkQuestionFields(QuestionDTO question) throws InvalidFieldException {
+        
+        // Check the code
+        if (!StringHelper.checkStringEmpty(question.getCode()))
+            throw new InvalidFieldException("Question Code cannot be empty");
+        
+        // Check the text
+        if (!StringHelper.checkStringEmpty(question.getText()))
+            throw new InvalidFieldException("Question text cannot be empty");
+        
+        return true;
+    }
+    
+    private void calculateRatings(RatingQuestionDTO question) {
+        
+        if (question.getOptions().size() > 0) {
+            
+        }
+    }
+    
+    public SurveyDTO getSurvey(String username, int surveyID) 
+            throws UserNotFoundException {
+        
+        UserDTO user = checkUserExists(username);
+        if (user == null)
+            return null;
+        
+        SurveyDTO survey = null;
+        SurveyDAO dao = DAOFactory.getSurveyDAO();
+        survey = dao.getSurvey(surveyID);
+        
+        return survey;
+    }
+    
     public SurveyDTO createSurvey(String username, SurveyDTO survey) 
             throws UserNotFoundException, OperationFailedException, 
-            InvalidFieldException, RecordExistsException {
+            InvalidFieldException {
         
         UserDTO owner = checkUserExists(username);
         if (owner == null)
             return null;
-        
-        if (survey.getSurveyID() > 0)
-            throw new RecordExistsException("Survey record exists for ID: " + survey.getSurveyID());
         
         if (!checkSurveyFields(survey))
             return null;
@@ -79,7 +132,7 @@ public class ResearcherSurveyFacadeBean implements ResearcherSurveyFacadeRemote 
         survey.setUpdateDate(Calendar.getInstance());
         
         SurveyDAO dao = DAOFactory.getSurveyDAO();
-        survey = dao.createSurvey(username, survey);
+        survey = dao.createSurvey(survey);
         
         if (survey.getSurveyID() <= 0)
             throw new OperationFailedException("The survey could not be saved for the user: " + username);
@@ -87,15 +140,87 @@ public class ResearcherSurveyFacadeBean implements ResearcherSurveyFacadeRemote 
         return survey;
     }
     
-    public QuestionDTO createQuestion(int surveyID, int surveyPageID, QuestionDTO question) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public SurveyPageDTO getSurveyPage(String username, int surveyPageID)
+            throws UserNotFoundException {
+            
+        UserDTO user = checkUserExists(username);
+        if (user == null)
+            return null;
+        
+        SurveyPageDTO surveyPage = null;
+        SurveyDAO dao = DAOFactory.getSurveyDAO();
+        surveyPage = dao.getSurveyPage(surveyPageID);
+        
+        return surveyPage;
+    }
+    
+    public SurveyPageDTO createSurveyPage(String username, int surveyID, SurveyPageDTO surveyPage) 
+            throws UserNotFoundException, OperationFailedException, SurveyNotFoundException,
+            InvalidFieldException, UserNotAllowedException {
+        
+        // Check if the user is found
+        UserDTO user = checkUserExists(username);
+        if (user == null)
+            return null;
+        
+        // Check if this is a valid survey
+        SurveyDTO survey = checkSurveyExists(surveyID);
+        
+        // Check if this user can change the survey
+        if (survey.getOwner().getUserID() != user.getUserID())
+            throw new UserNotAllowedException(username + " is not the owner of the survey");
+        
+        // Check if title is empty
+        if (StringHelper.checkStringEmpty(surveyPage.getTitle()))
+            throw new InvalidFieldException("The title is mandatory");
+        
+        // Set the survey page state
+        surveyPage.setState(ActivityTypes.DRAFT);
+        
+        // Save to DB
+        SurveyDAO dao = DAOFactory.getSurveyDAO();
+        surveyPage = dao.createSurveyPage(surveyID, surveyPage);
+        
+        if (surveyPage.getSurveyPageID() <= 0)
+            throw new OperationFailedException("Survey page could not be created.");
+        
+        return surveyPage;
     }
 
-
-    public SurveyPageDTO createSurveyPage(int surveyID, SurveyPageDTO surveyPage) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public QuestionDTO createQuestion(String username, int surveyID, int surveyPageID, QuestionDTO question) 
+            throws UserNotFoundException, OperationFailedException, SurveyNotFoundException,
+            InvalidFieldException, UserNotAllowedException {
+        
+        // Check if the user is found
+        UserDTO user = checkUserExists(username);
+        if (user == null)
+            return null;
+        
+        // Check if this is a valid survey
+        SurveyDTO survey = checkSurveyExists(surveyID);
+        
+        // Check if this user can change the survey
+        if (survey.getOwner().getUserID() != user.getUserID())
+            throw new UserNotAllowedException(username + " is not the owner of the survey");
+        
+        // Check survey page exists
+        SurveyPageDTO surveyPage = checkSurveyPageExists(surveyPageID);
+        
+        // Check the fields
+        if (!checkQuestionFields(question))
+            throw null;
+        
+        // Set the state
+        question.setState(ActivityTypes.DRAFT);
+        
+        if (question.getQuestionType() == QuestionTypes.RATING) {
+            
+            calculateRatings((RatingQuestionDTO) question);
+        }
+        
+        return question;
     }
-
+    
     public boolean deleteQuestion(int surveyID, int surveyPageID, int questionID) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
