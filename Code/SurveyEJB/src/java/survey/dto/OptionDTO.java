@@ -18,6 +18,7 @@ public class OptionDTO implements Serializable {
     private String name;
     private float value;
     private int order;
+    private int state;
     
     public OptionDTO() {
         
@@ -61,5 +62,13 @@ public class OptionDTO implements Serializable {
 
     public void setOrder(int order) {
         this.order = order;
+    }
+
+    public int getState() {
+        return state;
+    }
+
+    public void setState(int state) {
+        this.state = state;
     }
 }

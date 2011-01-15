@@ -12,9 +12,9 @@ import java.util.logging.Logger;
  *
  * @author vivek
  */
-public class SurveyNotFoundException extends Exception {
+public class RecordNotFoundException extends Exception {
 
-    public SurveyNotFoundException(String s) {
+    public RecordNotFoundException(String s) {
      
         super(s);
         Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SurveyNotFoundException: CONSTRUCT: " + s);

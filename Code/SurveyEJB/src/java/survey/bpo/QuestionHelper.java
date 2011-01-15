@@ -5,7 +5,7 @@
 
 package survey.bpo;
 
-import java.util.List;
+import survey.dao.*;
 import survey.dto.*;
 import survey.exception.*;
 import survey.utils.*;
@@ -29,26 +29,36 @@ class QuestionHelper {
         return true;
     }
     
-    void calculateRatings(RatingQuestionDTO question) {
+    QuestionDTO checkQuestionExists(int questionID) throws RecordNotFoundException {
         
-        List<OptionDTO> options = question.getOptions();
-        if (options != null && options.size() > 0) {
-            
-            int from = question.getValueFrom();
-            int to = question.getValueTo();
-            
-            if (from == 0 && to == 0) {
-                from = 1;
-                to = options.size();
-            }
-            
-            float step = (to - from + 1.0F) / (float)options.size();
-            float value = from;
-            for (OptionDTO option : options) {
-                
-                option.setValue(value);
-                value += step;
-            }
-        }
+        SurveyQuestionDAO dao = DAOFactory.getSurveyQuestionDAO();
+        QuestionDTO question = dao.checkQuestion(questionID);
+        
+        if (question == null)
+            throw new RecordNotFoundException("Question is not valid");
+        
+        return question;
+    }
+    
+    boolean checkOptionFields(OptionDTO option) throws InvalidFieldException {
+        
+        if (StringHelper.checkStringEmpty(option.getCode()))
+            throw new InvalidFieldException("Option code cannot be empty");
+        
+        if (StringHelper.checkStringEmpty(option.getName()))
+            throw new InvalidFieldException("Option name cannot be empty");
+        
+        return true;
+    }
+    
+    OptionDTO checkOptionExists(int optionID) throws RecordNotFoundException {
+        
+        SurveyQuestionDAO dao = DAOFactory.getSurveyQuestionDAO();
+        OptionDTO option = dao.checkQuestionOption(optionID);
+        
+        if (option == null)
+            throw new RecordNotFoundException("Option is not valid");
+        
+        return option;
     }
 }

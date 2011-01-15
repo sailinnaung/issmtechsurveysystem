@@ -20,13 +20,13 @@ class SurveyPageHelper {
         
     }
     
-    SurveyPageDTO checkSurveyPageExists(int surveyPageID) throws SurveyNotFoundException {
+    SurveyPageDTO checkSurveyPageExists(int surveyPageID) throws RecordNotFoundException {
         
-        SurveyDAO dao = DAOFactory.getSurveyDAO();
+        SurveyPageDAO dao = DAOFactory.getSurveyPageDAO();
         // Check if this is a valid survey
         SurveyPageDTO surveyPage = dao.checkSurveyPage(surveyPageID);
         if (surveyPage == null)
-            throw new SurveyNotFoundException("Survey Page not found");
+            throw new RecordNotFoundException("Survey Page not found");
         
         return surveyPage;
     }

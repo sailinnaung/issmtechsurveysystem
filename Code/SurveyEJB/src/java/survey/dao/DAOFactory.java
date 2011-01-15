@@ -27,4 +27,14 @@ public class DAOFactory {
         
         return new SurveyDAOImpl();
     }
+    
+    public static SurveyPageDAO getSurveyPageDAO() {
+        
+        return new SurveyPageDAOImpl();
+    }
+    
+    public static SurveyQuestionDAO getSurveyQuestionDAO() {
+        
+        return new SurveyQuestionDAOImpl();
+    }
 }

@@ -22,7 +22,10 @@ public class SurveySearchCriteriaDTO implements java.io.Serializable {
     private boolean activeFlg;
     
     public SurveySearchCriteriaDTO() {
-        
+        createDateFrom = null;
+        createDateTo = null;
+        keywords = "";
+        title = "";
     }
 
     public boolean isActive() {

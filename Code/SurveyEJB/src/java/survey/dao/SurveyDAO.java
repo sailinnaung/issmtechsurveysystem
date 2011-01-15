@@ -18,8 +18,8 @@ public interface SurveyDAO {
     public SurveyDTO checkSurvey(int surveyID);
     public SurveyDTO getSurvey(int surveyID);
     public SurveyDTO createSurvey(SurveyDTO survey);
-    public SurveyPageDTO checkSurveyPage(int surveyPageID);
-    public SurveyPageDTO getSurveyPage(int surveyPageID);
-    public SurveyPageDTO createSurveyPage(int surveyID, SurveyPageDTO surveyPage);
-    public QuestionDTO createQuestion(int surveyPageID, QuestionDTO question);
+    public SurveyDTO updateSurvey(SurveyDTO survey);
+    public boolean deleteSurvey(int surveyID);
+    public ArrayList<SurveyDTO> findSurveys(String username, SurveySearchCriteriaDTO criteria);
+    public ArrayList<SurveyDTO> findSurveys(String username, int state);
 }
