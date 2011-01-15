@@ -19,12 +19,11 @@ public class Main {
     public static void main(String[] args) {
      
         int numSuccess = 0, numTotal = 0;
-        if (TestRoleFacade.launchTest())
-            numSuccess++;
         
-        if (TestUserFacade.launchTest())
-            numSuccess++;
+        numSuccess += TestRoleFacade.launchTest();
+        numSuccess += TestUserFacade.launchTest();
+        numSuccess += TestResearcherSurveyFacade.launchTest();
         
-        numTotal++;
+        System.out.println ("TEST COMPLETED. SUCCESS " + numSuccess);
     }
 }
