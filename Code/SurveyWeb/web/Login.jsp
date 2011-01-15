@@ -12,7 +12,7 @@
     </head>
     <body>
         <s:actionerror/>
-        <s:form namespace="/" action="authenticate.action" focusElement="username">
+        <s:form namespace="/" action="authenticate" focusElement="username">
             <table width="450" >
                 <tr>
                     <td> &nbsp; </td>

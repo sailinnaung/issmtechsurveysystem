@@ -35,7 +35,7 @@ public class UserServiceLocator {
         return locator;
     }
 
-    public UserFacadeRemote lookupUserFacadeBean(){
+    public UserFacadeRemote lookupUserFacade(){
         UserFacadeRemote usrFR = null;
         try{
             usrFR = (UserFacadeRemote) initCtx.lookup(LookUpConfig.UserFacadeBeanLookUp);

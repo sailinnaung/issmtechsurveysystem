@@ -17,8 +17,28 @@
     </definition>
 
     <definition name="tiles.questionnairelist" extends="mainLayout">
-        <put-attribute name="body"        value="/Questionnaire_list.jsp"/>
+        <put-attribute name="body"        value="/Questionnaire_Lobby.jsp"/>
         <put-attribute name="bodyTitle"   value="survey.questionnaire_list_title"/>
+    </definition>
+    
+    <definition name="tiles.userlist" extends="mainLayout">
+        <put-attribute name="body"        value="/Users.jsp"/>
+        <put-attribute name="bodyTitle"   value="survey.user_list_title"/>
+    </definition>
+    
+    <definition name="tiles.newuserform" extends="mainLayout">
+        <put-attribute name="body"        value="/NewUserForm.jsp"/>
+        <put-attribute name="bodyTitle"   value="survey.user_new_title"/>
+    </definition>
+    
+    <definition name="tiles.updateuserform" extends="mainLayout">
+        <put-attribute name="body"        value="/UpdateForm.jsp"/>
+        <put-attribute name="bodyTitle"   value="survey.user_update_title"/>
+    </definition>
+    
+    <definition name="tiles.questionnairenew" extends="mainLayout">
+        <put-attribute name="body"        value="/Questionnaire_new.jsp"/>
+        <put-attribute name="bodyTitle"   value="survey.questionnaire_new_title"/>
     </definition>
 
 

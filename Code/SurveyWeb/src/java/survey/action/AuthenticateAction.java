@@ -6,18 +6,26 @@
 package survey.action;
 
 import com.opensymphony.xwork2.Action;
-import java.rmi.RemoteException;
+import com.opensymphony.xwork2.ModelDriven;
+import java.util.ArrayList;
+import java.util.Iterator;
 import survey.config.SurveyActionConstants;
 import survey.delegates.UserDelegate;
+import survey.dto.FunctionDTO;
+import survey.dto.RoleDTO;
 import survey.dto.UserDTO;
 import survey.exception.NoLoginException;
+import survey.exception.NoRoleAssignException;
+import survey.exception.UserNotFoundException;
+import survey.mockDataForTesting.MockDataInterface;
 
 /**
  *
- * @author saimaylinmon
+ * @author Sai Lin Naung
  */
 
-public class AuthenticateAction extends SurveyActionSupport {
+public class AuthenticateAction extends SurveyActionSupport
+{
 
     private String username;
     private String password;
@@ -25,31 +33,57 @@ public class AuthenticateAction extends SurveyActionSupport {
     public AuthenticateAction() {  }
 
     public String execute() throws Exception {
-       // below implemenation is for testing purpose only, later will have to change
+       
        System.out.println("inside AuthenticateAction");
        System.out.println("username="+getUsername());
+       System.out.println("password="+getPassword());
 
        try{
            if(getUsername()== null || getPassword()==null){
                throw new NoLoginException("User has not logged in.");
            }
 
-           UserDelegate usrD = new UserDelegate();
-           //for current testing only
-           if(getUsername().equals("Researcher") && getPassword().equals("password"))
-               return SurveyActionConstants.Reseacher_Recent_List;
+//           UserDelegate usrD = new UserDelegate();
+//           UserDTO usr = usrD.getUserByUserName(getUsername());
 
-           if(getUsername().equals("Respondant") && getPassword().equals("password"))
-               return SurveyActionConstants.Respondant_Recent_List;
+           //When binding with bean below part will be taken out
+           MockDataInterface mdi = new MockDataInterface();
+           UserDTO usr = mdi.getUserByUserName(getUsername());
+           // end here
 
-           //for current testing only - end here
+           System.out.println("usr object is null :"+(usr==null));
+
+           if(usr==null){
+               throw new UserNotFoundException("User not found");
+           }
+           setUserObj(usr);
+           RoleDTO roleOfUser = usr.getRole();
+
+           if(roleOfUser==null){
+               throw new NoRoleAssignException("There is no role for this user "+usr.getUsername());
+           }
+
+           addFunctions(roleOfUser.getName(), roleOfUser.getFunctions());
+           setFunctions();
+
+           System.out.println("Before return Action Success");
+           return "success";
+
        }catch (NoLoginException ne) {
+           System.out.println("inside NoLoginException");
 		addActionError(getText("error.login.mismatch"));
 		return SurveyActionConstants.Failure;
-       }catch (Exception e){
+       }catch (UserNotFoundException ue){
+           System.out.println("inside UserNotFoundException "+ue.getMessage());
            return SurveyActionConstants.Failure;
-       }
-       return SurveyActionConstants.Failure;
+       }catch (NoRoleAssignException re){
+           System.out.println("inside NoRoleAssignException "+re.getMessage());
+           return SurveyActionConstants.Failure;
+       }catch (Exception e){
+           System.out.println("inside Exception "+e.getMessage());
+           e.printStackTrace();
+           return SurveyActionConstants.Failure;
+       }       
     }
 
     /**
