@@ -51,8 +51,6 @@ public class RoleDTO implements Serializable {
 
     public List<FunctionDTO> getFunctions() {
         
-        if (functions == null)
-            functions = new ArrayList<FunctionDTO>();
         return functions;
     }
 
