@@ -12,7 +12,7 @@
 
 <table width="100%" border="0" cellpadding="0" cellspacing="2">
   <tr>
-    <th scope="row" class="quest_label_new">Is Multiple Line?</th>
+    <th scope="row" class="quest_label_new">Is Multiple Line?</th> 
     <td>
 		<table width="30%">
  		 <tr>
