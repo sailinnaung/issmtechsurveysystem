@@ -13,20 +13,19 @@ import java.util.ArrayList;
  */
 public class CompositeQuestionDTO extends QuestionDTO implements java.io.Serializable {
 
-    private QuestionTypes compositeType;
+    private int compositeType;
     private ArrayList<QuestionDTO> questions;
     
     public CompositeQuestionDTO() {
         
         super();
-        this.setQuestionType(QuestionTypes.COMPOSITE);
     }
 
-    public QuestionTypes getCompositeType() {
+    public int getCompositeType() {
         return compositeType;
     }
 
-    public void setCompositeType(QuestionTypes compositeType) {
+    public void setCompositeType(int compositeType) {
         this.compositeType = compositeType;
     }
 
@@ -36,5 +35,9 @@ public class CompositeQuestionDTO extends QuestionDTO implements java.io.Seriali
 
     public void setQuestions(ArrayList<QuestionDTO> questions) {
         this.questions = questions;
+    }
+    
+    public int getQuestionType() {
+        return QuestionTypes.COMPOSITE;
     }
 }

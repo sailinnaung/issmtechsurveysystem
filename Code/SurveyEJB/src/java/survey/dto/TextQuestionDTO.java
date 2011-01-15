@@ -21,7 +21,6 @@ public class TextQuestionDTO extends QuestionDTO implements Serializable {
     public TextQuestionDTO() {
         
         super();
-        this.setQuestionType(QuestionTypes.TEXT);
     }
 
     public int getCharsLimit() {
@@ -40,7 +39,7 @@ public class TextQuestionDTO extends QuestionDTO implements Serializable {
         this.defaultText = defaultText;
     }
 
-    public boolean isMultiline() {
+    public boolean isMultilineFlg() {
         return multilineFlg;
     }
 
@@ -54,5 +53,9 @@ public class TextQuestionDTO extends QuestionDTO implements Serializable {
 
     public void setRestrictions(String restrictions) {
         this.restrictions = restrictions;
+    }
+    
+    public int getQuestionType() {
+        return QuestionTypes.COMPOSITE;
     }
 }

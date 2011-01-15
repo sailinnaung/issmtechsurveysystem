@@ -17,8 +17,8 @@ public abstract class QuestionDTO implements Serializable {
     protected String code;
     protected String text;
     protected String description;
-    protected ActivityTypes state;
-    protected QuestionTypes questionType;
+    protected int state;
+    //protected int questionType;
     protected boolean mandatoryFlg;
     protected int order;
     protected QuestionDTO parent;   // Used for composite questions.
@@ -59,21 +59,15 @@ public abstract class QuestionDTO implements Serializable {
         this.text = text;
     }
     
-    public ActivityTypes getState() {
+    public int getState() {
         return state;
     }
     
-    public void setState(ActivityTypes state) {
+    public void setState(int state) {
         this.state = state;
     }
 
-    protected QuestionTypes getQuestionType() {
-        return questionType;
-    }
-
-    protected void setQuestionType(QuestionTypes questionType) {
-        this.questionType = questionType;
-    }
+    public abstract int getQuestionType();
 
     public int getOrder() {
         return order;
@@ -83,11 +77,11 @@ public abstract class QuestionDTO implements Serializable {
         this.order = order;
     }
 
-    public boolean isMandatory() {
+    public boolean isMandatoryFlg() {
         return mandatoryFlg;
     }
 
-    public void setMandatory(boolean mandatoryFlg) {
+    public void setMandatoryFlg(boolean mandatoryFlg) {
         this.mandatoryFlg = mandatoryFlg;
     }
 

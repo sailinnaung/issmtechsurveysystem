@@ -44,7 +44,7 @@ public class ResearcherSurveyFacadeBean implements ResearcherSurveyFacadeRemote 
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public ArrayList<SurveyDTO> findSurveysByState(String username, ActivityTypes state) {
+    public ArrayList<SurveyDTO> findSurveysByState(String username, int state) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 

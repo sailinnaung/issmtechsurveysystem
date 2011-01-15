@@ -17,7 +17,6 @@ public class NumberQuestionDTO extends TextQuestionDTO implements java.io.Serial
     
     public NumberQuestionDTO() {
         super();
-        this.setQuestionType(QuestionTypes.NUMBER);
         this.setRestrictions("[0-9]*");
     }
 
@@ -27,5 +26,9 @@ public class NumberQuestionDTO extends TextQuestionDTO implements java.io.Serial
 
     public void setRanges(ArrayList<NumberRangeDTO> ranges) {
         this.ranges = ranges;
+    }
+    
+    public int getQuestionType() {
+        return QuestionTypes.NUMBER;
     }
 }
