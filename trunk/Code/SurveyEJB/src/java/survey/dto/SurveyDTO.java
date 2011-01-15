@@ -18,9 +18,10 @@ public class SurveyDTO implements Serializable {
     private int surveyID;
     private UserDTO owner;
     private Calendar createDate;
+    private Calendar updateDate;
     private String title;
     private String description;
-    private ActivityTypes state;
+    private int state;
     private ArrayList<SurveyPageDTO> pages;
     private Calendar startDate;
     private Calendar endDate;
@@ -61,11 +62,11 @@ public class SurveyDTO implements Serializable {
         this.title = title;
     }
 
-    public ActivityTypes getState() {
+    public int getState() {
         return state;
     }
 
-    public void setState(ActivityTypes state) {
+    public void setState(int state) {
         this.state = state;
     }
 
@@ -99,5 +100,13 @@ public class SurveyDTO implements Serializable {
 
     public void setStartDate(Calendar startDate) {
         this.startDate = startDate;
+    }
+
+    public Calendar getUpdateDate() {
+        return updateDate;
+    }
+
+    public void setUpdateDate(Calendar updateDate) {
+        this.updateDate = updateDate;
     }
 }

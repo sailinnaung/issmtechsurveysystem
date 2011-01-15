@@ -25,6 +25,6 @@ public interface RespondentSurveyFacadeRemote {
     SurveyDTO deleteResponse(String username, int surveyID);
     
     ArrayList<SurveyDTO> findOpenSurveys(int maxRecords);
-    ArrayList<SurveyDTO> findSurveysByState(String username, ActivityTypes state);
+    ArrayList<SurveyDTO> findSurveysByState(String username, int state);
     ArrayList<SurveyDTO> findSurveys(String username, SurveySearchCriteriaDTO criteria);
 }

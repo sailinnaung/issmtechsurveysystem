@@ -18,7 +18,7 @@ public class SurveyPageDTO implements Serializable {
     private int pageNo;
     private String title;
     private String description;
-    private ActivityTypes state;
+    private int state;
     private ArrayList<QuestionDTO> questions;
     
     public SurveyPageDTO() {
@@ -57,11 +57,11 @@ public class SurveyPageDTO implements Serializable {
         this.title = title;
     }
 
-    public ActivityTypes getState() {
+    public int getState() {
         return state;
     }
 
-    public void setState(ActivityTypes state) {
+    public void setState(int state) {
         this.state = state;
     }
 

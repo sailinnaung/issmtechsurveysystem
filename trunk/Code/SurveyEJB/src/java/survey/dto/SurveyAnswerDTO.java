@@ -17,7 +17,7 @@ public class SurveyAnswerDTO implements java.io.Serializable {
     private SurveyDTO survey;
     private UserDTO user;
     private ArrayList<SurveyPageDTO> pages;
-    private ActivityTypes state;
+    private int state;
     
     public SurveyAnswerDTO() {
         
@@ -40,11 +40,11 @@ public class SurveyAnswerDTO implements java.io.Serializable {
         this.survey = survey;
     }
 
-    public ActivityTypes getState() {
+    public int getState() {
         return state;
     }
 
-    public void setState(ActivityTypes state) {
+    public void setState(int state) {
         this.state = state;
     }
 

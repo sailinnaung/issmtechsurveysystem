@@ -13,27 +13,32 @@ import java.io.Serializable;
  */
 public class RatingQuestionDTO extends OptionQuestionDTO implements Serializable {
 
-    private NumberRangeDTO range;
+    private int valueFrom;
+    private int valueTo;
     
     public RatingQuestionDTO() {
         
         super();
-        this.setQuestionType(QuestionTypes.RATING);
-        this.setMultiple(false);
+        this.setMultipleFlg(false);
     }
 
-    public NumberRangeDTO getRange() {
-        return range;
+    public int getValueFrom() {
+        return valueFrom;
     }
 
-    public void setRange(NumberRangeDTO range) {
-        this.range = range;
+    public void setValueFrom(int valueFrom) {
+        this.valueFrom = valueFrom;
+    }
+
+    public int getValueTo() {
+        return valueTo;
+    }
+
+    public void setValueTo(int valueTo) {
+        this.valueTo = valueTo;
     }
     
-    public void setRange(int from, int to) {
-        
-        this.range = new NumberRangeDTO();
-        this.range.setFrom(from);
-        this.range.setTo(to);
+    public int getQuestionType() {
+        return QuestionTypes.RATING;
     }
 }

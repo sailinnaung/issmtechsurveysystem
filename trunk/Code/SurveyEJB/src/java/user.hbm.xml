@@ -27,8 +27,95 @@
       </id>
       <property column="USER_NAME" length="30" name="username" not-null="true" type="string" />
       <property column="PASSWORD" length="30" name="password" not-null="true" type="string" />
+      <property column="FULL_NAME" length="200" name="fullName" not-null="true" type="string" />
       <property column="EMAIL" length="100" name="email" type="string" />
       <property column="DELETE_FLG" name="deleteFlg" type="boolean" />
       <many-to-one column="ROLE_ID" name="role" class="survey.dto.RoleDTO" not-null="true" unique="true" />
+  </class>
+  <class name="survey.dto.SurveyDTO" table="SURVEY">
+      <id column="SURVEY_ID" name="surveyID" type="integer">
+          <generator class="native" />
+      </id>
+      <many-to-one column="USER_ID" name="owner" class="survey.dto.UserDTO" not-null="true" />
+      <property column="CREATE_DATE" name="createDate" type="calendar_date" not-null="true" />
+      <property column="UPDATE_DATE" name="updateDate" type="calendar" not-null="true" />
+      <property column="TITLE" name="title" type="string" not-null="true" length="200" />
+      <property column="DESCRIPTION" name="description" type="string" length="1000" />
+      <property column="STATE" name="state" type="integer" not-null="true" />
+      <property column="START_DATE" name="startDate" type="calendar_date" not-null="true" />
+      <property column="END_DATE" name="endDate" type="calendar_date" not-null="true" />
+      <bag name="pages" table="SURVEY_PAGE" cascade="none" inverse="true">
+        <key column="SURVEY_ID"/>
+        <one-to-many class="survey.dto.SurveyPageDTO" />
+      </bag>
+  </class>
+  <class name="survey.dto.SurveyPageDTO" table="SURVEY_PAGE">
+      <id column="SURVEY_PAGE_ID" name="surveyPageID" type="integer">
+          <generator class="native" />
+      </id>
+      <property name="pageNo" column="PAGE_NO" type="integer" />
+      <property name="title" column="TITLE" type="string" not-null="true" length="200" />
+      <property name="description" column="DESCRIPTION" type="string" length="1000" />
+      <property name="state" column="STATE" type="integer" />
+      <bag name="questions" table="SURVEY_PAGE_QUESTION" cascade="none" inverse="true">
+          <key column="SURVEY_PAGE_ID" />
+          <one-to-many class="survey.dto.QuestionDTO" />
+      </bag>
+  </class>
+  <class name="survey.dto.QuestionDTO" table="SURVEY_QUESTION">
+      <id column="SURVEY_QUESTION_ID" name="questionID" type="integer">
+          <generator class="native" />
+      </id>
+      <property name="code" column="QUESTION_CODE" type="string" not-null="true" length="20" />
+      <property name="text" column="QUESTION_TEXT" type="string" not-null="true" length="300" />
+      <property name="description" column="DESCRIPTION" type="string" length="1000" />
+      <property name="state" column="STATE" type="integer" />
+      <property name="mandatoryFlg" column="MANDATORY_FLG" type="boolean" not-null="true" />
+      <property name="order" column="DISPLAY_ORDER" type="integer" not-null="true" />
+      
+      <joined-subclass name="survey.dto.OptionQuestionDTO" table="SURVEY_OPTION_QUESTION">
+          <key column="SURVEY_QUESTION_ID" />
+          <property name="multipleFlg" column="MULTIPLE_FLG" not-null="true" type="boolean" />
+          <property name="orientation" column="ORIENTATION" not-null="true" type="integer" />
+          <property name="printOrder" column="PRINT_ORDER" not-null="true" type="integer" />
+          <bag name="options" table="SURVEY_QUESTION_OPTION" cascade="none" inverse="true">
+              <key column="SURVEY_QUESTION_ID" />
+              <one-to-many class="survey.dto.OptionDTO" />
+          </bag>
+      </joined-subclass>
+      
+      <joined-subclass name="survey.dto.RatingQuestionDTO" table="SURVEY_RATING_QUESTION">
+          <key column="SURVEY_QUESTION_ID" />
+          <property name="orientation" column="ORIENTATION" not-null="true" type="integer" />
+          <bag name="options" table="SURVEY_QUESTION_OPTION" cascade="none" inverse="true">
+              <key column="SURVEY_QUESTION_ID" />
+              <one-to-many class="survey.dto.OptionDTO" />
+          </bag>
+          <property name="valueFrom" column="VALUE_FROM" not-null="true" type="integer" />
+          <property name="valueTo" column="VALUE_TO" not-null="true" type="integer" />
+      </joined-subclass>
+      
+      <joined-subclass name="survey.dto.TextQuestionDTO" table="SURVEY_TEXT_QUESTION">
+          <key column="SURVEY_QUESTION_ID" />
+          <property name="multilineFlg" column="MULTILINE_FLG" not-null="true" type="boolean" />
+          <property name="charsLimit" column="CHARS_LIMIT" type="integer" />
+          <property name="defaultText" column="DEFAULT_TEXT" type="string" length="100" />
+          <property name="restrictions" column="RESTRICTION" type="string" length="20" />
+      </joined-subclass>
+      
+      <joined-subclass name="survey.dto.NumberQuestionDTO" table="SURVEY_NUMBER_QUESTION">
+          <key column="SURVEY_QUESTION_ID" />
+          <property name="charsLimit" column="CHARS_LIMIT" type="integer" />
+          <property name="defaultText" column="DEFAULT_TEXT" type="string" length="100" />
+      </joined-subclass>
+  </class>
+  <class name="survey.dto.OptionDTO" table="SURVEY_QUESTION_OPTION">
+      <id column="SURVEY_QUESTION_OPTION_ID" name="optionID" type="integer">
+          <generator class="native" />
+      </id>
+      <property name="code" column="OPTION_CODE" type="string" not-null="true" length="30" /> 
+      <property name="name" column="OPTION_NAME" type="string" not-null="true" length="400" />
+      <property name="value" column="OPTION_VALUE" type="integer" not-null="true" />
+      <property name="order" column="DISPLAY_ORDER" type="integer" not-null="true" />
   </class>
 </hibernate-mapping>

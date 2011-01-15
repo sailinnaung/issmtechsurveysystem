@@ -9,11 +9,11 @@ package survey.dto;
  *
  * @author A0065956N
  */
-public enum QuestionTypes {
+public abstract class QuestionTypes {
 
-    TEXT,
-    NUMBER,
-    MCQ,
-    RATING,
-    COMPOSITE
+    public static final int TEXT = 0;
+    public static final int NUMBER = 1;
+    public static final int MCQ = 2;
+    public static final int RATING = 3;
+    public static final int COMPOSITE = 4;
 }

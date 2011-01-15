@@ -9,13 +9,11 @@ package survey.dto;
  *
  * @author A0065956N
  */
-public enum ActivityTypes {
+public abstract class ActivityTypes {
 
-    OPEN,   // Just created and never saved
-    DRAFT,  // Saved but not submitted
-    SUBMIT, // Submitted
-    // Closed (could happen when a change is made to a submitted entity. 
-    // Previous entity set to closed and new entity set to Submit on submit)
-    CLOSE,
-    INVALID // Deleted/Invalid
+    public static final int OPEN = 0;
+    public static final int DRAFT = 1;
+    public static final int SUBMIT = 2;
+    public static final int CLOSE = 3;
+    public static final int INVALID = 4;
 }

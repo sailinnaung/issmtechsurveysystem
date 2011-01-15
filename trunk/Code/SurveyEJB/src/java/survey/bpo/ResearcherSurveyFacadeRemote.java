@@ -16,7 +16,7 @@ import java.util.ArrayList;
 @Remote
 public interface ResearcherSurveyFacadeRemote {
     
-    ArrayList<SurveyDTO> findSurveysByState(String username, ActivityTypes state);
+    ArrayList<SurveyDTO> findSurveysByState(String username, int state);
     ArrayList<SurveyDTO> findSurveys(String username, SurveySearchCriteriaDTO criteria);
     SurveyDTO createSurvey(String username, SurveyDTO survey);
     SurveyDTO updateSurvey(String username, SurveyDTO survey);

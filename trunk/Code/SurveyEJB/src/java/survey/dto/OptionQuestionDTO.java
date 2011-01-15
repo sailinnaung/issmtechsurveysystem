@@ -27,15 +27,14 @@ public class OptionQuestionDTO extends QuestionDTO implements Serializable {
     public OptionQuestionDTO() {
         
         super();
-        this.setQuestionType(QuestionTypes.MCQ);
         this.setPrintOrder(OptionQuestionDTO.ORDER_DEFAULT);
     }
 
-    public boolean isMultiple() {
+    public boolean isMultipleFlg() {
         return multipleFlg;
     }
 
-    public void setMultiple(boolean multipleFlg) {
+    public void setMultipleFlg(boolean multipleFlg) {
         this.multipleFlg = multipleFlg;
     }
 
@@ -61,5 +60,9 @@ public class OptionQuestionDTO extends QuestionDTO implements Serializable {
 
     public void setPrintOrder(int printOrder) {
         this.printOrder = printOrder;
+    }
+    
+    public int getQuestionType() {
+        return QuestionTypes.MCQ;
     }
 }
