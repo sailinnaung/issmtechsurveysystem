@@ -51,30 +51,74 @@ public class UserFacadeBean implements UserFacadeRemote {
     public UserDTO getUserByID(int userID) {
         
         UserDAO dao = DAOFactory.getUserDAO();
-        return dao.getUser(userID);
+        UserDTO user = dao.getUser(userID);
+        user.setPassword("");   // Never pass the password
+        
+        return user;
     }
     
     public UserDTO getUserByUsername(String username) {
         
         UserDAO dao = DAOFactory.getUserDAO();
-        return dao.getUser(username);
+        UserDTO user = dao.getUser(username);
+        user.setPassword("");   // Never pass the password
+        
+        return user;
     }
 
     public ArrayList<UserDTO> getUsers() {
         
         UserDAO dao = DAOFactory.getUserDAO();
-        return dao.getUsers();
+        ArrayList<UserDTO> users = dao.getUsers();
+        
+        // Never pass the password
+        for (UserDTO user : users) {
+            
+            user.setPassword("");
+        }
+        
+        return users;
     }
 
     public ArrayList<UserDTO> getUsersByRoleID(int roleID) {
         
         UserDAO dao = DAOFactory.getUserDAO();
-        return dao.getUsersByRole(roleID);
+        ArrayList<UserDTO> users = dao.getUsersByRole(roleID);
+        
+        // Never pass the password
+        for (UserDTO user : users) {
+            
+            user.setPassword("");
+        }
+        
+        return users;
     }
 
     public ArrayList<UserDTO> getUsersByRoleName(String roleName) {
         
         UserDAO dao = DAOFactory.getUserDAO();
-        return dao.getUsersByRole(roleName);
+        ArrayList<UserDTO> users = dao.getUsersByRole(roleName);
+        
+        // Never pass the password
+        for (UserDTO user : users) {
+            
+            user.setPassword("");
+        }
+        
+        return users;
+    }
+
+    public boolean authenticateUser(String username, String password) throws UserNotFoundException {
+        
+        UserDAO dao = DAOFactory.getUserDAO();
+        UserDTO user = dao.getUser(username);
+        
+        if (user == null)
+            throw new UserNotFoundException("User is not found");
+        
+        if (user.getPassword().equals(password))
+            return true;
+        
+        return false;
     }
 }

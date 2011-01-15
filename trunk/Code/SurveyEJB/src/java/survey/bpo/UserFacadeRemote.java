@@ -34,4 +34,6 @@ public interface UserFacadeRemote {
     ArrayList<UserDTO> getUsersByRoleID(int roleID);
 
     ArrayList<UserDTO> getUsersByRoleName(String roleName);
+
+    boolean authenticateUser(String username, String password) throws UserNotFoundException;
 }
