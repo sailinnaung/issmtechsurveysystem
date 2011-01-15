@@ -13,7 +13,7 @@
 <html>
     <head>
         <link href="<c:url value='/css/main.css'/>" rel="stylesheet" type="text/css"/>
-        <title><s:text name="survey.questionnaire_list_title"/></title>
+        <title><s:text name="survey.questionnaire_list_title"/></title> 
     </head>
     <body>
 
