@@ -23,7 +23,7 @@ public class TestUserFacade {
         
         Properties props = new Properties();
         props.put("org.omg.CORBA.ORBInitialHost", "127.0.0.1");
-        props.put("org.omg.CORBA.ORBInitialPort", "6292");
+        
         try {
             InitialContext ctx = new InitialContext(props);
             roleFacade = (RoleFacadeRemote) ctx.lookup("RoleFacade");
