@@ -15,4 +15,9 @@ public class StringHelper {
         
         return (s == null || s.trim().equals(""));
     }
+    
+    public static String makeContainsSearch(String s) {
+        
+        return "%" + ((s == null) ? "" : s) + "%";
+    }
 }

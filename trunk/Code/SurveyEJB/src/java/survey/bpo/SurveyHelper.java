@@ -21,13 +21,13 @@ class SurveyHelper {
         
     }
     
-    SurveyDTO checkSurveyExists(int surveyID) throws SurveyNotFoundException {
+    SurveyDTO checkSurveyExists(int surveyID) throws RecordNotFoundException {
         
         SurveyDAO dao = DAOFactory.getSurveyDAO();
         // Check if this is a valid survey
         SurveyDTO survey = dao.checkSurvey(surveyID);
         if (survey == null)
-            throw new SurveyNotFoundException("Survey not found");
+            throw new RecordNotFoundException("Survey not found");
         
         return survey;
     }
@@ -52,10 +52,6 @@ class SurveyHelper {
         
         if (!DateHelper.checkDateRange(startDate, endDate))
             throw new InvalidFieldException("The end date is not greater than the start date");
-        
-        // Check if the start date is today or later
-        if (DateHelper.checkDateBeforeToday(startDate))
-            throw new InvalidFieldException("The start date is before today");
         
         return true;
     }

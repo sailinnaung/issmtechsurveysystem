@@ -28,26 +28,45 @@ public interface ResearcherSurveyFacadeRemote {
     SurveyDTO getSurvey(String username, int surveyID) 
             throws UserNotFoundException;
     
-    SurveyDTO updateSurvey(String username, SurveyDTO survey);
+    SurveyDTO updateSurvey(String username, SurveyDTO survey) 
+            throws UserNotFoundException, UserNotAllowedException, RecordNotFoundException, 
+            InvalidFieldException;
     
-    boolean deleteSurvey(String username, int surveyID);
+    boolean deleteSurvey(String username, int surveyID)
+            throws UserNotFoundException, UserNotAllowedException, RecordNotFoundException;
     
     SurveyPageDTO getSurveyPage(String username, int surveyPageID)
             throws UserNotFoundException;
     
     SurveyPageDTO createSurveyPage(String username, int surveyID, SurveyPageDTO surveyPage)
-            throws UserNotFoundException, OperationFailedException, SurveyNotFoundException,
+            throws UserNotFoundException, OperationFailedException, RecordNotFoundException,
             InvalidFieldException, UserNotAllowedException;
     
-    SurveyPageDTO updateSurveyPage(int surveyID, SurveyPageDTO surveyPage);
+    SurveyPageDTO updateSurveyPage(String username, int surveyID, SurveyPageDTO surveyPage)
+            throws UserNotFoundException, RecordNotFoundException,
+            InvalidFieldException, UserNotAllowedException;
     
-    boolean deleteSurveyPage(int surveyID, int surveyPageID);
+    boolean deleteSurveyPage(String username, int surveyID, int surveyPageID)
+            throws UserNotFoundException, RecordNotFoundException, UserNotAllowedException;
     
     QuestionDTO createQuestion(String username, int surveyID, int surveyPageID, QuestionDTO question)
-            throws UserNotFoundException, OperationFailedException, SurveyNotFoundException,
+            throws UserNotFoundException, OperationFailedException, RecordNotFoundException,
             InvalidFieldException, UserNotAllowedException;
     
-    QuestionDTO updateQuestion(int surveyID, int surveyPageID, QuestionDTO question);
+    QuestionDTO updateQuestion(String username, int surveyID, int surveyPageID, QuestionDTO question)
+            throws UserNotFoundException, RecordNotFoundException,
+            InvalidFieldException, UserNotAllowedException;
     
-    boolean deleteQuestion(int surveyID, int surveyPageID, int questionID);
+    boolean deleteQuestion(String username, int surveyID, int surveyPageID, int questionID)
+            throws UserNotFoundException, UserNotAllowedException, RecordNotFoundException;
+    
+    OptionDTO createQuestionOption(String username, int questionID, OptionDTO option)
+            throws UserNotFoundException, OperationFailedException, RecordNotFoundException,
+            InvalidFieldException, UserNotAllowedException;
+    
+    OptionDTO updateQuestionOption(String username, int questionID, OptionDTO option)
+            throws UserNotFoundException, RecordNotFoundException, InvalidFieldException;
+    
+    boolean deleteQuestionOption(String username, int questionID, OptionDTO option)
+            throws UserNotFoundException, RecordNotFoundException;
 }
