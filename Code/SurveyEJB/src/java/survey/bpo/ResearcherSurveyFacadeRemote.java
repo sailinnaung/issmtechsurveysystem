@@ -7,6 +7,7 @@ package survey.bpo;
 
 import javax.ejb.Remote;
 import survey.dto.*;
+import survey.exception.*;
 import java.util.ArrayList;
 
 /**
@@ -18,7 +19,9 @@ public interface ResearcherSurveyFacadeRemote {
     
     ArrayList<SurveyDTO> findSurveysByState(String username, int state);
     ArrayList<SurveyDTO> findSurveys(String username, SurveySearchCriteriaDTO criteria);
-    SurveyDTO createSurvey(String username, SurveyDTO survey);
+    SurveyDTO createSurvey(String username, SurveyDTO survey) 
+            throws UserNotFoundException, OperationFailedException, 
+            InvalidFieldException, RecordExistsException;
     SurveyDTO updateSurvey(String username, SurveyDTO survey);
     boolean deleteSurvey(String username, int surveyID);
     SurveyPageDTO createSurveyPage(int surveyID, SurveyPageDTO surveyPage);

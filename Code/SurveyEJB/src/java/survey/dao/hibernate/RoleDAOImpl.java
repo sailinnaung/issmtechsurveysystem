@@ -72,7 +72,15 @@ public class RoleDAOImpl extends AbstractDAO implements RoleDAO {
 
     public RoleDTO updateRole(RoleDTO role) {
         
-        this.saveOrUpdate(role);
+        //this.saveOrUpdate(role);  // This has a cascade problem
+        String hql = "update RoleDTO " +
+                        "set description = :description " +
+                      "where roleID = :roleID";
+        Query q = this.createQuery(hql)
+                .setString("description", role.getDescription())
+                .setInteger("roleID", role.getRoleID());
+        this.executeUpdate(q);
+        
         return role;
     }
 

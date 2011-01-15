@@ -90,6 +90,7 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
         
         if (users != null) {
             for (UserDTO user : users) {
+                
                 Hibernate.initialize(user.getRole());
                 Hibernate.initialize(user.getRole().getFunctions());
             }
@@ -144,7 +145,21 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
 
     public UserDTO updateUser(UserDTO user) {
         
-        this.saveOrUpdate(user);
+        //this.saveOrUpdate(user);
+        String hql = "update UserDTO " +
+                        "set password = :password, " +
+                            "email = :email, " +
+                         "fullName = :fullName, " +
+                             "role = :role " +
+                      "where userID = :userID";
+        Query q = this.createQuery(hql)
+                .setString("password", user.getPassword())
+                .setString("email", user.getEmail())
+                .setString("fullName", user.getFullName())
+                .setEntity("role", user.getRole())
+                .setInteger("userID", user.getUserID());
+        this.executeUpdate(q);
+        
         return user;
     }
 }

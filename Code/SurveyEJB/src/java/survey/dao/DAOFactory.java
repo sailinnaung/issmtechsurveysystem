@@ -22,4 +22,9 @@ public class DAOFactory {
         
         return new UserDAOImpl();
     }
+    
+    public static SurveyDAO getSurveyDAO() {
+        
+        return new SurveyDAOImpl();
+    }
 }
