@@ -16,6 +16,7 @@ public class UserDTO implements Serializable {
     private int userID;
     private String username;
     private String password;
+    private String fullName;
     private String email;
     private boolean deleteFlg;
     private RoleDTO role;
@@ -70,5 +71,13 @@ public class UserDTO implements Serializable {
 
     public void setRole(RoleDTO role) {
         this.role = role;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 }

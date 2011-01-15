@@ -13,6 +13,7 @@ import java.util.ArrayList;
  */
 public class SurveyAnswerDTO implements java.io.Serializable {
 
+    private int surveyAnswerID;
     private SurveyDTO survey;
     private UserDTO user;
     private ArrayList<SurveyPageDTO> pages;
@@ -53,5 +54,13 @@ public class SurveyAnswerDTO implements java.io.Serializable {
 
     public void setUser(UserDTO user) {
         this.user = user;
+    }
+
+    public int getSurveyAnswerID() {
+        return surveyAnswerID;
+    }
+
+    public void setSurveyAnswerID(int surveyAnswerID) {
+        this.surveyAnswerID = surveyAnswerID;
     }
 }
