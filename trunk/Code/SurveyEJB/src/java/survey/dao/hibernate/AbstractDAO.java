@@ -39,6 +39,9 @@ public abstract class AbstractDAO {
     
     private void deinit() {
         
+        if (trx != null && trx.isActive())
+            HibernateUtil.rollback(trx);
+        
         if (session != null)
             HibernateUtil.close(session);
         
@@ -52,6 +55,21 @@ public abstract class AbstractDAO {
             HibernateUtil.rollback(trx);
         
         throw new DAOException(ex);
+    }
+    
+    protected void save(Object obj) {
+        try {
+            
+            init();
+            session.save(obj);
+            trx.commit();
+        } catch (HibernateException e) {
+            
+            handleException(e);
+        } finally {
+            
+            deinit();
+        }
     }
     
     protected void saveOrUpdate(Object obj) {
@@ -129,7 +147,7 @@ public abstract class AbstractDAO {
             
             init();
             obj = session.get(cls, id);
-            trx.commit();
+            
         } catch (HibernateException e) {
             
             obj = null;
@@ -190,6 +208,9 @@ public abstract class AbstractDAO {
     }
     
     protected void endOperation() {
+        
+        if (trx != null && trx.isActive())
+            trx.commit();
         
         deinit();
     }

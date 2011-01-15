@@ -7,6 +7,7 @@ package survey.dto;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Calendar;
 
 /**
@@ -22,7 +23,7 @@ public class SurveyDTO implements Serializable {
     private String title;
     private String description;
     private int state;
-    private ArrayList<SurveyPageDTO> pages;
+    private List<SurveyPageDTO> pages;
     private Calendar startDate;
     private Calendar endDate;
     
@@ -38,11 +39,11 @@ public class SurveyDTO implements Serializable {
         this.description = description;
     }
 
-    public ArrayList<SurveyPageDTO> getPages() {
+    public List<SurveyPageDTO> getPages() {
         return pages;
     }
 
-    public void setPages(ArrayList<SurveyPageDTO> pages) {
+    public void setPages(List<SurveyPageDTO> pages) {
         this.pages = pages;
     }
 

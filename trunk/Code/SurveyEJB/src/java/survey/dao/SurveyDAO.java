@@ -15,6 +15,8 @@ import survey.exception.*;
  */
 public interface SurveyDAO {
 
-    public SurveyDTO createSurvey(String username, SurveyDTO survey);
-    
+    public SurveyDTO getSurvey(int surveyID);
+    public SurveyDTO createSurvey(SurveyDTO survey);
+    public SurveyPageDTO getSurveyPage(int surveyPageID);
+    public SurveyPageDTO createSurveyPage(int surveyID, SurveyPageDTO surveyPage);
 }
