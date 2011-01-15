@@ -14,6 +14,7 @@ import java.util.ArrayList;
  */
 public class SurveyPageDTO implements Serializable {
 
+    private int surveyPageID;
     private int pageNo;
     private String title;
     private String description;
