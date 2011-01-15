@@ -10,41 +10,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt"  prefix="fmt" %>
 <%@ taglib uri="/struts-tags" prefix="s" %>
 
+
+    <s:form action="leftMenu" method="post" namespace="/">
 <table width="100%" border="0" cellpadding="0" cellspacing="5" class="leftMenu">
+  <s:iterator value="" var="stat">
   <tr>
-    <td><a href="" class="">View Survey</a></td>
+      <td><a href="" class=""><s:text name=""/></a></td>
   </tr>
-  <tr>
-    <td><a href="" class="">Create Questionnaire</a></td>
-  </tr>
-  <tr>
-    <td><a href="" class="">Search Questionnaire</a></td>
-  </tr>
-  <tr>
-    <td><a href="" class="">View Survey Report</a></td>
-  </tr>
-  <tr>
-    <td><a href="" class="">Create User</a></td>
-  </tr>
-  <tr>
-    <td><a href="" class="">Edit User</a></td>
-  </tr>
-  <tr>
-    <td><a href="" class="">Search User</a></td>
-  </tr>
-  <tr>
-    <td><a href="" class="">Create Role</a></td>
-  </tr>
-  <tr>
-    <td><a href="" class="">Edit Role</a></td>
-  </tr>
-  <tr>
-    <td><a href="" class="">Create Function</a></td>
-  </tr>
-  <tr>
-    <td><a href="" class="">Edit Function</a></td>
-  </tr>
-  <tr>
-    <td><a href="" class="">Log out</a></td>
-  </tr>
+  </s:iterator>
 </table>
+        </s:form>

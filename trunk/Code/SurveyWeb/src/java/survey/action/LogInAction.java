@@ -7,23 +7,18 @@ package survey.action;
 
 import com.opensymphony.xwork2.Action;
 
-
-
 /**
  *
  * @author Sai Lin Naung
  */
 
-public class LogInAction {
-
-    private String username;
-    private String password;
+public class LogInAction extends SurveyActionSupport {
 
     public LogInAction() {    }
 
     public String execute() throws Exception {
        System.out.println("inside LogInAction");
-       System.out.println("username="+username);
+
        return "success";
     }
 

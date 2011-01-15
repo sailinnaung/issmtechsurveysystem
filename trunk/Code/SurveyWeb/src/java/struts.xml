@@ -17,12 +17,41 @@
         </action>
 
         <action name="authenticate" class="survey.action.AuthenticateAction">
-            <result name="rshr_recent"  type="tiles" >tiles.questionnairelist</result>
-            <result name="rspd_recent"  type="tiles" >tiles.questionnairelist</result>
+            <result name="success"  type="redirect" >researcher/openQuestionnaireList_all</result>
             <result name="input"    type="tiles"    >tiles.login</result>
             <result name="failure"  type="tiles"    >tiles.login</result>            
         </action>
 
+<!--        <action name="questionnaire" class="survey.action.QuestionnaireAction">
+            <result name="success"  type="tiles" >tiles.questionnairelist</result>
+            <result name="input"    type="tiles"    >tiles.login</result>
+            <result name="failure"  type="tiles"    >tiles.login</result>
+        </action>-->
+               
+
    </package>
+
+   <package name="researcherPackage" extends="survey" namespace="/researcher">
+        <action name="*_*" class="survey.action.QuestionnaireAction" method="{1}">
+            <param name="surveyID">{2}</param>
+            <result name="QuestionnaireList"  type="tiles" >tiles.questionnairelist</result>
+            <result name="QuestionnaireNewForm"  type="tiles" >tiles.questionnairenew</result>
+            <result name="QuestionPageForm" type="tiles"></result>
+            <result name="failure"  type="tiles"    >tiles.login</result>
+        </action>
+   </package>
+
+   <package name="UserManagement" namespace="/UserManagement" extends="survey">
+       <action name="*_*" class="survey.action.UserManagementAction" method="{1}">
+            <param name="username">{2}</param>
+            <result name="UserList" type="tiles">tiles.userlist</result>
+            <result name="NewUserForm" >tiles.newuserform</result>
+            <result name="UpdateForm">survey.user_update_title</result>
+            <result name="UpdateUser" >tiles.userlist</result>
+            <result name="AddUser">tiles.userlist</result>
+            <result name="DeleteUser" >tiles.userlist</result>
+
+        </action>
+    </package>
 
 </struts>

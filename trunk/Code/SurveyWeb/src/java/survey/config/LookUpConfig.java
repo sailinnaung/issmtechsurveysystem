@@ -11,7 +11,9 @@ package survey.config;
  */
 public interface LookUpConfig {
 
-   public static final String UserFacadeBeanLookUp = "java:comp/env/bpo/UserFacadeBean";
-   public static final String SurveyFacadeBeanLookUp = "java:comp/env/bpo/SurveyFacadeBean";
-   public static final String RoleFacadeBeanLookUp = "java:comp/env/bpo/RoleFacadeBean";
+   public static final String UserFacadeBeanLookUp = "UserFacade";
+   public static final String SurveyFacadeBeanLookUp = "SurveyFacade";
+   public static final String RoleFacadeBeanLookUp = "RoleFacade";
+
+   public static final String ResearcherSurveyFacadeLookUp = "ResearcherSurveyFacade";
 }
