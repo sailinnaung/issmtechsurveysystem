@@ -64,4 +64,12 @@ public class SurveyPageDTO implements Serializable {
     public void setState(ActivityTypes state) {
         this.state = state;
     }
+
+    public int getSurveyPageID() {
+        return surveyPageID;
+    }
+
+    public void setSurveyPageID(int surveyPageID) {
+        this.surveyPageID = surveyPageID;
+    }
 }
