@@ -22,6 +22,19 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
         super();
     }
     
+    public UserDTO checkUser(String username) {
+    
+        UserDTO user = null;
+        String hql = "from UserDTO where username = :username and deleteFlg = false";
+        
+        Query q = this.createQuery(hql).setString("username", username);
+        user = (UserDTO) this.find(q);
+        
+        this.endOperation();
+        
+        return user;
+    }
+    
     public UserDTO createUser(UserDTO user) {
         
         this.saveOrUpdate(user);

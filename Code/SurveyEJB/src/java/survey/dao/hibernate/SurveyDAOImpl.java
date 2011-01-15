@@ -23,6 +23,16 @@ public class SurveyDAOImpl extends AbstractDAO implements SurveyDAO {
         super();
     }
 
+    public SurveyDTO checkSurvey(int surveyID) {
+        
+        SurveyDTO survey = null;
+        survey = (SurveyDTO) this.find(SurveyDTO.class, surveyID);
+        
+        this.endOperation();
+        
+        return survey;
+    }
+    
     public SurveyDTO getSurvey(int surveyID) {
         
         SurveyDTO survey = null;
@@ -48,6 +58,16 @@ public class SurveyDAOImpl extends AbstractDAO implements SurveyDAO {
         return survey;
     }
     
+    public SurveyPageDTO checkSurveyPage(int surveyPageID) {
+        
+        SurveyPageDTO surveyPage = null;
+        surveyPage = (SurveyPageDTO) this.find(SurveyPageDTO.class, surveyPageID);
+        
+        this.endOperation();
+        
+        return surveyPage;
+    }
+    
     public SurveyPageDTO getSurveyPage(int surveyPageID) {
     
         SurveyPageDTO surveyPage = null;
@@ -68,9 +88,24 @@ public class SurveyDAOImpl extends AbstractDAO implements SurveyDAO {
     public SurveyPageDTO createSurveyPage(int surveyID, SurveyPageDTO surveyPage) {
         
         SurveyDTO survey = (SurveyDTO) this.find(SurveyDTO.class, surveyID);
+        if (survey.getPages() == null)
+            survey.setPages(new ArrayList<SurveyPageDTO>());
+        
         survey.getPages().add(surveyPage);
         this.saveOrUpdate(survey);
         
         return surveyPage;
+    }
+
+    public QuestionDTO createQuestion(int surveyPageID, QuestionDTO question) {
+        
+        SurveyPageDTO surveyPage = (SurveyPageDTO) this.find(SurveyPageDTO.class, surveyPageID);
+        if (surveyPage.getQuestions() == null)
+            surveyPage.setQuestions(new ArrayList<QuestionDTO>());
+        
+        surveyPage.getQuestions().add(question);
+        this.saveOrUpdate(surveyPage);
+        
+        return question;
     }
 }
