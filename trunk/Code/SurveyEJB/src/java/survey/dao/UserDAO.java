@@ -14,6 +14,7 @@ import survey.dto.*;
  */
 public interface UserDAO {
 
+    public UserDTO checkUser(String username);
     public UserDTO createUser(UserDTO user);
     public UserDTO updateUser(UserDTO user);
     public boolean deleteUser(int userID);

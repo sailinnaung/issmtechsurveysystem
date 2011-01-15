@@ -41,4 +41,8 @@ public class RatingQuestionDTO extends OptionQuestionDTO implements Serializable
     public int getQuestionType() {
         return QuestionTypes.RATING;
     }
+    
+    public void setMultipleFlg(boolean multipleFlg) {
+        super.setMultipleFlg(false);
+    }
 }

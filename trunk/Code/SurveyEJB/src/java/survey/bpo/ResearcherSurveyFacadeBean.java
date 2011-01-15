@@ -7,6 +7,7 @@ package survey.bpo;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import javax.ejb.Stateless;
 import survey.dto.*;
 import survey.exception.*;
@@ -20,91 +21,11 @@ import survey.utils.*;
 @Stateless(mappedName="ResearcherSurveyFacade")
 public class ResearcherSurveyFacadeBean implements ResearcherSurveyFacadeRemote {
 
-    private UserDTO checkUserExists(String username) throws UserNotFoundException {
-        
-        UserFacadeBean userFacade = new UserFacadeBean();
-        UserDTO user = userFacade.getUserByUsername(username);
-        
-        if (user == null)
-            throw new UserNotFoundException("User not found: " + username);
-        
-        return user;
-    }
-    
-    private SurveyDTO checkSurveyExists(int surveyID) throws SurveyNotFoundException {
-        
-        SurveyDAO dao = DAOFactory.getSurveyDAO();
-        // Check if this is a valid survey
-        SurveyDTO survey = dao.getSurvey(surveyID);
-        if (survey == null)
-            throw new SurveyNotFoundException("Survey not found");
-        
-        return survey;
-    }
-    
-    private SurveyPageDTO checkSurveyPageExists(int surveyPageID) throws SurveyNotFoundException {
-        
-        SurveyDAO dao = DAOFactory.getSurveyDAO();
-        // Check if this is a valid survey
-        SurveyPageDTO surveyPage = dao.getSurveyPage(surveyPageID);
-        if (surveyPage == null)
-            throw new SurveyNotFoundException("Survey Page not found");
-        
-        return surveyPage;
-    }
-    
-    private boolean checkSurveyFields(SurveyDTO survey) throws InvalidFieldException {
-        
-        // Check if title is empty
-        if (StringHelper.checkStringEmpty(survey.getTitle()))
-            throw new InvalidFieldException("Survey title is empty");
-        
-        // Check if the start and end date are correct
-        if (survey.getStartDate() == null)
-            survey.setStartDate(Calendar.getInstance());
-        
-        Calendar startDate = DateHelper.removeTimestamp(survey.getStartDate());
-        Calendar endDate = DateHelper.removeTimestamp(survey.getEndDate());
-        if (startDate != null)
-            DateHelper.removeTimestamp(startDate);
-        
-        if (endDate != null)
-            DateHelper.removeTimestamp(endDate);
-        
-        if (!DateHelper.checkDateRange(startDate, endDate))
-            throw new InvalidFieldException("The end date is not greater than the start date");
-        
-        // Check if the start date is today or later
-        if (DateHelper.checkDateBeforeToday(startDate))
-            throw new InvalidFieldException("The start date is before today");
-        
-        return true;
-    }
-    
-    private boolean checkQuestionFields(QuestionDTO question) throws InvalidFieldException {
-        
-        // Check the code
-        if (!StringHelper.checkStringEmpty(question.getCode()))
-            throw new InvalidFieldException("Question Code cannot be empty");
-        
-        // Check the text
-        if (!StringHelper.checkStringEmpty(question.getText()))
-            throw new InvalidFieldException("Question text cannot be empty");
-        
-        return true;
-    }
-    
-    private void calculateRatings(RatingQuestionDTO question) {
-        
-        if (question.getOptions().size() > 0) {
-            
-        }
-    }
-    
     public SurveyDTO getSurvey(String username, int surveyID) 
             throws UserNotFoundException {
         
-        UserDTO user = checkUserExists(username);
+        UserHelper userHelper = new UserHelper();
+        UserDTO user = userHelper.checkUserExists(username);
         if (user == null)
             return null;
         
@@ -119,11 +40,13 @@ public class ResearcherSurveyFacadeBean implements ResearcherSurveyFacadeRemote 
             throws UserNotFoundException, OperationFailedException, 
             InvalidFieldException {
         
-        UserDTO owner = checkUserExists(username);
+        UserHelper userHelper = new UserHelper();
+        UserDTO owner = userHelper.checkUserExists(username);
         if (owner == null)
             return null;
         
-        if (!checkSurveyFields(survey))
+        SurveyHelper surveyHelper = new SurveyHelper();
+        if (!surveyHelper.checkSurveyFields(survey))
             return null;
         
         survey.setOwner(owner);
@@ -143,7 +66,8 @@ public class ResearcherSurveyFacadeBean implements ResearcherSurveyFacadeRemote 
     public SurveyPageDTO getSurveyPage(String username, int surveyPageID)
             throws UserNotFoundException {
             
-        UserDTO user = checkUserExists(username);
+        UserHelper userHelper = new UserHelper();
+        UserDTO user = userHelper.checkUserExists(username);
         if (user == null)
             return null;
         
@@ -159,20 +83,22 @@ public class ResearcherSurveyFacadeBean implements ResearcherSurveyFacadeRemote 
             InvalidFieldException, UserNotAllowedException {
         
         // Check if the user is found
-        UserDTO user = checkUserExists(username);
+        UserHelper userHelper = new UserHelper();
+        UserDTO user = userHelper.checkUserExists(username);
         if (user == null)
             return null;
         
         // Check if this is a valid survey
-        SurveyDTO survey = checkSurveyExists(surveyID);
+        SurveyHelper surveyHelper = new SurveyHelper();
+        SurveyDTO survey = surveyHelper.checkSurveyExists(surveyID);
         
         // Check if this user can change the survey
         if (survey.getOwner().getUserID() != user.getUserID())
             throw new UserNotAllowedException(username + " is not the owner of the survey");
         
         // Check if title is empty
-        if (StringHelper.checkStringEmpty(surveyPage.getTitle()))
-            throw new InvalidFieldException("The title is mandatory");
+        SurveyPageHelper pageHelper = new SurveyPageHelper();
+        pageHelper.checkFields(surveyPage);
         
         // Set the survey page state
         surveyPage.setState(ActivityTypes.DRAFT);
@@ -192,31 +118,43 @@ public class ResearcherSurveyFacadeBean implements ResearcherSurveyFacadeRemote 
             InvalidFieldException, UserNotAllowedException {
         
         // Check if the user is found
-        UserDTO user = checkUserExists(username);
+        UserHelper userHelper = new UserHelper();
+        UserDTO user = userHelper.checkUserExists(username);
         if (user == null)
             return null;
         
         // Check if this is a valid survey
-        SurveyDTO survey = checkSurveyExists(surveyID);
+        SurveyHelper surveyHelper = new SurveyHelper();
+        SurveyDTO survey = surveyHelper.checkSurveyExists(surveyID);
         
         // Check if this user can change the survey
         if (survey.getOwner().getUserID() != user.getUserID())
             throw new UserNotAllowedException(username + " is not the owner of the survey");
         
         // Check survey page exists
-        SurveyPageDTO surveyPage = checkSurveyPageExists(surveyPageID);
+        SurveyPageHelper pageHelper = new SurveyPageHelper();
+        SurveyPageDTO surveyPage = pageHelper.checkSurveyPageExists(surveyPageID);
         
         // Check the fields
-        if (!checkQuestionFields(question))
+        QuestionHelper questionHelper = new QuestionHelper();
+        if (!questionHelper.checkQuestionFields(question))
             throw null;
         
         // Set the state
         question.setState(ActivityTypes.DRAFT);
         
+        // Calculate the values of the options if the type is RATING
         if (question.getQuestionType() == QuestionTypes.RATING) {
             
-            calculateRatings((RatingQuestionDTO) question);
+            questionHelper.calculateRatings((RatingQuestionDTO) question);
         }
+        
+        // Save to DB
+        SurveyDAO dao = DAOFactory.getSurveyDAO();
+        question = dao.createQuestion(surveyPageID, question);
+        
+        if (question.getQuestionID() <= 0)
+            throw new OperationFailedException("Question could not be created");
         
         return question;
     }

@@ -16,7 +16,7 @@ public class OptionDTO implements Serializable {
     private int optionID;
     private String code;
     private String name;
-    private int value;
+    private float value;
     private int order;
     
     public OptionDTO() {
@@ -47,11 +47,11 @@ public class OptionDTO implements Serializable {
         this.optionID = optionID;
     }
 
-    public int getValue() {
+    public float getValue() {
         return value;
     }
 
-    public void setValue(int value) {
+    public void setValue(float value) {
         this.value = value;
     }
 
