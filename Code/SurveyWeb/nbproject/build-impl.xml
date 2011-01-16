@@ -369,14 +369,8 @@ or ant -Dj2ee.platform.classpath=&lt;server_classpath&gt; (where no properties f
     <!--
                 COMPILATION SECTION
             -->
-    <target depends="init" if="no.dist.ear.dir" name="deps-module-jar" unless="no.deps">
-        <ant antfile="${project.SurveyEJB}/build.xml" inheritall="false" target="dist"/>
-    </target>
-    <target depends="init" if="dist.ear.dir" name="deps-ear-jar" unless="no.deps">
-        <ant antfile="${project.SurveyEJB}/build.xml" inheritall="false" target="dist-ear">
-            <property location="${build.dir}" name="dist.ear.dir"/>
-        </ant>
-    </target>
+    <target depends="init" if="no.dist.ear.dir" name="deps-module-jar" unless="no.deps"/>
+    <target depends="init" if="dist.ear.dir" name="deps-ear-jar" unless="no.deps"/>
     <target depends="init, deps-module-jar, deps-ear-jar" name="deps-jar" unless="no.deps"/>
     <target depends="init,deps-jar" name="-pre-pre-compile">
         <mkdir dir="${build.classes.dir}"/>
@@ -515,14 +509,8 @@ or ant -Dj2ee.platform.classpath=&lt;server_classpath&gt; (where no properties f
     </target>
     <target depends="init,compile,compile-jsps,-pre-dist,-do-dist-with-manifest,-do-dist-without-manifest" name="do-dist"/>
     <target depends="init" if="dist.ear.dir" name="library-inclusion-in-manifest">
-        <basename file="${reference.SurveyEJB.dist}" property="included.lib.reference.SurveyEJB.dist"/>
-        <copy-ear-war file="${reference.SurveyEJB.dist}" propname="included.lib.reference.SurveyEJB.dist.X"/>
-        <basename file="${file.reference.struts2-core-2.1.6.jar}" property="included.lib.file.reference.struts2-core-2.1.6.jar"/>
-        <copy-ear-war file="${file.reference.struts2-core-2.1.6.jar}" propname="included.lib.file.reference.struts2-core-2.1.6.jar.X"/>
-        <basename file="${file.reference.struts2-tiles-plugin-2.1.6.jar}" property="included.lib.file.reference.struts2-tiles-plugin-2.1.6.jar"/>
-        <copy-ear-war file="${file.reference.struts2-tiles-plugin-2.1.6.jar}" propname="included.lib.file.reference.struts2-tiles-plugin-2.1.6.jar.X"/>
-        <basename file="${file.reference.xwork-2.1.2.jar}" property="included.lib.file.reference.xwork-2.1.2.jar"/>
-        <copy-ear-war file="${file.reference.xwork-2.1.2.jar}" propname="included.lib.file.reference.xwork-2.1.2.jar.X"/>
+        <basename file="${file.reference.SurveyEJB.jar}" property="included.lib.file.reference.SurveyEJB.jar"/>
+        <copy-ear-war file="${file.reference.SurveyEJB.jar}" propname="included.lib.file.reference.SurveyEJB.jar.X"/>
         <basename file="${libs.hibernate-support.classpath.libfile.11}" property="included.lib.libs.hibernate-support.classpath.11"/>
         <basename file="${libs.hibernate-support.classpath.libfile.10}" property="included.lib.libs.hibernate-support.classpath.10"/>
         <basename file="${libs.hibernate-support.classpath.libfile.9}" property="included.lib.libs.hibernate-support.classpath.9"/>
@@ -547,15 +535,12 @@ or ant -Dj2ee.platform.classpath=&lt;server_classpath&gt; (where no properties f
         <copy-ear-war file="${libs.hibernate-support.classpath.libfile.1}" propname="included.lib.libs.hibernate-support.classpath.1.X"/>
         <mkdir dir="${build.web.dir}/META-INF"/>
         <manifest file="${build.web.dir}/META-INF/MANIFEST.MF" mode="update">
-            <attribute name="Class-Path" value="${included.lib.reference.SurveyEJB.dist} ${included.lib.file.reference.struts2-core-2.1.6.jar} ${included.lib.file.reference.struts2-tiles-plugin-2.1.6.jar} ${included.lib.file.reference.xwork-2.1.2.jar} ${included.lib.libs.hibernate-support.classpath.1.X} ${included.lib.libs.hibernate-support.classpath.2.X} ${included.lib.libs.hibernate-support.classpath.3.X} ${included.lib.libs.hibernate-support.classpath.4.X} ${included.lib.libs.hibernate-support.classpath.5.X} ${included.lib.libs.hibernate-support.classpath.6.X} ${included.lib.libs.hibernate-support.classpath.7.X} ${included.lib.libs.hibernate-support.classpath.8.X} ${included.lib.libs.hibernate-support.classpath.9.X} ${included.lib.libs.hibernate-support.classpath.10.X} ${included.lib.libs.hibernate-support.classpath.11.X} "/>
+            <attribute name="Class-Path" value="${included.lib.file.reference.SurveyEJB.jar} ${included.lib.libs.hibernate-support.classpath.1.X} ${included.lib.libs.hibernate-support.classpath.2.X} ${included.lib.libs.hibernate-support.classpath.3.X} ${included.lib.libs.hibernate-support.classpath.4.X} ${included.lib.libs.hibernate-support.classpath.5.X} ${included.lib.libs.hibernate-support.classpath.6.X} ${included.lib.libs.hibernate-support.classpath.7.X} ${included.lib.libs.hibernate-support.classpath.8.X} ${included.lib.libs.hibernate-support.classpath.9.X} ${included.lib.libs.hibernate-support.classpath.10.X} ${included.lib.libs.hibernate-support.classpath.11.X} "/>
         </manifest>
         <delete dir="${dist.ear.dir}/temp"/>
     </target>
     <target depends="init" name="library-inclusion-in-archive" unless="dist.ear.dir">
-        <copy file="${reference.SurveyEJB.dist}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copy file="${file.reference.struts2-core-2.1.6.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copy file="${file.reference.struts2-tiles-plugin-2.1.6.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copy file="${file.reference.xwork-2.1.2.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${file.reference.SurveyEJB.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copy file="${libs.hibernate-support.classpath.libfile.11}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copy file="${libs.hibernate-support.classpath.libfile.10}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copy file="${libs.hibernate-support.classpath.libfile.9}" todir="${build.web.dir}/WEB-INF/lib"/>
@@ -849,9 +834,7 @@ or ant -Dj2ee.platform.classpath=&lt;server_classpath&gt; (where no properties f
                 
                 CLEANUP SECTION
             -->
-    <target depends="init" if="no.dist.ear.dir" name="deps-clean" unless="no.deps">
-        <ant antfile="${project.SurveyEJB}/build.xml" inheritall="false" target="clean"/>
-    </target>
+    <target depends="init" if="no.dist.ear.dir" name="deps-clean" unless="no.deps"/>
     <target depends="init" name="do-clean">
         <condition property="build.dir.to.clean" value="${build.web.dir}">
             <isset property="dist.ear.dir"/>
