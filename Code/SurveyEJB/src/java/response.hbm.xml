@@ -1,50 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-  
-    <class name="survey.dto.SurveyAnswerDTO" table="SURVEY_ANSWER">
-        <id column="SURVEY_ANSWER_ID" name="surveyAnswerID" type="integer">
-            <generator class="native" />
-        </id>
-        <many-to-one class="survey.dto.SurveyDTO" column="SURVEY_ID" name="survey" not-null="true" fetch="join" />
-        <many-to-one class="survey.dto.UserDTO" column="USER_ID" name="user" not-null="true" fetch="join" />
-        <bag name="pages" table="SURVEY_ANSWER_PAGE" order-by="pageNo" cascade="all">
-            <key column="SURVEY_ANSWER_ID" not-null="true" />
-            <one-to-many class="survey.dto.SurveyPageAnswerDTO" />
-        </bag>
-        <property name="state" column="STATE" type="integer" not-null="true" />
-    </class>
-    
-    <class name="survey.dto.SurveyPageAnswerDTO" table="SURVEY_PAGE_ANSWER">
-        <id column="SURVEY_PAGE_ANSWER_ID" name="surveyPageAnswerID" type="integer">
-            <generator class="native" />
-        </id>
-        <property name="pageNo" column="PAGE_NO" type="integer" not-null="true" />
-        <many-to-one class="survey.dto.SurveyPageDTO" column="SURVEY_PAGE_ID" name="page" not-null="true" fetch="join" />
-        <bag name="answers" table="SURVEY_QUESTION_ANSWER" order-by="order" cascade="all">
-            <key column="SURVEY_PAGE_ANSWER_ID" not-null="true" />
-            <one-to-many class="survey.dto.AnswerDTO" />
-        </bag>
-    </class>
-    
-    <class name="survey.dto.AnswerDTO" table="SURVEY_ANSWER">
-        <id column="SURVEY_ANSWER_ID" name="answerID" type="integer">
-            <generator class="native" />
-        </id>
-        <many-to-one class="survey.dto.QuestionDTO" column="SURVEY_QUESTION_ID" name="question" not-null="true" fetch="join" />
-        <property name="order" column="DISPLAY_ORDER" type="integer" not-null="true" />
-        
-        <joined-subclass name="survey.dto.OptionAnswerDTO" table="SURVEY_OPTION_ANSWER">
-            <key column="SURVEY_ANSWER_ID" />
-            <bag name="options" table="SURVEY_ANSWER_OPTION" cascade="none">
-                <key column="SURVEY_ANSWER_ID" not-null="true" />
-                <many-to-many class="survey.dto.OptionDTO" column="OPTION_ID"/>
-            </bag>
-        </joined-subclass>
-        
-        <joined-subclass name="survey.dto.TextAnswerDTO" table="SURVEY_TEXT_ANSWER">
-            <key column="SURVEY_ANSWER_ID" />
-            <property name="value" column="TEXT_VALUE" type="string" not-null="true" />
-        </joined-subclass>
-    </class>
+  <class name="survey.dto.SurveyAnswerDTO" table="SURVEY_ANSWER">
+    <id column="SURVEY_ANSWER_ID" name="surveyAnswerID" type="integer">
+      <generator class="native"/>
+    </id>
+    <many-to-one class="survey.dto.SurveyDTO" column="SURVEY_ID" fetch="join" name="survey" not-null="true"/>
+    <many-to-one class="survey.dto.UserDTO" column="USER_ID" fetch="join" name="user" not-null="true"/>
+    <bag cascade="all" name="pages" order-by="pageNo" table="SURVEY_ANSWER_PAGE">
+      <key column="SURVEY_ANSWER_ID" not-null="true"/>
+      <one-to-many class="survey.dto.SurveyPageAnswerDTO"/>
+    </bag>
+    <property column="STATE" name="state" not-null="true" type="integer"/>
+  </class>
+  <class name="survey.dto.SurveyPageAnswerDTO" table="SURVEY_PAGE_ANSWER">
+    <id column="SURVEY_PAGE_ANSWER_ID" name="surveyPageAnswerID" type="integer">
+      <generator class="native"/>
+    </id>
+    <property column="PAGE_NO" name="pageNo" not-null="true" type="integer"/>
+    <many-to-one class="survey.dto.SurveyPageDTO" column="SURVEY_PAGE_ID" fetch="join" name="page" not-null="true"/>
+    <bag cascade="all" name="answers" order-by="order" table="SURVEY_QUESTION_ANSWER">
+      <key column="SURVEY_PAGE_ANSWER_ID" not-null="true"/>
+      <one-to-many class="survey.dto.AnswerDTO"/>
+    </bag>
+  </class>
+  <class name="survey.dto.AnswerDTO" table="SURVEY_ANSWER">
+    <id column="SURVEY_ANSWER_ID" name="answerID" type="integer">
+      <generator class="native"/>
+    </id>
+    <many-to-one class="survey.dto.QuestionDTO" column="SURVEY_QUESTION_ID" fetch="join" name="question" not-null="true"/>
+    <property column="DISPLAY_ORDER" name="order" not-null="true" type="integer"/>
+    <joined-subclass name="survey.dto.OptionAnswerDTO" table="SURVEY_OPTION_ANSWER">
+      <key column="SURVEY_ANSWER_ID"/>
+      <bag cascade="none" name="options" table="SURVEY_ANSWER_OPTION">
+        <key column="SURVEY_ANSWER_ID" not-null="true"/>
+        <many-to-many class="survey.dto.OptionDTO" column="OPTION_ID"/>
+      </bag>
+    </joined-subclass>
+    <joined-subclass name="survey.dto.TextAnswerDTO" table="SURVEY_TEXT_ANSWER">
+      <key column="SURVEY_ANSWER_ID"/>
+      <property column="TEXT_VALUE" name="value" not-null="true" type="string"/>
+    </joined-subclass>
+  </class>
 </hibernate-mapping>

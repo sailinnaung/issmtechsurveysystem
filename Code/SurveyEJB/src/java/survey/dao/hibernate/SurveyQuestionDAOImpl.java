@@ -207,4 +207,12 @@ public class SurveyQuestionDAOImpl extends AbstractDAO implements SurveyQuestion
         
         return true;
     }
+    
+    public ArrayList<OptionReportDTO> getReportStats(int questionID) {
+        
+        ArrayList<OptionReportDTO> items = new ArrayList<OptionReportDTO>();
+        
+        
+        return items;
+    }
 }

@@ -32,5 +32,4 @@
     <property column="DELETE_FLG" name="deleteFlg" type="boolean"/>
     <many-to-one class="survey.dto.RoleDTO" column="ROLE_ID" name="role" not-null="true"/>
   </class>
-  
 </hibernate-mapping>
