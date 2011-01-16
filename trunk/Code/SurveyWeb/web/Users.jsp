@@ -8,8 +8,6 @@
         <title><s:text name="Title"/></title>
     </head>
     <body>
-       
-        <h1><s:text name="fooo_%{user.username}"/></h1>
         <a href="<s:url namespace="/UserManagement" action="openNewUserForm_all"/>"><s:text name="Create New User"/></a>
         <br/><br/>
  

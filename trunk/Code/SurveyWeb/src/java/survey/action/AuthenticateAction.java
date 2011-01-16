@@ -29,6 +29,7 @@ public class AuthenticateAction extends SurveyActionSupport
 
     private String username;
     private String password;
+    private String returnString;
 
     public AuthenticateAction() {  }
 
@@ -44,6 +45,11 @@ public class AuthenticateAction extends SurveyActionSupport
            }
 
            UserDelegate usrD = new UserDelegate();
+           
+           if(!usrD.authenticateUser(getUsername(), getPassword())){
+               throw new UserNotFoundException();
+           }
+           
            UserDTO usr = usrD.getUserByUserName(getUsername());
 
            //When binding with bean below part will be taken out
@@ -62,12 +68,18 @@ public class AuthenticateAction extends SurveyActionSupport
            if(roleOfUser==null){
                throw new NoRoleAssignException("There is no role for this user "+usr.getUsername());
            }
+           
+           setFunctions(roleOfUser.getFunctions());
 
-           addFunctions(roleOfUser.getName(), roleOfUser.getFunctions());
-           setFunctions();
-
-           System.out.println("Before return Action Success");
-           return "success";
+           switch(roleOfUser.getRoleID()){
+               case 1: returnString = SurveyActionConstants.Admin_Home; break;
+               case 2: returnString = SurveyActionConstants.Researcher_Home; break;
+               case 3: returnString = SurveyActionConstants.Respondent_Home; break;
+               default: returnString = SurveyActionConstants.Failure; break;                   
+           }
+           
+           System.out.println("Before return Action Success "+returnString);
+           return returnString;
 
        }catch (NoLoginException ne) {
            System.out.println("inside NoLoginException");

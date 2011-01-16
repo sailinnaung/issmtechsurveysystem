@@ -68,7 +68,11 @@ public class UserDelegate {
     {
         return usrFacade.getUsersByRoleName(roleName);
     }
-
+    
+    public boolean authenticationUser(String username, String password) throws UserNotFoundException
+    {
+        return usrFacade.authenticateUser(username, password);
+    }
 
     public UserDTO updateUser(UserDTO user)
     {

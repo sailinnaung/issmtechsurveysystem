@@ -17,7 +17,7 @@
     </head>
     <body>              
         <div id="questionnaire_list" align="center">
-        <s:form id="quest_list_form" action="QuestionnaireList_all" method="post">
+        <s:form id="quest_list_form" action="QuestionnaireList_survey" method="post">
             <fieldset style="text-align:left">
                     <legend class="legend_header">Recently Edit</legend>
                     <table width="100%" border="0" cellpadding="0" cellspacing="0">
@@ -43,13 +43,13 @@
                                     <td align="center"><s:property value="title"/></td>
                                     <td align="center"><s:property value="description"/></td>
                                     <td align="center"><s:property value="state"/></td>
-                                    <td align="center"><a href="<s:url namespace="/researcher" action="updateQuestionniare_%{surveyID}" />">Edit</a>&nbsp;|&nbsp;<a href="<s:url namespace="/researcher" action="deleteQuestionnaire_%{surveyID}" />">Delete</a></td>
+                                    <td align="center"><a href="<s:url namespace="/questionnaire" action="updateQuestionniare_survey" />">Edit</a>&nbsp;|&nbsp;<a href="<s:url namespace="/questionnaire" action="deleteQuestionnaire_survey" />">Delete</a></td>
                                   </tr>
                               </s:iterator>                            
-                               </s:else>
-                    </s:if>  
+                              </s:else>
+                            </s:if> 
                             </table>
-                                         
+                                           
             </fieldset>
             <br/>
             <br/>
@@ -70,7 +70,7 @@
                            </tr>
                            <s:else>   
                             <s:set id="idx" name="idx" value="0"/>
-                              <s:iterator value="recentSubmitList" status="stat">
+                              <s:iterator value="recentSubmitList" status="stat">                                  
                                   <s:set id="idx" value="#idx+1"/>
                                   <tr class="<s:if test="#stat.odd == true">table_oddRow</s:if><s:else>table_evenRow</s:else>">
                                     <td align="center"><s:property value="#idx"/></td>
@@ -78,7 +78,7 @@
                                     <td align="center"><s:property value="title"/></td>
                                     <td align="center"><s:property value="description"/></td>
                                     <td align="center"><s:property value="state"/></td>
-                                    <td align="center"><a href="<s:url namespace="/researcher" action="updateQuestionniare_%{surveyID}" />">Edit</a>&nbsp;|&nbsp;<a href="<s:url namespace="/researcher" action="deleteQuestionnaire_%{surveyID}" />">Delete</a></td>
+                                    <td align="center"><a href="<s:url namespace="/questionnaire" action="updateQuestionniare_survey" />">Edit</a>&nbsp;|&nbsp;<a href="<s:url namespace="/questionnaire" action="deleteQuestionnaire_survey" />">Delete</a></td>
                                   </tr>
                               </s:iterator>
                              </s:else>  
@@ -89,7 +89,7 @@
 </div>
 <div id="questionnaire_add" align="left">
 <br/>
-	<a href="<s:url namespace="/researcher" action="newQuestionnaire_new" />" class="functional_hyperlink">Create New Questionnaire</a>
+	<a href="<s:url namespace="/questionnaire" action="newQuestionnaire_survey" />" class="functional_hyperlink">Create New Questionnaire</a>
 </div>
         
     </body>

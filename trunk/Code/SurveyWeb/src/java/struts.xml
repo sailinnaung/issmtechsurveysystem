@@ -7,6 +7,18 @@
        <result-types>
             <result-type name="tiles" class="org.apache.struts2.views.tiles.TilesResult"/>
        </result-types>
+       
+       <global-results>
+            <result name="login" type="redirect">login</result>
+            <result name="LogInError" type="redirect">/DataError.jsp</result>
+       </global-results>
+       
+       <global-exception-mappings>
+           <exception-mapping exception="survey.exception.UserNotFoundException" result="LogInError"/>
+           <exception-mapping exception="survey.exception.UserNotAllowedException" result="LogInError"/>
+           <exception-mapping exception="survey.exception.NoLoginException" result="LogInError"/>       
+       </global-exception-mappings>
+       
    </package>
 
    <package name="survey" extends="default" namespace="/">
@@ -17,40 +29,73 @@
         </action>
 
         <action name="authenticate" class="survey.action.AuthenticateAction">
-            <result name="success"  type="redirect" >researcher/openQuestionnaireList_all</result>
+            <result name="admin"  type="redirect" >UserManagement/openUserList_all</result>
+            <result name="researcher"  type="redirect" >questionnaire/openQuestionnaireList_survey</result>
+            <result name="respondent"  type="redirect" >questionnaire/openQuestionnaireList_survey</result>
             <result name="input"    type="tiles"    >tiles.login</result>
             <result name="failure"  type="tiles"    >tiles.login</result>            
         </action>
-
-<!--        <action name="questionnaire" class="survey.action.QuestionnaireAction">
-            <result name="success"  type="tiles" >tiles.questionnairelist</result>
-            <result name="input"    type="tiles"    >tiles.login</result>
-            <result name="failure"  type="tiles"    >tiles.login</result>
-        </action>-->
-               
-
+        
+        <action name="logout" class="survey.action.LogOutAction">
+            <result name="success" type="redirect">login</result>
+            <result name="failure" type="tiles">tiles.error</result>
+        </action>
+        
+        <action name="leftMenu" class="survey.action.LeftMenuAction">            
+            <result name="FindUsers" type="redirectAction">
+                <param name="actionName">openFindUser_new</param>
+                <param name="namespace">/search</param>
+            </result>
+            <result name="researcher" type="redirect">questionnaire/openQuestionnaireList_survey</result>
+            <result name="RSPDHM" type="tiles"></result>
+            <result name="EDTPRF" type="tiles"></result>
+            <result name="NewUserForm" type="redirectAction">tiles.newuserform
+                <param name="actionName">openNewUserForm_new</param>
+                <param name="namespace">/UserManagement</param>
+            </result>
+            <result name="SRHSUR" type="tiles"></result>
+            <result name="CRTSUR" type="tiles"></result>
+            <result name="error" type="tiles">tiles.error</result>
+        </action>
+        
    </package>
 
-   <package name="researcherPackage" extends="survey" namespace="/researcher">
-        <action name="*_*" class="survey.action.QuestionnaireAction" method="{1}">
-            <param name="surveyID">{2}</param>
+   <package name="questionnairePackage" extends="survey" namespace="/questionnaire">
+        <action name="*_survey" class="survey.action.QuestionnaireAction" method="{1}">            
             <result name="QuestionnaireList"  type="tiles" >tiles.questionnairelist</result>
-            <result name="QuestionnaireNewForm"  type="tiles" >tiles.questionnairenew</result>
-            <result name="QuestionPageForm" type="tiles"></result>
+            <result name="QuestionnaireNewForm"  type="tiles" >tiles.questionnairenew</result>            
+            <result name="QuestionPageList" type="redirectAction">
+                <param name="actionName">openQuestionPageList_list</param>
+                <param name="namespace">/question</param>
+            </result>
+             
             <result name="failure"  type="tiles"    >tiles.login</result>
         </action>
    </package>
+    
+    <package name="questoinPackage" extends="survey" namespace="/question">
+       <action name="*_*" class="survey.action.QuestionAction" method="{1}">
+           <param name="">{2}</param>
+           <result name="QuestionPageList" type="tiles">tiles.questionpagelist</result>           
+       </action>
+    </package>
 
-   <package name="UserManagement" namespace="/UserManagement" extends="survey">
+   <package name="userManagement" namespace="/UserManagement" extends="survey">
        <action name="*_*" class="survey.action.UserManagementAction" method="{1}">
             <param name="username">{2}</param>
             <result name="UserList" type="tiles">tiles.userlist</result>
-            <result name="NewUserForm" >tiles.newuserform</result>
-            <result name="UpdateForm">survey.user_update_title</result>
-            <result name="UpdateUser" >tiles.userlist</result>
-            <result name="AddUser">tiles.userlist</result>
-            <result name="DeleteUser" >tiles.userlist</result>
-
+            <result name="NewUserForm" type="tiles" >tiles.newuserform</result>
+            <result name="UpdateForm" type="tiles">tiles.updateuserform</result>
+            <result name="UpdateUser" type="tiles" >tiles.userlist</result>
+            <result name="AddUser" type="tiles">tiles.userlist</result>
+            <result name="DeleteUser" type="tiles">tiles.userlist</result>
+        </action>
+    </package>
+    
+    <package name="search" namespace="/search" extends="survey">
+        <action name="*_*" class="survey.action.SearchAction" method="{1}">
+            <param name="type">{2}</param>
+            <result name="FindUsers" type="tiles">tiles.findusers</result>
         </action>
     </package>
 

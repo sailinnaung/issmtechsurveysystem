@@ -11,10 +11,14 @@ package survey.action;
 
 import com.opensymphony.xwork2.ActionSupport;
 import java.rmi.RemoteException;
+import java.util.AbstractList;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import survey.delegates.RoleDelegate;
 import survey.delegates.UserDelegate;
+import survey.dto.RoleDTO;
 import survey.dto.UserDTO;
 import survey.exception.DAOException;
 import survey.exception.RecordExistsException;
@@ -30,11 +34,16 @@ import survey.exception.RecordExistsException;
  */
 
 public class UserManagementAction extends ActionSupport {
- private List<UserDTO> users;
+ 
+    private List<UserDTO> users;
     private String username;
+    private String roleName;
+    private List<RoleDTO> roles;
 
     private UserDTO user = new UserDTO();
     private UserDelegate delegate = new UserDelegate();
+    private RoleDelegate roleDel = new RoleDelegate();
+    
     public static final String Open_user_list = "UserList";
     public static final String Open_New_User_Form = "NewUserForm";
     public static final String Open_Update_Form = "UpdateForm";
@@ -43,8 +52,9 @@ public class UserManagementAction extends ActionSupport {
     public static final String Delete_User = "DeleteUser";
 
     public String openUserList() {
-        users = delegate.getUsersByRoleName("ADMIN"); // later check
-        System.out.println("############## in open user list" + String.valueOf(users.size()));
+        System.out.println("inside openUserList before calling users");
+        //users = delegate.getUsersByRoleName(); // later check        
+        //System.out.println("############## in open user list" + String.valueOf(users.size()));
         return Open_user_list;
     }
     public String openUpdateForm() {
@@ -59,6 +69,8 @@ public class UserManagementAction extends ActionSupport {
     }
     public String openNewUserForm() {
         user=new UserDTO();
+        roles = roleDel.getRoles();
+        System.out.println("roles count: " + roles.size());
         System.out.println("############## in open new user form");
 
         return Open_New_User_Form;
@@ -76,10 +88,19 @@ public class UserManagementAction extends ActionSupport {
     public String addUser() {
         try {
             System.out.println("Before creating user");
+            System.out.println("User name : "+user.getUsername());
+            System.out.println("Role name : "+roleName);
+                        
+            RoleDTO rDto = roleDel.getRoleByID(Integer.parseInt(roleName));
+            System.out.println("rDto is null "+(rDto==null));
+            user.setRole(rDto);
+            user.setDeleteFlg(false);
+            
             user = delegate.createUser(user);
+            
             System.out.println("Create User successful");
             username = user.getUsername();
-            System.out.println("############## in addUser");
+            System.out.println("############## in addUser :"+username);
         } catch (DAOException ex) {
             Logger.getLogger(UserManagementAction.class.getName()).log(Level.SEVERE, null, ex);
             return "failure";
@@ -117,5 +138,24 @@ public class UserManagementAction extends ActionSupport {
 
     public void setUsers(List<UserDTO> users) {
         this.users = users;
+    }
+
+    public String getRoleName() {
+        return roleName;
+    }
+
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
+    }
+
+    public List<RoleDTO> getRoles() {
+        
+        if (roles == null)
+            roles = new ArrayList<RoleDTO>();
+        return roles;
+    }
+
+    public void setRoles(List<RoleDTO> roles) {
+        this.roles = roles;
     }
 }
