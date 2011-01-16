@@ -170,8 +170,6 @@ public abstract class AbstractDAO {
             List list = q.list();
             if (list != null && list.size() > 0)
                 obj = list.get(0);
-            
-            trx.commit();
         } catch (HibernateException e) {
             
             obj = null;
@@ -192,8 +190,6 @@ public abstract class AbstractDAO {
         try {
             
             list = q.list();
-            
-            trx.commit();
         } catch (HibernateException e) {
             
             list = null;

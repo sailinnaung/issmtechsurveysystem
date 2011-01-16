@@ -137,6 +137,8 @@ public class SurveyDAOImpl extends AbstractDAO implements SurveyDAO {
         }
         
         ArrayList<SurveyDTO> surveys = new ArrayList<SurveyDTO>(this.findList(q));
+        this.endOperation();
+        
         return surveys;
     }
     
@@ -150,6 +152,8 @@ public class SurveyDAOImpl extends AbstractDAO implements SurveyDAO {
                 .setInteger("state", state);
         
         ArrayList<SurveyDTO> surveys = new ArrayList<SurveyDTO>(this.findList(q));
+        this.endOperation();
+        
         return surveys;
     }
 }
