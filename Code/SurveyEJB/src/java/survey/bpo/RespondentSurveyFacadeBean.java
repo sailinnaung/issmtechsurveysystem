@@ -7,6 +7,7 @@ package survey.bpo;
 
 import java.util.ArrayList;
 import javax.ejb.Stateless;
+import org.hibernate.Query;
 import survey.dto.*;
 import survey.exception.*;
 import survey.dao.*;
@@ -113,15 +114,14 @@ public class RespondentSurveyFacadeBean implements RespondentSurveyFacadeRemote 
     }
 
     public ArrayList<SurveyDTO> findOpenSurveys(int maxRecords) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        
+        SurveyResponseDAO dao = DAOFactory.getSurveyResponseDAO();
+        return dao.getOpenSurveys(maxRecords);
     }
 
-    public ArrayList<SurveyDTO> findSurveys(String username, SurveySearchCriteriaDTO criteria) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public ArrayList<SurveyDTO> findSurveysByState(String username, int state) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public ArrayList<SurveyAnswerDTO> findSurveysByState(String username, int state) {
+        SurveyResponseDAO dao = DAOFactory.getSurveyResponseDAO();
+        return dao.findSurveysByState(username, state);
     }
 
     public SurveyAnswerDTO getSurveyResponse(String username, int surveyAnswerID) 

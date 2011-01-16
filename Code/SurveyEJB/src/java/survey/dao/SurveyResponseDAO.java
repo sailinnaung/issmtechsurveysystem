@@ -5,6 +5,7 @@
 
 package survey.dao;
 
+import java.util.ArrayList;
 import survey.dto.*;
 
 /**
@@ -26,4 +27,8 @@ public interface SurveyResponseDAO {
     public boolean deleteSurveyResponse(int surveyAnswerID);
     
     public boolean submitSurveyResponse(int surveyAnswerID);
+    
+    public ArrayList<SurveyAnswerDTO> findSurveysByState(String username, int state);
+    
+    public ArrayList<SurveyDTO> getOpenSurveys(int maxRecords);
 }

@@ -5,6 +5,7 @@
 
 package survey.dao.hibernate;
 
+import java.util.ArrayList;
 import org.hibernate.Hibernate;
 import org.hibernate.Query;
 import survey.dao.*;
@@ -111,4 +112,39 @@ public class SurveyResponseDAOImpl extends AbstractDAO implements SurveyResponse
         
         return true;
     }
+    
+    public ArrayList<SurveyDTO> getOpenSurveys(int maxRecords) {
+        
+        String hql = "from SurveyDTO as s " +
+                " where not exists ( " +
+                " from SurveyAnswerDTO as ans " +
+                " where ans.survey = s " +
+                " and ans.state <> :state)";
+        Query q = this.createQuery(hql)
+                .setInteger("state", ActivityTypes.INVALID)
+                .setMaxResults(maxRecords);
+        
+        ArrayList<SurveyDTO> surveys = new ArrayList<SurveyDTO>(this.findList(q));
+        this.endOperation();
+        
+        return surveys;
+    }
+    
+    public ArrayList<SurveyAnswerDTO> findSurveysByState(String username, int state) {
+        
+        String hql = "from SurveyAnswerDTO as s " +
+                " where s.user.username = :username " +
+                " and s.state = :state";
+        
+        Query q = this.createQuery(hql)
+                .setInteger("state", state)
+                .setString("username", username);
+        
+        ArrayList<SurveyAnswerDTO> answers = new ArrayList<SurveyAnswerDTO>(this.findList(q));
+        this.endOperation();
+        
+        return answers;
+    }
+    
+    
 }
