@@ -13,10 +13,11 @@ import java.io.Serializable;
  */
 public class TextQuestionDTO extends QuestionDTO implements Serializable {
 
-    protected boolean multilineFlg;
-    protected int charsLimit;
-    protected String defaultText;
-    protected String restrictions;    // RegEx value
+    private int questionType;
+    private boolean multilineFlg;
+    private int charsLimit;
+    private String defaultText;
+    private String restrictions;    // RegEx value
     
     public TextQuestionDTO() {
         
@@ -56,6 +57,12 @@ public class TextQuestionDTO extends QuestionDTO implements Serializable {
     }
     
     public int getQuestionType() {
-        return QuestionTypes.COMPOSITE;
+        return questionType;
+    }
+    
+    public void setQuestionType(int questionType) {
+        this.questionType = questionType;
+        if (this.questionType == QuestionTypes.NUMBER)
+            this.restrictions = "[0-9]*";
     }
 }

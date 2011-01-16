@@ -5,7 +5,7 @@
 
 package survey.dto;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -13,19 +13,18 @@ import java.util.ArrayList;
  */
 public class OptionAnswerDTO extends AnswerDTO implements java.io.Serializable {
 
-    private ArrayList<OptionDTO> options;
+    private List<OptionDTO> options;
     
     public OptionAnswerDTO() {
         
         super();
-        options = new ArrayList<OptionDTO>();
     }
 
-    public ArrayList<OptionDTO> getOptions() {
+    public List<OptionDTO> getOptions() {
         return options;
     }
 
-    public void setOptions(ArrayList<OptionDTO> options) {
+    public void setOptions(List<OptionDTO> options) {
         this.options = options;
     }
 }

@@ -19,7 +19,7 @@ import survey.dto.*;
  */
 public class SurveyQuestionDAOImpl extends AbstractDAO implements SurveyQuestionDAO {
 
-    private void calculateRatings(RatingQuestionDTO question) {
+    private void calculateRatings(OptionQuestionDTO question) {
         
         List<OptionDTO> options = question.getOptions();
         if (options != null && options.size() > 0) {
@@ -61,10 +61,11 @@ public class SurveyQuestionDAOImpl extends AbstractDAO implements SurveyQuestion
         
         QuestionDTO question = (QuestionDTO) this.find(QuestionDTO.class, questionID);
         if (question != null) {
-            if (question.getQuestionType() == QuestionTypes.MCQ ||
+            if (question.getQuestionType() == QuestionTypes.CHECKBOX_MCQ ||
+                    question.getQuestionType() == QuestionTypes.RADIO_MCQ ||
                     question.getQuestionType() == QuestionTypes.RATING) {
                 
-                Hibernate.initialize(question.getOptions());
+                Hibernate.initialize(((OptionQuestionDTO)question).getOptions());
             }
         }
         
@@ -81,7 +82,7 @@ public class SurveyQuestionDAOImpl extends AbstractDAO implements SurveyQuestion
         
         // calculate range
         if (question.getQuestionType() == QuestionTypes.RATING)
-            calculateRatings((RatingQuestionDTO) question);
+            calculateRatings((OptionQuestionDTO) question);
         
         surveyPage.getQuestions().add(question);
         
@@ -125,23 +126,25 @@ public class SurveyQuestionDAOImpl extends AbstractDAO implements SurveyQuestion
     {
         QuestionDTO question = (QuestionDTO) this.find(QuestionDTO.class, questionID);
         
-        if (question.getQuestionType() != QuestionTypes.MCQ 
-                && question.getQuestionType() != QuestionTypes.RATING) {
+        if (question.getQuestionType() != QuestionTypes.CHECKBOX_MCQ &&
+                question.getQuestionType() != QuestionTypes.RADIO_MCQ &&
+                question.getQuestionType() != QuestionTypes.RATING) {
             
             return option;
         }
         
-        if (question.getOptions() == null)    
-            question.setOptions(new ArrayList<OptionDTO>());
+        OptionQuestionDTO q = (OptionQuestionDTO) question;
+        if (q.getOptions() == null)    
+            q.setOptions(new ArrayList<OptionDTO>());
         
-        question.getOptions().add(option);
+        q.getOptions().add(option);
         
         // calculate range
         if (question.getQuestionType() == QuestionTypes.RATING)
-            calculateRatings((RatingQuestionDTO) question);
+            calculateRatings(q);
         
         // complete
-        this.saveOrUpdate(question);
+        this.saveOrUpdate(q);
         
         return option;
     }
@@ -149,19 +152,26 @@ public class SurveyQuestionDAOImpl extends AbstractDAO implements SurveyQuestion
     public OptionDTO updateQuestionOption(int questionID, OptionDTO option) {
         
         QuestionDTO question = (QuestionDTO) this.find(QuestionDTO.class, questionID);
-        Hibernate.initialize(question.getOptions());
-        int size = question.getOptions().size();
-        for (int i = 0; i < size; i++) {
-            
-            OptionDTO tmpOption = question.getOptions().get(i);
-            if (option.getOptionID() == tmpOption.getOptionID()) {
-                question.getOptions().set(i, option);
-                break;
-            }
-        }
         
-        if (question.getQuestionType() == QuestionTypes.RATING)
-            calculateRatings((RatingQuestionDTO) question);
+        if (question.getQuestionType() == QuestionTypes.CHECKBOX_MCQ ||
+                question.getQuestionType() == QuestionTypes.RADIO_MCQ ||
+                question.getQuestionType() == QuestionTypes.RATING) {
+            
+            OptionQuestionDTO q = (OptionQuestionDTO) question;
+            Hibernate.initialize(q.getOptions());
+            int size = q.getOptions().size();
+            for (int i = 0; i < size; i++) {
+            
+                OptionDTO tmpOption = q.getOptions().get(i);
+                if (option.getOptionID() == tmpOption.getOptionID()) {
+                    q.getOptions().set(i, option);
+                    break;
+                }
+            }
+        
+            if (q.getQuestionType() == QuestionTypes.RATING)
+                calculateRatings((OptionQuestionDTO) question);
+        }
         
         this.saveOrUpdate(question);
         
@@ -171,19 +181,27 @@ public class SurveyQuestionDAOImpl extends AbstractDAO implements SurveyQuestion
     public boolean deleteQuestionOption(int questionID, OptionDTO option) {
         
         QuestionDTO question = (QuestionDTO) this.find(QuestionDTO.class, questionID);
-        Hibernate.initialize(question.getOptions());
-        int size = question.getOptions().size();
+        if (question.getQuestionType() != QuestionTypes.CHECKBOX_MCQ &&
+                question.getQuestionType() != QuestionTypes.RADIO_MCQ &&
+                question.getQuestionType() != QuestionTypes.RATING) {
+            
+            return false;
+        }
+        
+        OptionQuestionDTO q = (OptionQuestionDTO) question;
+        Hibernate.initialize(q.getOptions());
+        int size = q.getOptions().size();
         for (int i = 0; i < size; i++) {
             
-            OptionDTO tmpOption = question.getOptions().get(i);
+            OptionDTO tmpOption = q.getOptions().get(i);
             if (option.getOptionID() == tmpOption.getOptionID()) {
-                question.getOptions().remove(i);
+                q.getOptions().remove(i);
                 break;
             }
         }
         
         if (question.getQuestionType() == QuestionTypes.RATING)
-            calculateRatings((RatingQuestionDTO) question);
+            calculateRatings(q);
         
         this.saveOrUpdate(question);
         
