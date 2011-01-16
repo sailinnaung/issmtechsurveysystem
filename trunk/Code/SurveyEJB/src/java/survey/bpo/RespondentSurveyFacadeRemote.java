@@ -45,6 +45,5 @@ public interface RespondentSurveyFacadeRemote {
             throws UserNotFoundException;
     
     ArrayList<SurveyDTO> findOpenSurveys(int maxRecords);
-    ArrayList<SurveyDTO> findSurveysByState(String username, int state);
-    ArrayList<SurveyDTO> findSurveys(String username, SurveySearchCriteriaDTO criteria);
+    ArrayList<SurveyAnswerDTO> findSurveysByState(String username, int state);
 }
