@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-  
   <class name="survey.dto.SurveyDTO" table="SURVEY">
     <id column="SURVEY_ID" name="surveyID" type="integer">
       <generator class="native"/>
     </id>
-    <many-to-one class="survey.dto.UserDTO" column="USER_ID" name="owner" not-null="true" fetch="join"/>
+    <many-to-one class="survey.dto.UserDTO" column="USER_ID" fetch="join" name="owner" not-null="true"/>
     <property column="CREATE_DATE" name="createDate" not-null="true" type="calendar_date"/>
     <property column="UPDATE_DATE" name="updateDate" not-null="true" type="calendar"/>
     <property column="TITLE" length="200" name="title" not-null="true" type="string"/>
@@ -14,7 +13,7 @@
     <property column="STATE" name="state" not-null="true" type="integer"/>
     <property column="START_DATE" name="startDate" not-null="true" type="calendar_date"/>
     <property column="END_DATE" name="endDate" not-null="true" type="calendar_date"/>
-    <bag cascade="all" name="pages" table="SURVEY_PAGE" order-by="pageNo">
+    <bag cascade="all" name="pages" order-by="pageNo" table="SURVEY_PAGE">
       <key column="SURVEY_ID" not-null="true"/>
       <one-to-many class="survey.dto.SurveyPageDTO"/>
     </bag>
@@ -27,7 +26,7 @@
     <property column="TITLE" length="200" name="title" not-null="true" type="string"/>
     <property column="DESCRIPTION" length="1000" name="description" type="string"/>
     <property column="STATE" name="state" type="integer"/>
-    <bag cascade="all" name="questions" table="SURVEY_PAGE_QUESTION" order-by="order">
+    <bag cascade="all" name="questions" order-by="order" table="SURVEY_PAGE_QUESTION">
       <key column="SURVEY_PAGE_ID" not-null="true"/>
       <one-to-many class="survey.dto.QuestionDTO"/>
     </bag>
@@ -43,22 +42,22 @@
     <property column="MANDATORY_FLG" name="mandatoryFlg" not-null="true" type="boolean"/>
     <property column="DISPLAY_ORDER" name="order" not-null="true" type="integer"/>
     <joined-subclass name="survey.dto.OptionQuestionDTO" table="SURVEY_OPTION_QUESTION">
+      <key column="SURVEY_QUESTION_ID"/>
+      <property column="ORIENTATION" name="orientation" not-null="true" type="integer"/>
+      <property column="PRINT_ORDER" name="printOrder" not-null="true" type="integer"/>
+      <property column="VALUE_FROM" name="valueFrom" type="integer"/>
+      <property column="VALUE_TO" name="valueTo" type="integer"/>
+      <bag cascade="all" name="options" order-by="order" table="SURVEY_QUESTION_OPTION">
         <key column="SURVEY_QUESTION_ID"/>
-        <property column="ORIENTATION" name="orientation" not-null="true" type="integer"/>
-        <property column="PRINT_ORDER" name="printOrder" not-null="true" type="integer"/>
-        <property column="VALUE_FROM" name="valueFrom" type="integer"/>
-        <property column="VALUE_TO" name="valueTo" type="integer"/>
-        <bag cascade="all" name="options" table="SURVEY_QUESTION_OPTION" order-by="order">
-            <key column="SURVEY_QUESTION_ID"/>
-            <one-to-many class="survey.dto.OptionDTO"/>
-        </bag>
+        <one-to-many class="survey.dto.OptionDTO"/>
+      </bag>
     </joined-subclass>
     <joined-subclass name="survey.dto.TextQuestionDTO" table="SURVEY_TEXT_QUESTION">
-        <key column="SURVEY_QUESTION_ID"/>
-        <property column="MULTILINE_FLG" name="multilineFlg" not-null="true" type="boolean"/>
-        <property column="CHARS_LIMIT" name="charsLimit" type="integer"/>
-        <property column="DEFAULT_TEXT" length="100" name="defaultText" type="string"/>
-        <property column="RESTRICTION" length="20" name="restrictions" type="string"/>
+      <key column="SURVEY_QUESTION_ID"/>
+      <property column="MULTILINE_FLG" name="multilineFlg" not-null="true" type="boolean"/>
+      <property column="CHARS_LIMIT" name="charsLimit" type="integer"/>
+      <property column="DEFAULT_TEXT" length="100" name="defaultText" type="string"/>
+      <property column="RESTRICTION" length="20" name="restrictions" type="string"/>
     </joined-subclass>
   </class>
   <class name="survey.dto.OptionDTO" table="SURVEY_QUESTION_OPTION">
@@ -70,5 +69,4 @@
     <property column="OPTION_VALUE" name="value" not-null="true" type="float"/>
     <property column="DISPLAY_ORDER" name="order" not-null="true" type="integer"/>
   </class>
-  
 </hibernate-mapping>

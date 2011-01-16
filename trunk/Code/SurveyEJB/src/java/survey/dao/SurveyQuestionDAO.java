@@ -5,6 +5,7 @@
 
 package survey.dao;
 
+import java.util.ArrayList;
 import survey.dto.*;
 import survey.exception.*;
 
@@ -24,4 +25,6 @@ public interface SurveyQuestionDAO {
     public OptionDTO createQuestionOption(int questionID, OptionDTO option);
     public OptionDTO updateQuestionOption(int questionID, OptionDTO option);
     public boolean deleteQuestionOption(int questionID, OptionDTO option);
+    
+    public ArrayList<OptionReportDTO> getReportStats(int questionID);
 }

@@ -31,4 +31,6 @@ public interface SurveyResponseDAO {
     public ArrayList<SurveyAnswerDTO> findSurveysByState(String username, int state);
     
     public ArrayList<SurveyDTO> getOpenSurveys(int maxRecords);
+    
+    public int calcTotalResponses(int surveyID);
 }

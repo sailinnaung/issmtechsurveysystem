@@ -146,5 +146,13 @@ public class SurveyResponseDAOImpl extends AbstractDAO implements SurveyResponse
         return answers;
     }
     
-    
+    public int calcTotalResponses(int surveyID) {
+        
+        String hql = "select count(*) numResponses from SurveyAnswerDTO where s.state = :state and surveyID = :surveyID";
+        Query q = this.createQuery(hql)
+                .setInteger("state", ActivityTypes.CLOSE);
+        Object arg = this.find(q);
+        Integer intArg = (Integer) arg;
+        return intArg;
+    }
 }
