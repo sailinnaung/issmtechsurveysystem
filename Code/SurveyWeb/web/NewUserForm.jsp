@@ -11,8 +11,6 @@
         <title> Add New User </title>
     </head>
     <body>
-
-        <h1>Add New User</h1>
         <s:form namespace="user" action="addUser_%{user.username}">
 			<s:actionerror/>
             <table>
@@ -20,6 +18,11 @@
                     <td ><s:text name="User Name"/>:</td>
                     <td><s:textfield name="user.username" size="30" />
                         <s:fielderror><s:param>user.username</s:param></s:fielderror></td>
+                </tr>
+                <tr>
+                    <td ><s:text name="Full Name"/>:</td>
+                    <td><s:textfield name="user.fullName" size="30" />
+                        <s:fielderror><s:param>user.fullname</s:param></s:fielderror></td>
                 </tr>
                 <tr>
                     <td><s:text name="Password"/>:</td>
@@ -34,7 +37,7 @@
                 <tr>
                     <td ><s:text name="Role"/>:</td>
                     <td>
-                        <s:select name="Role" list="{'Respondents', 'Researcher', 'Admin'}"/>
+                        <s:select name="roleName" list="roles" listKey="roleID" listValue="name"/>
                     </td>
                 </tr>
                 <tr>

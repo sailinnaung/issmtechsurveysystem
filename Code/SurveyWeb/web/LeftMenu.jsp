@@ -11,12 +11,21 @@
 <%@ taglib uri="/struts-tags" prefix="s" %>
 
 
-    <s:form action="leftMenu" method="post" namespace="/">
-<table width="100%" border="0" cellpadding="0" cellspacing="5" class="leftMenu">
-  <s:iterator value="" var="stat">
+   
+<table width="100%" border="0" cellpadding="0" cellspacing="5" class="leftMenu">       
+        
+        <s:iterator var="function" value="#session.FUNCTIONS_USER" >
+            <s:url id="actionUrl" namespace="/" action="leftMenu" >
+                <s:param name="linkAction" value="#function.code"/>
+            </s:url>
+            <tr>
+                <td><s:a href="%{actionUrl}" name="linkAction" ><s:property value="name"/></s:a></td>
+            </tr>
+       </s:iterator>
+
   <tr>
-      <td><a href="" class=""><s:text name=""/></a></td>
+      <td><a href="<c:url value="/logout.action"/>" ><s:text name="leftMenu.LogOut"/></a></td>
   </tr>
-  </s:iterator>
 </table>
-        </s:form>
+
+        

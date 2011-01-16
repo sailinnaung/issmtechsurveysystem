@@ -40,6 +40,16 @@
         <put-attribute name="body"        value="/Questionnaire_new.jsp"/>
         <put-attribute name="bodyTitle"   value="survey.questionnaire_new_title"/>
     </definition>
-
+    
+    <definition name="tiles.questionpagelist" extends="mainLayout">
+        <put-attribute name="body"        value="/Question_list.jsp"/>
+        <put-attribute name="bodyTitle"   value="survey.question_list_title"/>
+    </definition>
+    
+    <definition name="tiles.findusers" extends="mainLayout">
+        <put-attribute name="body"        value="/FindUser.jsp"/>
+        <put-attribute name="bodyTitle"   value="survey.find_users"/>
+    </definition>
+    
 
 </tiles-definitions>

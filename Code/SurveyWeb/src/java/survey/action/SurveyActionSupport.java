@@ -37,7 +37,7 @@ public class SurveyActionSupport extends ActionSupport implements
 
     private SurveyDTO currentSurvey;
     private UserDTO userObj;
-    private Map<String,List<FunctionDTO>> functionsOfUser=new HashMap<String, List<FunctionDTO>>();
+    private List<FunctionDTO> functionsOfUser;
 
     public SurveyActionSupport() {
     }
@@ -89,20 +89,12 @@ public class SurveyActionSupport extends ActionSupport implements
     }
 
 
-    public Map<String,List<FunctionDTO>> getFunctions(){
-        return this.functionsOfUser;
+    public List<FunctionDTO> getFunctions(){
+        return (List<FunctionDTO>)session.get(SurveyActionSupport.FUNCTIONS_USER);
     }
-
-    public boolean addFunctions(String roleName,List<FunctionDTO> funcs){
-        boolean successFlag = false;
-        if(roleName!=null && roleName.length()>0){
-            this.functionsOfUser.put(roleName, funcs);
-            successFlag = true;
-        }
-        return successFlag;
-    }
-
-    public void setFunctions(){       
+   
+    public void setFunctions(List<FunctionDTO> funcs){
+        this.functionsOfUser = funcs;
         session.put(SurveyActionSupport.FUNCTIONS_USER, this.functionsOfUser);
     }
 

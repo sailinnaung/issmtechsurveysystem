@@ -19,7 +19,7 @@
     </head>
     <body>
         <fmt:setBundle basename="SurveyResource"/>
-        <s:form id="questionnaire_new_form" action="updateQuestionnaire_%{surveyObj.surveyID}" method="post">	
+        <s:form namespace="/questionnaire" id="questionnaire_new_form" action="submitQuestionniare_survey" method="post">	
 	<div id="questionnaire_new_details" align="center">
 		<table cellpadding="0" cellspacing="0" width="100%" border="0">
 		  <tr>
@@ -44,13 +44,13 @@
 	</div>
 	<div id="questionnaire_new_button" align="center">
 		<table width="100%" border="0" cellpadding="0" cellspacing="0">
-		  <tr>
-                      <td  align="center"><s:submit action="newQuestionList_all" label="Create"/></td>
-                      <td  align="center"><s:submit value="" label="Submit"/></td>
+		  <tr>                      
+                      <td  align="center"><s:submit name="submitBtn" value="create" label="Create"/></td>
+                      <td  align="center"><s:submit name="submitBtn" value="submit" label="Submit"/></td>
                       <td  align="center"><s:reset label="Reset"/></td>
-		  </tr>
+		  </tr>                  
 		</table>
-	</div>
+	</div>        
 </s:form>
     </body>
 </html>
