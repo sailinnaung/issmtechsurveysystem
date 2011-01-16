@@ -52,7 +52,8 @@ public class UserFacadeBean implements UserFacadeRemote {
         
         UserDAO dao = DAOFactory.getUserDAO();
         UserDTO user = dao.getUser(userID);
-        user.setPassword("");   // Never pass the password
+        if (user != null)
+            user.setPassword("");   // Never pass the password
         
         return user;
     }
@@ -61,7 +62,8 @@ public class UserFacadeBean implements UserFacadeRemote {
         
         UserDAO dao = DAOFactory.getUserDAO();
         UserDTO user = dao.getUser(username);
-        user.setPassword("");   // Never pass the password
+        if (user != null)
+            user.setPassword("");   // Never pass the password
         
         return user;
     }
