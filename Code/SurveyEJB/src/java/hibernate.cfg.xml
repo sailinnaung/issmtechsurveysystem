@@ -32,5 +32,6 @@
         <!-- Mapping files -->
         <mapping resource="user.hbm.xml" />
         <mapping resource="survey.hbm.xml" />
+        <mapping resource="response.hbm.xml" />
     </session-factory>
 </hibernate-configuration>
