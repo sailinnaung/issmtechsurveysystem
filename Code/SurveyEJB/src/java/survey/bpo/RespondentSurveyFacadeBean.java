@@ -166,6 +166,13 @@ public class RespondentSurveyFacadeBean implements RespondentSurveyFacadeRemote 
     public boolean submitResponse(String username, int surveyAnswerID) 
             throws UserNotFoundException {
         
+        // Check user
+        UserHelper userHelper = new UserHelper();
+        UserDTO user = userHelper.checkUserExists(username);
+        if (user == null)
+            return false;
         
+        SurveyResponseDAO dao = DAOFactory.getSurveyResponseDAO();
+        return dao.submitSurveyResponse(surveyAnswerID);
     }
 }
