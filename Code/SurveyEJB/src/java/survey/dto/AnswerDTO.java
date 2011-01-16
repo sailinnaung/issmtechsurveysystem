@@ -12,7 +12,8 @@ package survey.dto;
 public abstract class AnswerDTO implements java.io.Serializable {
     
     private int answerID;
-    private QuestionDTO question;   // Must be a clone
+    private QuestionDTO question;
+    private int order;
     
     public AnswerDTO() {
         
@@ -32,5 +33,13 @@ public abstract class AnswerDTO implements java.io.Serializable {
 
     public void setQuestion(QuestionDTO question) {
         this.question = question;
+    }
+
+    public int getOrder() {
+        return order;
+    }
+
+    public void setOrder(int order) {
+        this.order = order;
     }
 }

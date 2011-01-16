@@ -24,7 +24,6 @@ public abstract class QuestionDTO implements Serializable {
     protected boolean mandatoryFlg;
     protected int order;
     protected QuestionDTO parent;   // Used for composite questions.
-    protected List<OptionDTO> options;
     
     public QuestionDTO() {
         
@@ -69,9 +68,13 @@ public abstract class QuestionDTO implements Serializable {
     public void setState(int state) {
         this.state = state;
     }
-
+    
     public abstract int getQuestionType();
 
+    public void setQuestionType(int questionType) {
+        return;
+    }
+    
     public int getOrder() {
         return order;
     }
@@ -94,13 +97,5 @@ public abstract class QuestionDTO implements Serializable {
 
     public void setParent(QuestionDTO parent) {
         this.parent = parent;
-    }
-
-    public List<OptionDTO> getOptions() {
-        return options;
-    }
-
-    public void setOptions(List<OptionDTO> options) {
-        return;
     }
 }

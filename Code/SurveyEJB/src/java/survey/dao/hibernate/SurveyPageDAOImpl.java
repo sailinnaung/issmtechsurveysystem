@@ -53,14 +53,14 @@ public class SurveyPageDAOImpl extends AbstractDAO implements SurveyPageDAO {
             if (surveyPage.getQuestions() == null)
                 surveyPage.setQuestions(new ArrayList<QuestionDTO>());
             
-            // Filter out all CLOSED and INVALID questions
             List<QuestionDTO> questions = surveyPage.getQuestions();
             for (int i = 0; i < questions.size(); i++) {
                 
                 QuestionDTO question = questions.get(i);
-                if (question.getQuestionType() == QuestionTypes.MCQ ||
+                if (question.getQuestionType() == QuestionTypes.CHECKBOX_MCQ ||
+                        question.getQuestionType() == QuestionTypes.RADIO_MCQ ||
                         question.getQuestionType() == QuestionTypes.RATING) {
-                    Hibernate.initialize(question.getOptions());
+                    Hibernate.initialize(((OptionQuestionDTO)question).getOptions());
                 }
             }
         }

@@ -13,6 +13,8 @@ import java.util.ArrayList;
  */
 public class SurveyPageAnswerDTO implements java.io.Serializable {
 
+    private int surveyPageAnswerID;
+    private int pageNo;
     private SurveyPageDTO page;
     private ArrayList<AnswerDTO> answers;
     
@@ -35,5 +37,21 @@ public class SurveyPageAnswerDTO implements java.io.Serializable {
 
     public void setPage(SurveyPageDTO page) {
         this.page = page;
+    }
+
+    public int getPageNo() {
+        return pageNo;
+    }
+
+    public void setPageNo(int pageNo) {
+        this.pageNo = pageNo;
+    }
+
+    public int getSurveyPageAnswerID() {
+        return surveyPageAnswerID;
+    }
+
+    public void setSurveyPageAnswerID(int surveyPageAnswerID) {
+        this.surveyPageAnswerID = surveyPageAnswerID;
     }
 }

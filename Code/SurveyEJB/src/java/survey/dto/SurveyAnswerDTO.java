@@ -5,7 +5,7 @@
 
 package survey.dto;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -16,19 +16,18 @@ public class SurveyAnswerDTO implements java.io.Serializable {
     private int surveyAnswerID;
     private SurveyDTO survey;
     private UserDTO user;
-    private ArrayList<SurveyPageDTO> pages;
+    private List<SurveyPageAnswerDTO> pages;
     private int state;
     
     public SurveyAnswerDTO() {
         
-        pages = new ArrayList<SurveyPageDTO>();
     }
 
-    public ArrayList<SurveyPageDTO> getPages() {
+    public List<SurveyPageAnswerDTO> getPages() {
         return pages;
     }
 
-    public void setPages(ArrayList<SurveyPageDTO> pages) {
+    public void setPages(List<SurveyPageAnswerDTO> pages) {
         this.pages = pages;
     }
 
