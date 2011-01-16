@@ -8,6 +8,7 @@ package survey.bpo;
 import java.util.ArrayList;
 import javax.ejb.Remote;
 import survey.dto.*;
+import survey.exception.*;
 
 /**
  *
@@ -16,9 +17,18 @@ import survey.dto.*;
 @Remote
 public interface RespondentSurveyFacadeRemote {
 
-    SurveyDTO getSurvey(String username, int surveyID);
-    SurveyPageDTO getSurveyPage(String username, int surveyID, int surveyPageID);
-    SurveyPageDTO saveSurveyPageResponse(String username, SurveyPageDTO surveyPage);
+    SurveyDTO getSurvey(String username, int surveyID) throws UserNotFoundException, 
+            RecordNotFoundException;
+    
+    SurveyPageDTO getSurveyPage(String username, int surveyID, int surveyPageID)
+            throws UserNotFoundException, RecordNotFoundException;
+    
+    SurveyAnswerDTO createSurveyResponse(String username, int surveyPageID)
+            throws UserNotFoundException, OperationFailedException, RecordExistsException;
+    
+    SurveyPageAnswerDTO saveSurveyPageResponse(String username, int surveyPageAnswerID, SurveyPageAnswerDTO surveyPage)
+            throws UserNotFoundException, RecordNotFoundException;
+    
     SurveyAnswerDTO getSurveryReponse(String username, int surveyID);
     SurveyPageAnswerDTO getSurveyPageResponse(String username, int surveyPageAnswerID);
     SurveyDTO submitResponse(String username, int surveyID);
