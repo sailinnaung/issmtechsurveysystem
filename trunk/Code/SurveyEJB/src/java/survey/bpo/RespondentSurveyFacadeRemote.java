@@ -26,13 +26,23 @@ public interface RespondentSurveyFacadeRemote {
     SurveyAnswerDTO createSurveyResponse(String username, int surveyPageID)
             throws UserNotFoundException, OperationFailedException, RecordExistsException;
     
-    SurveyPageAnswerDTO saveSurveyPageResponse(String username, int surveyPageAnswerID, SurveyPageAnswerDTO surveyPage)
-            throws UserNotFoundException, RecordNotFoundException;
+    SurveyPageAnswerDTO saveSurveyPageResponse(String username, int surveyAnswerID, int surveyPageID, SurveyPageAnswerDTO surveyPage)
+            throws UserNotFoundException, OperationFailedException, RecordNotFoundException;
     
-    SurveyAnswerDTO getSurveryReponse(String username, int surveyID);
-    SurveyPageAnswerDTO getSurveyPageResponse(String username, int surveyPageAnswerID);
-    SurveyDTO submitResponse(String username, int surveyID);
-    SurveyDTO deleteResponse(String username, int surveyID);
+    SurveyAnswerDTO getSurveyResponse(String username, int surveyAnswerID)
+            throws UserNotFoundException;
+    
+    SurveyAnswerDTO getSurveyResponseBySurvey(String username, int surveyID)
+            throws UserNotFoundException;
+    
+    SurveyPageAnswerDTO getSurveyPageResponse(String username, int surveyPageAnswerID)
+            throws UserNotFoundException;
+    
+    boolean submitResponse(String username, int surveyAnswerID) 
+            throws UserNotFoundException;
+    
+    boolean deleteResponse(String username, int surveyAnswerID)
+            throws UserNotFoundException;
     
     ArrayList<SurveyDTO> findOpenSurveys(int maxRecords);
     ArrayList<SurveyDTO> findSurveysByState(String username, int state);

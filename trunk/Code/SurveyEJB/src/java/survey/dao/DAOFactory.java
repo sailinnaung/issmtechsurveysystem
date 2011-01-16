@@ -37,4 +37,14 @@ public class DAOFactory {
         
         return new SurveyQuestionDAOImpl();
     }
+    
+    public static SurveyResponseDAO getSurveyResponseDAO() {
+        
+        return new SurveyResponseDAOImpl();
+    }
+    
+    public static SurveyPageResponseDAO getSurveyPageResponseDAO() {
+        
+        return new SurveyPageResponseDAOImpl();
+    }
 }
