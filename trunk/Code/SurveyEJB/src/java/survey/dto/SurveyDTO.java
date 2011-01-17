@@ -17,6 +17,7 @@ import java.util.Calendar;
 public class SurveyDTO implements Serializable {
 
     private int surveyID;
+    private String code;
     private UserDTO owner;
     private Calendar createDate;
     private Calendar updateDate;
@@ -109,5 +110,13 @@ public class SurveyDTO implements Serializable {
 
     public void setUpdateDate(Calendar updateDate) {
         this.updateDate = updateDate;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 }

@@ -17,6 +17,7 @@ public interface SurveyDAO {
 
     public SurveyDTO checkSurvey(int surveyID);
     public SurveyDTO getSurvey(int surveyID);
+    public SurveyDTO getSurvey(String code);
     public SurveyDTO createSurvey(SurveyDTO survey);
     public SurveyDTO updateSurvey(SurveyDTO survey);
     public boolean deleteSurvey(int surveyID);

@@ -8,6 +8,7 @@
     <many-to-one class="survey.dto.UserDTO" column="USER_ID" fetch="join" name="owner" not-null="true"/>
     <property column="CREATE_DATE" name="createDate" not-null="true" type="calendar_date"/>
     <property column="UPDATE_DATE" name="updateDate" not-null="true" type="calendar"/>
+    <property column="CODE" length="100" name="code" not-null="true" type="string" />
     <property column="TITLE" length="200" name="title" not-null="true" type="string"/>
     <property column="DESCRIPTION" length="1000" name="description" type="string"/>
     <property column="STATE" name="state" not-null="true" type="integer"/>

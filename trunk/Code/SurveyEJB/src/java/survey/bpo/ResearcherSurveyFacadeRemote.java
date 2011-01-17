@@ -28,6 +28,9 @@ public interface ResearcherSurveyFacadeRemote {
     SurveyDTO getSurvey(String username, int surveyID) 
             throws UserNotFoundException;
     
+    SurveyDTO getSurvey(String username, String code)
+            throws UserNotFoundException;
+    
     SurveyDTO updateSurvey(String username, SurveyDTO survey) 
             throws UserNotFoundException, UserNotAllowedException, RecordNotFoundException, 
             InvalidFieldException;
