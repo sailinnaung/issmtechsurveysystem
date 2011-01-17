@@ -143,3 +143,8 @@ h1 {
     border-width:2px;
 }
 
+.errorText
+{
+    color:red;
+}
+
