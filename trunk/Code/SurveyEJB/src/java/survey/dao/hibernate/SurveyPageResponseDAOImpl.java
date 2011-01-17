@@ -6,6 +6,7 @@
 package survey.dao.hibernate;
 
 import java.util.ArrayList;
+import java.util.List;
 import org.hibernate.Hibernate;
 import survey.dao.*;
 import survey.dto.*;
@@ -32,6 +33,27 @@ public class SurveyPageResponseDAOImpl extends AbstractDAO implements SurveyPage
         SurveyPageDTO surveyPage = (SurveyPageDTO) this.find(SurveyPageDTO.class, surveyPageID);
         pageAnswer.setPage(surveyPage);
         pageAnswer.setPageNo(surveyPage.getPageNo());
+        
+        // In the pageAnswer, make sure that the answers are filled up.
+        if (pageAnswer.getAnswers() == null)
+            pageAnswer.setAnswers(new ArrayList<AnswerDTO>());
+        
+        for (AnswerDTO answer : pageAnswer.getAnswers()) {
+            if (answer instanceof OptionAnswerDTO) {
+                
+                OptionAnswerDTO optionAns = (OptionAnswerDTO) answer;
+                if (optionAns.getOptions() == null)
+                    continue;
+                
+                List<OptionDTO> options = optionAns.getOptions();
+                for (int i = 0; i < options.size(); i++) {
+                    
+                    OptionDTO option = options.get(i);
+                    OptionDTO tmpOption = (OptionDTO) this.find(OptionDTO.class, option.getOptionID());
+                    options.set(i, tmpOption);
+                }
+            }
+        }
         
         SurveyAnswerDTO answer = (SurveyAnswerDTO) this.find(SurveyAnswerDTO.class, surveyAnswerID);
         if (answer.getPages() == null)
