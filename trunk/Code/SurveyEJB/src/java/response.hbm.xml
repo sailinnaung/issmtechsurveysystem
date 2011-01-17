@@ -24,21 +24,21 @@
       <one-to-many class="survey.dto.AnswerDTO"/>
     </bag>
   </class>
-  <class name="survey.dto.AnswerDTO" table="SURVEY_ANSWER">
-    <id column="SURVEY_ANSWER_ID" name="answerID" type="integer">
+  <class name="survey.dto.AnswerDTO" table="SURVEY_QUESTION_ANSWER">
+    <id column="SURVEY_QUESTION_ANSWER_ID" name="answerID" type="integer">
       <generator class="native"/>
     </id>
     <many-to-one class="survey.dto.QuestionDTO" column="SURVEY_QUESTION_ID" fetch="join" name="question" not-null="true"/>
     <property column="DISPLAY_ORDER" name="order" not-null="true" type="integer"/>
     <joined-subclass name="survey.dto.OptionAnswerDTO" table="SURVEY_OPTION_ANSWER">
-      <key column="SURVEY_ANSWER_ID"/>
+      <key column="SURVEY_QUESTION_ANSWER_ID"/>
       <bag cascade="none" name="options" table="SURVEY_ANSWER_OPTION">
-        <key column="SURVEY_ANSWER_ID" not-null="true"/>
+        <key column="SURVEY_QUESTION_ANSWER_ID" not-null="true"/>
         <many-to-many class="survey.dto.OptionDTO" column="OPTION_ID"/>
       </bag>
     </joined-subclass>
     <joined-subclass name="survey.dto.TextAnswerDTO" table="SURVEY_TEXT_ANSWER">
-      <key column="SURVEY_ANSWER_ID"/>
+      <key column="SURVEY_QUESTION_ANSWER_ID"/>
       <property column="TEXT_VALUE" name="value" not-null="true" type="string"/>
     </joined-subclass>
   </class>
