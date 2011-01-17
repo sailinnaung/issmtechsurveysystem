@@ -42,9 +42,6 @@ public class SurveyDAOImpl extends AbstractDAO implements SurveyDAO {
             
             if (survey.getState() != ActivityTypes.INVALID) {
                 Hibernate.initialize(survey.getPages());
-
-                if (survey.getPages() == null)
-                    survey.setPages(new ArrayList<SurveyPageDTO>());
             }
         }
         
@@ -64,9 +61,6 @@ public class SurveyDAOImpl extends AbstractDAO implements SurveyDAO {
             
             if (survey.getState() != ActivityTypes.INVALID) {
                 Hibernate.initialize(survey.getPages());
-
-                if (survey.getPages() == null)
-                    survey.setPages(new ArrayList<SurveyPageDTO>());
             }
         }
         
