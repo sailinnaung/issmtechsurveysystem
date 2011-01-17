@@ -8,6 +8,7 @@ package survey.dao.hibernate;
 import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import survey.exception.DAOException;
@@ -57,46 +58,62 @@ public abstract class AbstractDAO {
     }
     
     protected void save(Object obj) {
+        
+        boolean result = false;
+        
         try {
             
             init();
             session.save(obj);
-            
+            result = true;
         } catch (HibernateException e) {
             
+            result = false;
             handleException(e);
         } finally {
             
-            deinit();
+            if (!result)
+                deinit();
         }
     }
     
     protected void saveOrUpdate(Object obj) {
+        
+        boolean result = false;
+        
         try {
             
             init();
             session.saveOrUpdate(obj);
+            result = true;
         } catch (HibernateException e) {
             
+            result = false;
             handleException(e);
         } finally {
             
-            deinit();
+            if (!result)
+                deinit();
         }
     }
 
     protected void delete(Object obj) {
+        
+        boolean result = false;
+        
         try {
             
             init();
             session.delete(obj);
-            
+            result = true;
         } catch (HibernateException e) {
             
+            result = false;
             handleException(e);
         } finally {
             
-            deinit();
+            if (!result)
+                deinit();
         }
     }
     
@@ -122,17 +139,43 @@ public abstract class AbstractDAO {
         return q;
     }
     
+    protected SQLQuery createSQLQuery(String sql) {
+        
+        SQLQuery q = null;
+        
+        try {
+            
+            init();
+            q = session.createSQLQuery(sql);
+        } catch (HibernateException e) {
+            
+            q = null;
+            handleException(e);
+        } finally {
+            
+            if (q == null)
+                deinit();
+        }
+        
+        return q;
+    }
+    
     protected void executeUpdate(Query q) {
+        
+        boolean result = false;
         
         try {
             
             q.executeUpdate();
+            result = true;
         } catch (HibernateException e) {
             
+            result = false;
             handleException(e);
         } finally {
             
-            deinit();
+            if (!result)
+                deinit();
         }
     }
     
