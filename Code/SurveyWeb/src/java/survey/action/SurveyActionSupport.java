@@ -31,9 +31,10 @@ public class SurveyActionSupport extends ActionSupport implements
 
     public static final String USER = "USER";    
     public static final String FUNCTIONS_USER = "FUNCTIONS_USER";
+    public static final String CURRENT_SURVEY = "CURRENT_SURVEY";
 
     protected HttpServletRequest request;
-    protected Map session;
+    protected Map<String, Object> session;
 
     private SurveyDTO currentSurvey;
     private UserDTO userObj;
@@ -51,8 +52,8 @@ public class SurveyActionSupport extends ActionSupport implements
         return request;
     }
 
-    public void setSession(Map arg0) {
-        this.session = arg0;
+    public void setSession(Map<String, Object> session) {
+        this.session = session;
     }
 
     public HttpSession getSession(boolean b) {
@@ -71,6 +72,7 @@ public class SurveyActionSupport extends ActionSupport implements
      */
     public void setCurrentSurveyDto(SurveyDTO mySurveyDto) {
         this.currentSurvey = mySurveyDto;
+        session.put(SurveyActionSupport.CURRENT_SURVEY, this.currentSurvey);
     }
 
     /**

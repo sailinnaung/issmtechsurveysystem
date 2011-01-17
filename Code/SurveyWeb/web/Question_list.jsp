@@ -17,7 +17,7 @@
     </head>
     <body>
         <div id="question_list_header">
-	<table width="100%" border="0" cellpadding="0" cellspacing="0">
+	<table align="left" width="100%" border="0" cellpadding="0" cellspacing="0">
   <tr>
     <th width="35%" class="quest_label_new" scope="row">Questionnaire ID :</th>
     <td width="65%"><label id="questionnaire_label_id">1111</label></td>
@@ -28,6 +28,32 @@
   </tr>
 </table>
 </div>
+<br/>
+<fieldset><legend class="legend_header">Survey Page List</legend>
+<form action="" method="post" name="question_list_form">
+	<table width="100%" border="0" cellpadding="5" cellspacing="5">
+	  <tr>
+		<th scope="col" class="col_header">Page No</th>
+		<th scope="col" class="col_header">Title</th>
+		<th scope="col" class="col_header">Description</th>
+                <th scope="col" class="col_header">Check Questions List</th>
+		<th scope="col" class="col_header">Action</th>
+	  </tr>
+	  <tr class="table_oddRow">
+		<td>1</td>
+		<td>Evaluation of the program</td>
+		<td>blah blah blah</td>		
+		<td><a href="" target="_blank">Select</a></td>
+		<td><a href="" target="_blank">Edit</a>&nbsp;|&nbsp;<a href="" target="_blank">Delete</a></td>
+	  </tr>	  
+</table>
+<br/>
+<div id="question_add" align="left">
+<br/>
+	<a href="" target="_blank" class="functional_hyperlink">Add New Survey Page</a>
+</div>
+</form>
+</fieldset>
 <br/>
 <fieldset><legend class="legend_header">Question List</legend>
 <form action="" method="post" name="question_list_form">

@@ -28,6 +28,11 @@ public class QuestionAction extends SurveyActionSupport implements
         
         return questionPage_list;
     }
+    
+    public String createSurveyPage(){
+        
+        return "";
+    }
 
     public SurveyModel getModel() {
         return sModel;
