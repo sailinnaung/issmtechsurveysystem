@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class name="survey.dto.RoleDTO" table="ROLE">
+    <id column="ROLE_ID" name="roleID" type="integer">
+      <generator class="native"/>
+    </id>
+    <property column="ROLE_NAME" length="50" name="name" not-null="true" type="string" unique="true"/>
+    <property column="DESCRIPTION" length="200" name="description" type="string"/>
+    <bag cascade="none" name="functions" table="ROLE_FUNCTION">
+      <key column="ROLE_ID"/>
+      <many-to-many class="survey.dto.FunctionDTO" column="FUNCTION_ID"/>
+    </bag>
+  </class>
+  <class name="survey.dto.FunctionDTO" table="FUNCTION">
+    <id column="FUNCTION_ID" name="functionID" type="integer">
+      <generator class="native"/>
+    </id>
+    <property column="FUNCTION_CODE" length="20" name="code" not-null="true" type="string" unique="true"/>
+    <property column="FUNCTION_NAME" length="50" name="name" type="string"/>
+    <property column="DESCRIPTION" length="300" name="description" type="string"/>
+    <property column="DISPLAY_ORDER" name="order" type="integer"/>
+  </class>
+  <class name="survey.dto.UserDTO" table="USER">
+    <id column="USER_ID" name="userID" type="integer">
+      <generator class="native"/>
+    </id>
+    <property column="USER_NAME" length="30" name="username" not-null="true" type="string"/>
+    <property column="PASSWORD" length="30" name="password" not-null="true" type="string"/>
+    <property column="FULL_NAME" length="200" name="fullName" not-null="true" type="string"/>
+    <property column="EMAIL" length="100" name="email" type="string"/>
+    <property column="DELETE_FLG" name="deleteFlg" type="boolean"/>
+    <many-to-one class="survey.dto.RoleDTO" column="ROLE_ID" name="role" not-null="true"/>
+  </class>
+</hibernate-mapping>
