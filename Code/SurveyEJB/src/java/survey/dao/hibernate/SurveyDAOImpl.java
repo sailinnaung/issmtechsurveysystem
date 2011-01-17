@@ -147,9 +147,9 @@ public class SurveyDAOImpl extends AbstractDAO implements SurveyDAO {
     
     public ArrayList<SurveyDTO> findSurveys(String username, int state) {
      
-        String hql = "from SurveyDTO as s join s.owner as u " +
-                " where u.username = :username " +
-                " s.state = :state";
+        String hql = "from SurveyDTO sur " +
+                " where sur.owner.username = :username " +
+                " and sur.state = :state";
         Query q = this.createQuery(hql)
                 .setString("username", username)
                 .setInteger("state", state);
