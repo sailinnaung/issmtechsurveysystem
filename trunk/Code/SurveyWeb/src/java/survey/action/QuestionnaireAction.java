@@ -28,7 +28,7 @@ public class QuestionnaireAction extends SurveyActionSupport implements
     private SurveyModel model = new SurveyModel();
     private UserDTO usrObj;
     private String surveyID;
-    private SurveyDTO surveyObj;
+    //private SurveyDTO surveyObj;
     private ArrayList<SurveyDTO> recentEditList = new ArrayList<SurveyDTO>();
     private ArrayList<SurveyDTO> recentSubmitList = new ArrayList<SurveyDTO>();
     private String submitBtn;
@@ -43,10 +43,6 @@ public class QuestionnaireAction extends SurveyActionSupport implements
         recentEditList = rshrDelegate.findRecentSurveysByState(usrObj.getUsername(), ActivityTypes.DRAFT,SurveyActionConstants.recent_questionnaire_count);
         recentSubmitList = rshrDelegate.findRecentSurveysByState(usrObj.getUsername(), ActivityTypes.SUBMIT,SurveyActionConstants.recent_questionnaire_count);
 
-        System.out.println("setting model object");
-        
-        model.setSurveyEditList(getRecentEditList());
-        model.setSurveySubmitList(getRecentSubmitList());
                
         System.out.println("inside questionnaire Lobby before return action String");
 
@@ -63,7 +59,11 @@ public class QuestionnaireAction extends SurveyActionSupport implements
         if("create".equals(submitBtn)){
             System.out.println("inside create");
             ResearcherSurveyDelegate rshrDelegate = new ResearcherSurveyDelegate();
-            
+            System.out.println("Survey Model survey ID "+model.getCurrentSurvey().getSurveyID());
+            System.out.println("Survey Model survey Title "+model.getCurrentSurvey().getTitle());
+            System.out.println("Survey Model survey Descriptioin "+model.getCurrentSurvey().getSurveyID());
+                    
+                 
             
             return SurveyActionConstants.questionPage_list;
         }else{
@@ -77,7 +77,7 @@ public class QuestionnaireAction extends SurveyActionSupport implements
         return SurveyActionConstants.questionnaire_List;
     }
 
-    public SurveyModel getModel() {
+    public SurveyModel getModel() {        
         return model;
     }
     
@@ -85,10 +85,13 @@ public class QuestionnaireAction extends SurveyActionSupport implements
         super.prepare();
         System.out.println("inside QuestionnaireAction prepare setting user object");
         setUsrObj((UserDTO) session.get(SurveyActionSupport.USER));
-
+        
         if(usrObj==null){
             throw new NoLoginException("User not log in yet.");
         }
+        
+        
+        
 //        System.out.println("User is not null.");
 //        RoleDTO rDto = usrObj.getRole();
 
@@ -119,24 +122,24 @@ public class QuestionnaireAction extends SurveyActionSupport implements
     /**
      * @return the surveyObj
      */
-    public SurveyDTO getSurveyObj() {
-        if(surveyObj==null)
-            surveyObj = new SurveyDTO();
-        return surveyObj;
-    }
+//    public SurveyDTO getSurveyObj() {
+//        if(surveyObj==null)
+//            surveyObj = new SurveyDTO();
+//        return surveyObj;
+//    }
 
     /**
      * @param surveyObj the surveyObj to set
      */
-    public void setSurveyObj(SurveyDTO surveyObj) {
-        if(surveyObj!=null){
-            System.out.println("setting surveyObj");
-            surveyObj.setSurveyID(Integer.parseInt(surveyID));
-            this.surveyObj = surveyObj;
-        }else{
-            System.out.println("surveyObj is null.");
-        }        
-    }
+//    public void setSurveyObj(SurveyDTO surveyObj) {
+//        if(surveyObj!=null){
+//            System.out.println("setting surveyObj");
+//            surveyObj.setSurveyID(Integer.parseInt(surveyID));
+//            this.surveyObj = surveyObj;
+//        }else{
+//            System.out.println("surveyObj is null.");
+//        }        
+//    }
 
     public ArrayList<SurveyDTO> getRecentEditList() {
         return recentEditList;

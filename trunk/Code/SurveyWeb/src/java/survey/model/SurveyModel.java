@@ -17,27 +17,11 @@ import survey.dto.SurveyPageDTO;
  */
 public class SurveyModel {
 
-    private List<SurveyDTO> surveyEditList = new ArrayList<SurveyDTO>();
-    private List<SurveyDTO> surveySubmitList = new ArrayList<SurveyDTO>();
     private List<SurveyPageDTO> surveyPageList = new ArrayList<SurveyPageDTO>();
     private List<QuestionDTO> questionList = new ArrayList<QuestionDTO>();
     private SurveyDTO currentSurvey;
 
-    /**
-     * @return the surveyList
-     */
-    public List<SurveyDTO> getSurveyEdtList() {
-        return surveyEditList;
-    }
-
-    /**
-     * @param surveyList the surveyList to set
-     */
-    public void setSurveyEditList(List<SurveyDTO> surveyList) {
-        this.surveyEditList = surveyList;
-    }
-
-    /**
+       /**
      * @return the surveyPageList
      */
     public List<SurveyPageDTO> getSurveyPageList() {
@@ -78,19 +62,6 @@ public class SurveyModel {
     public void setCurrentSurvey(SurveyDTO currentSurvey) {
         this.currentSurvey = currentSurvey;
     }
-
-    /**
-     * @return the surveySubmitList
-     */
-    public List<SurveyDTO> getSurveySubmitList() {
-        return surveySubmitList;
-    }
-
-    /**
-     * @param surveySubmitList the surveySubmitList to set
-     */
-    public void setSurveySubmitList(List<SurveyDTO> surveySubmitList) {
-        this.surveySubmitList = surveySubmitList;
-    }
+    
 
 }

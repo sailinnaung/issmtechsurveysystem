@@ -24,21 +24,21 @@
 		<table cellpadding="0" cellspacing="0" width="100%" border="0">
 		  <tr>
 			<th scope="row" class="quest_label_new" width="30%">Survey ID :</th>
-                        <td><s:textfield name="surveyObj.surveyID" size="25%"/></td>
+                        <td><s:textfield name="currentSurvey.surveyID" size="25%"/></td>
 		  </tr>
 		  <tr>
 			<th scope="row" class="quest_label_new" width="30%">Survey Title :</th>
-			<td><s:textfield name="surveyObj.title" size="50%"/></td>
+			<td><s:textfield name="currentSurvey.title" size="50%"/></td>
 		  </tr>
 		  <tr>
 			<th scope="row" class="quest_label_new" width="30%">Description :</th>
-                        <td><s:textarea name="surveyObj.description" rows="5"/></td>
+                        <td><s:textarea name="currentSurvey.description" rows="5"/></td>
 		  </tr>
 		  <tr>			
-                        <td><sx:datetimepicker name="surveyObj.startDate" cssClass="quest_label_new" label="Publish Date:(dd-MM-yyyy)" displayFormat="dd-MM-yyyy"/></td>
+                        <td><sx:datetimepicker name="currentSurvey.startDate" cssClass="quest_label_new" label="Publish Date:(dd-MM-yyyy)" displayFormat="dd-MM-yyyy"/></td>
 		  </tr>
 		  <tr>			
-			<td><sx:datetimepicker name="surveyObj.startDate" cssClass="quest_label_new" label="Expire Date:(dd-MM-yyyy)" displayFormat="dd-MM-yyyy"/></td>
+			<td><sx:datetimepicker name="currentSurvey.startDate" cssClass="quest_label_new" label="Expire Date:(dd-MM-yyyy)" displayFormat="dd-MM-yyyy"/></td>
 		  </tr>
 	</table>
 	</div>
