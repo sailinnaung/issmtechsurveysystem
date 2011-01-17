@@ -10,6 +10,7 @@ import java.util.Collections;
 import java.util.List;
 import org.hibernate.Hibernate;
 import org.hibernate.Query;
+import org.hibernate.SQLQuery;
 import survey.dao.*;
 import survey.dto.*;
 
@@ -265,6 +266,35 @@ public class SurveyQuestionDAOImpl extends AbstractDAO implements SurveyQuestion
         this.endOperation();
         
         return true;
+    }
+    
+    public float getAverageForRating(int questionID) {
+    
+        Float result = 0.0F;
+        
+        StringBuffer buf = new StringBuffer();
+        buf.append("SELECT AVG(CONVERT(TEXT_VALUE, SIGNED)) AVG_VALUE ")
+                .append("FROM SURVEY_TEXT_ANSWER TA ")
+                .append("LEFT JOIN SURVEY_QUESTION_ANSWER QA ")
+                .append("ON TA.SURVEY_QUESTION_ANSWER_ID = QA.SURVEY_QUESTION_ANSWER_ID ")
+                .append("LEFT JOIN SURVEY_PAGE_ANSWER SPA ")
+                .append("ON QA.SURVEY_PAGE_ANSWER_ID = SPA.SURVEY_PAGE_ANSWER_ID ")
+                .append("LEFT JOIN SURVEY_TEXT_QUESTION STQ ")
+                .append("ON QA.SURVEY_QUESTION_ID = STQ.SURVEY_QUESTION_ID ")
+                .append("LEFT JOIN SURVEY_ANSWER SA ")
+                .append("ON SPA.SURVEY_ANSWER_ID = SA.SURVEY_ANSWER_ID ")
+                .append("WHERE SA.STATE = 3 ")
+                .append("AND STQ.QUESTION_TYPE = 1 ")
+                .append("AND TA.TEXT_VALUE IS NOT NULL");
+        String sql = buf.toString();
+        SQLQuery q = this.createSQLQuery(sql);
+        Object o = this.find(q);
+        
+        if (o != null)
+            result = (Float) o;
+        
+        this.endOperation();
+        return result;
     }
     
     public ArrayList<OptionReportDTO> getReportStats(int questionID) {
