@@ -53,6 +53,27 @@ public class SurveyDAOImpl extends AbstractDAO implements SurveyDAO {
         return survey;
     }
     
+    public SurveyDTO getSurvey(String code) {
+        
+        SurveyDTO survey = null;
+        String hql = "from SurveyDTO where code = :code";
+        Query q = this.createQuery(hql);
+        survey = (SurveyDTO) this.find(q);
+        if (survey != null) {
+            
+            if (survey.getState() != ActivityTypes.INVALID) {
+                Hibernate.initialize(survey.getPages());
+
+                if (survey.getPages() == null)
+                    survey.setPages(new ArrayList<SurveyPageDTO>());
+            }
+        }
+        
+        this.endOperation();
+        
+        return survey;
+    }
+    
     public SurveyDTO createSurvey(SurveyDTO survey) {
         
         this.saveOrUpdate(survey);

@@ -34,6 +34,21 @@ public class ResearcherSurveyFacadeBean implements ResearcherSurveyFacadeRemote 
         return survey;
     }
     
+    public SurveyDTO getSurvey(String username, String code)
+            throws UserNotFoundException {
+        
+        UserHelper userHelper = new UserHelper();
+        UserDTO user = userHelper.checkUserExists(username);
+        if (user == null)
+            return null;
+        
+        SurveyDTO survey = null;
+        SurveyDAO dao = DAOFactory.getSurveyDAO();
+        survey = dao.getSurvey(code);
+        
+        return survey;
+    }
+    
     public SurveyDTO createSurvey(String username, SurveyDTO survey) 
             throws UserNotFoundException, OperationFailedException, 
             InvalidFieldException {
