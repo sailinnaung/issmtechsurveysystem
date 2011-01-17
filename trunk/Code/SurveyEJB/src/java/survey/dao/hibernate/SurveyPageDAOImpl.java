@@ -78,6 +78,7 @@ public class SurveyPageDAOImpl extends AbstractDAO implements SurveyPageDAO {
         
         survey.getPages().add(surveyPage);
         this.saveOrUpdate(survey);
+        this.endOperation();
         
         return surveyPage;
     }
@@ -95,6 +96,8 @@ public class SurveyPageDAOImpl extends AbstractDAO implements SurveyPageDAO {
                 .setString("title", surveyPage.getTitle())
                 .setInteger("surveyPageID", surveyPage.getSurveyPageID());
         this.executeUpdate(q);
+        this.endOperation();
+        
         return surveyPage;
     }
     
@@ -102,6 +105,7 @@ public class SurveyPageDAOImpl extends AbstractDAO implements SurveyPageDAO {
         
         SurveyPageDTO surveyPage = (SurveyPageDTO) this.find(SurveyPageDTO.class, surveyPageID);
         this.delete(surveyPage);
+        this.endOperation();
         
         return true;
     }

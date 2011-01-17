@@ -56,6 +56,7 @@ public class SurveyResponseDAOImpl extends AbstractDAO implements SurveyResponse
         answer.setUser(user);
         
         this.saveOrUpdate(answer);
+        this.endOperation();
         return answer;
     }
 
@@ -66,6 +67,7 @@ public class SurveyResponseDAOImpl extends AbstractDAO implements SurveyResponse
                 .setInteger("state", ActivityTypes.INVALID)
                 .setInteger("surveyAnswerID", surveyAnswerID);
         this.executeUpdate(q);
+        this.endOperation();
         
         return true;
     }
@@ -109,6 +111,7 @@ public class SurveyResponseDAOImpl extends AbstractDAO implements SurveyResponse
                 .setInteger("state", ActivityTypes.SUBMIT)
                 .setInteger("surveyAnswerID", surveyAnswerID);
         this.executeUpdate(q);
+        this.endOperation();
         
         return true;
     }

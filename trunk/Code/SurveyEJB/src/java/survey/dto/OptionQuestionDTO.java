@@ -49,10 +49,15 @@ public class OptionQuestionDTO extends QuestionDTO implements Serializable {
     }
 
     public int getPrintOrder() {
+        if (this.questionType == QuestionTypes.RATING)
+            this.printOrder = OptionQuestionDTO.ORDER_DEFAULT;
+        
         return printOrder;
     }
 
     public void setPrintOrder(int printOrder) {
+        if (this.questionType == QuestionTypes.RATING)
+            printOrder = OptionQuestionDTO.ORDER_DEFAULT;
         this.printOrder = printOrder;
     }
     

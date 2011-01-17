@@ -38,6 +38,7 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
     public UserDTO createUser(UserDTO user) {
         
         this.saveOrUpdate(user);
+        this.endOperation();
         return user;
     }
 
@@ -46,6 +47,7 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
         String hql = "update RoleDTO set deleteFlg = true where userID = :userID";
         Query q = this.createQuery(hql).setInteger("userID", userID);
         this.executeUpdate(q);
+        this.endOperation();
         
         return true;
     }
@@ -55,6 +57,7 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
         String hql = "update RoleDTO set deleteFlg = true where username = :username and deleteFlg = false";
         Query q = this.createQuery(hql).setString("username", username);
         this.executeUpdate(q);
+        this.endOperation();
         
         return true;
     }
@@ -172,6 +175,7 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
                 .setEntity("role", user.getRole())
                 .setInteger("userID", user.getUserID());
         this.executeUpdate(q);
+        this.endOperation();
         
         return user;
     }

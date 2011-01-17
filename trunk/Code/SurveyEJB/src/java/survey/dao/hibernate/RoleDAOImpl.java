@@ -24,12 +24,14 @@ public class RoleDAOImpl extends AbstractDAO implements RoleDAO {
     public RoleDTO createRole(RoleDTO role) {
         
         this.saveOrUpdate(role);
+        this.endOperation();
         return role;
     }
 
     public boolean deleteRole(int roleID) {
         
         this.delete(roleID);
+        this.endOperation();
         return true;
     }
 
@@ -38,6 +40,7 @@ public class RoleDAOImpl extends AbstractDAO implements RoleDAO {
         String hql = "delete from RoleDTO where roleName = :roleName";
         Query q = this.createQuery(hql).setString("roleName", roleName);
         this.executeUpdate(q);
+        this.endOperation();
         
         return true;
     }
@@ -80,6 +83,7 @@ public class RoleDAOImpl extends AbstractDAO implements RoleDAO {
                 .setString("description", role.getDescription())
                 .setInteger("roleID", role.getRoleID());
         this.executeUpdate(q);
+        this.endOperation();
         
         return role;
     }

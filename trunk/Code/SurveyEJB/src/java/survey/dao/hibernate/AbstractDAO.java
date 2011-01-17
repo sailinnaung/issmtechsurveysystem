@@ -10,7 +10,6 @@ import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import survey.dao.hibernate.HibernateUtil;
 import survey.exception.DAOException;
 
 /**
@@ -62,7 +61,7 @@ public abstract class AbstractDAO {
             
             init();
             session.save(obj);
-            trx.commit();
+            
         } catch (HibernateException e) {
             
             handleException(e);
@@ -77,7 +76,6 @@ public abstract class AbstractDAO {
             
             init();
             session.saveOrUpdate(obj);
-            trx.commit();
         } catch (HibernateException e) {
             
             handleException(e);
@@ -92,7 +90,7 @@ public abstract class AbstractDAO {
             
             init();
             session.delete(obj);
-            trx.commit();
+            
         } catch (HibernateException e) {
             
             handleException(e);
@@ -129,7 +127,6 @@ public abstract class AbstractDAO {
         try {
             
             q.executeUpdate();
-            trx.commit();
         } catch (HibernateException e) {
             
             handleException(e);

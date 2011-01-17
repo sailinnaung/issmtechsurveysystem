@@ -39,6 +39,7 @@ public class SurveyPageResponseDAOImpl extends AbstractDAO implements SurveyPage
         
         answer.getPages().add(pageAnswer);
         this.saveOrUpdate(answer);
+        this.endOperation();
         
         return pageAnswer;
     }
@@ -60,6 +61,8 @@ public class SurveyPageResponseDAOImpl extends AbstractDAO implements SurveyPage
         pageAnswer.setPage(surveyPage);
         
         this.saveOrUpdate(pageAnswer);
+        this.endOperation();
+        
         return pageAnswer;
     }
 }
