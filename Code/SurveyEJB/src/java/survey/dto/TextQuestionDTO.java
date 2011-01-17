@@ -41,18 +41,27 @@ public class TextQuestionDTO extends QuestionDTO implements Serializable {
     }
 
     public boolean isMultilineFlg() {
+        
+        if (this.questionType == QuestionTypes.NUMBER)
+            multilineFlg = false;
         return multilineFlg;
     }
 
     public void setMultilineFlg(boolean multilineFlg) {
+        if (this.questionType == QuestionTypes.NUMBER)
+            multilineFlg = false;
         this.multilineFlg = multilineFlg;
     }
 
     public String getRestrictions() {
+        if (this.questionType == QuestionTypes.NUMBER)
+            restrictions = "[0-9]*";
         return restrictions;
     }
 
     public void setRestrictions(String restrictions) {
+        if (this.questionType == QuestionTypes.NUMBER)
+            restrictions = "[0-9]*";
         this.restrictions = restrictions;
     }
     
@@ -62,7 +71,9 @@ public class TextQuestionDTO extends QuestionDTO implements Serializable {
     
     public void setQuestionType(int questionType) {
         this.questionType = questionType;
-        if (this.questionType == QuestionTypes.NUMBER)
+        if (this.questionType == QuestionTypes.NUMBER) {
             this.restrictions = "[0-9]*";
+            this.multilineFlg = false;
+        }
     }
 }

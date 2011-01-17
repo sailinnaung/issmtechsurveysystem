@@ -87,12 +87,14 @@ public class SurveyQuestionDAOImpl extends AbstractDAO implements SurveyQuestion
         surveyPage.getQuestions().add(question);
         
         this.saveOrUpdate(surveyPage);
+        this.endOperation();
         
         return question;
     }
     
     public QuestionDTO updateQuestion(QuestionDTO question) {
         
+        // General question update
         String hql = "update QuestionDTO " +
                         "set description = :description, " +
                              "mandatoryFlg = :mandatoryFlg, " +
@@ -105,7 +107,60 @@ public class SurveyQuestionDAOImpl extends AbstractDAO implements SurveyQuestion
                 .setInteger("order", question.getOrder())
                 .setString("text", question.getText())
                 .setInteger("questionID", question.getQuestionID());
+        
         this.executeUpdate(q);
+        
+        // Child-table update
+        if (question.getQuestionType() == QuestionTypes.TEXT ||
+                question.getQuestionType() == QuestionTypes.NUMBER) {
+            
+            TextQuestionDTO textQuestion = (TextQuestionDTO) question;
+            hql = "update TextQuestionDTO " +
+                   "  set multilineFlg = :multilineFlg, " +
+                    "     charsLimit = :charsLimit, " +
+                    "     defaultText = :defaultText, " +
+                    "     restrictions = :restrictions, " +
+                    "     questionType = :questionType " +
+                   "where questionID = :questionID";
+            
+            q = this.createQuery(hql)
+                    .setBoolean("multilineFlg", textQuestion.isMultilineFlg())
+                    .setInteger("charsLimit", textQuestion.getCharsLimit())
+                    .setString("defaultText", textQuestion.getDefaultText())
+                    .setString("restrictions", textQuestion.getRestrictions())
+                    .setInteger("questionType", textQuestion.getQuestionType())
+                    .setInteger("questionID", question.getQuestionID());
+            
+            this.executeUpdate(q);
+        } else if (question.getQuestionType() == QuestionTypes.CHECKBOX_MCQ ||
+                question.getQuestionType() == QuestionTypes.RADIO_MCQ ||
+                question.getQuestionType() == QuestionTypes.RATING) {
+            
+            OptionQuestionDTO optionQuestion = (OptionQuestionDTO) question;
+            hql = "update OptionQuestionDTO " +
+                   "  set orientation = :orientation, " +
+                   "      printOrder = :printOrder, " +
+                   "      valueFrom = :valueFrom, " +
+                   "      valueTo = :valueTo " +
+                   "where questionID = :questionID";
+            
+            q = this.createQuery(hql)
+                    .setInteger("orientation", optionQuestion.getOrientation())
+                    .setInteger("printOrder", optionQuestion.getPrintOrder())
+                    .setInteger("valueFrom", optionQuestion.getValueFrom())
+                    .setInteger("valueTo", optionQuestion.getValueTo());
+            
+            this.executeUpdate(q);
+            
+            // Recalculate the ratings
+            if (question.getQuestionType() == QuestionTypes.RATING) {
+                
+                calculateRatings(optionQuestion);
+                this.saveOrUpdate(optionQuestion);
+            }
+        }
+        
+        this.endOperation();
         return question;
     }
     
@@ -113,6 +168,7 @@ public class SurveyQuestionDAOImpl extends AbstractDAO implements SurveyQuestion
         
         QuestionDTO question = (QuestionDTO) this.find(QuestionDTO.class, questionID);
         this.delete(question);
+        this.endOperation();
         return true;
     }
     
@@ -145,6 +201,7 @@ public class SurveyQuestionDAOImpl extends AbstractDAO implements SurveyQuestion
         
         // complete
         this.saveOrUpdate(q);
+        this.endOperation();
         
         return option;
     }
@@ -174,6 +231,7 @@ public class SurveyQuestionDAOImpl extends AbstractDAO implements SurveyQuestion
         }
         
         this.saveOrUpdate(question);
+        this.endOperation();
         
         return option;
     }
@@ -204,6 +262,7 @@ public class SurveyQuestionDAOImpl extends AbstractDAO implements SurveyQuestion
             calculateRatings(q);
         
         this.saveOrUpdate(question);
+        this.endOperation();
         
         return true;
     }

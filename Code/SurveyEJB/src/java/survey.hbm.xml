@@ -47,6 +47,7 @@
       <property column="PRINT_ORDER" name="printOrder" not-null="true" type="integer"/>
       <property column="VALUE_FROM" name="valueFrom" type="integer"/>
       <property column="VALUE_TO" name="valueTo" type="integer"/>
+      <property column="QUESTION_TYPE" name="questionType" type="integer" />
       <bag cascade="all" name="options" order-by="order" table="SURVEY_QUESTION_OPTION">
         <key column="SURVEY_QUESTION_ID"/>
         <one-to-many class="survey.dto.OptionDTO"/>
@@ -58,6 +59,7 @@
       <property column="CHARS_LIMIT" name="charsLimit" type="integer"/>
       <property column="DEFAULT_TEXT" length="100" name="defaultText" type="string"/>
       <property column="RESTRICTION" length="20" name="restrictions" type="string"/>
+      <property column="QUESTION_TYPE" name="questionType" type="integer" />
     </joined-subclass>
   </class>
   <class name="survey.dto.OptionDTO" table="SURVEY_QUESTION_OPTION">

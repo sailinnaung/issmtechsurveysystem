@@ -56,6 +56,7 @@ public class SurveyDAOImpl extends AbstractDAO implements SurveyDAO {
     public SurveyDTO createSurvey(SurveyDTO survey) {
         
         this.saveOrUpdate(survey);
+        this.endOperation();
         
         return survey;
     }
@@ -77,6 +78,7 @@ public class SurveyDAOImpl extends AbstractDAO implements SurveyDAO {
                 .setCalendar("updateDate", survey.getUpdateDate())
                 .setInteger("surveyID", survey.getSurveyID());
         this.executeUpdate(q);
+        this.endOperation();
         
         return survey;
     }
@@ -92,6 +94,7 @@ public class SurveyDAOImpl extends AbstractDAO implements SurveyDAO {
                 .setCalendar("updateDate", Calendar.getInstance())
                 .setInteger("surveyID", surveyID);
         this.executeUpdate(q);
+        this.endOperation();
         
         return true;
     }
