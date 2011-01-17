@@ -47,7 +47,7 @@ public class AuthenticateAction extends SurveyActionSupport
            UserDelegate usrD = new UserDelegate();
            
            if(!usrD.authenticateUser(getUsername(), getPassword())){
-               throw new UserNotFoundException();
+               throw new UserNotFoundException("User not found.");
            }
            
            UserDTO usr = usrD.getUserByUserName(getUsername());

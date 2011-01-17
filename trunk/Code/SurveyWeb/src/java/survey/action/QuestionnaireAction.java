@@ -8,6 +8,7 @@ package survey.action;
 import com.opensymphony.xwork2.ModelDriven;
 import com.opensymphony.xwork2.Preparable;
 import java.util.ArrayList;
+import java.util.List;
 import survey.config.SurveyActionConstants;
 import survey.delegates.ResearcherSurveyDelegate;
 import survey.dto.ActivityTypes;
@@ -27,10 +28,9 @@ public class QuestionnaireAction extends SurveyActionSupport implements
       
     private SurveyModel model = new SurveyModel();
     private UserDTO usrObj;
-    private String surveyID;
-    //private SurveyDTO surveyObj;
-    private ArrayList<SurveyDTO> recentEditList = new ArrayList<SurveyDTO>();
-    private ArrayList<SurveyDTO> recentSubmitList = new ArrayList<SurveyDTO>();
+    private String surveyCode;    
+    private List<SurveyDTO> recentEditList = new ArrayList<SurveyDTO>();
+    private List<SurveyDTO> recentSubmitList = new ArrayList<SurveyDTO>();
     private String submitBtn;
         
 
@@ -42,8 +42,13 @@ public class QuestionnaireAction extends SurveyActionSupport implements
         ResearcherSurveyDelegate rshrDelegate = new ResearcherSurveyDelegate();
         recentEditList = rshrDelegate.findRecentSurveysByState(usrObj.getUsername(), ActivityTypes.DRAFT,SurveyActionConstants.recent_questionnaire_count);
         recentSubmitList = rshrDelegate.findRecentSurveysByState(usrObj.getUsername(), ActivityTypes.SUBMIT,SurveyActionConstants.recent_questionnaire_count);
-
-               
+//           
+//        if (recentEditList != null) {
+//            System.out.println("FUBAR::::");
+//            SurveyDTO dto = recentEditList.get(0);
+//            System.out.println(dto.getCode() + "," + dto.getDescription() + "," + dto.getTitle());
+//            
+//        }
         System.out.println("inside questionnaire Lobby before return action String");
 
         return SurveyActionConstants.questionnaire_List;
@@ -51,30 +56,76 @@ public class QuestionnaireAction extends SurveyActionSupport implements
 
     public String newQuestionnaire() throws Exception
     {
+        System.out.println("inside newQuestionnaire");
+        ResearcherSurveyDelegate rshrDelegate = new ResearcherSurveyDelegate();
+        if(getSurveyCode()!=null){
+            if(!getSurveyCode().equalsIgnoreCase("new"))
+            {
+                model.setCurrentSurvey(rshrDelegate.getSurvey(usrObj.getUsername(), getSurveyCode()));
+                
+                return SurveyActionConstants.questionnaire_New;
+            }
+            System.out.println("inside getSurveyCode "+getSurveyCode());            
+        }
+        
         return SurveyActionConstants.questionnaire_New;
     }
     
     public String submitQuestionniare() throws Exception
     {
-        if("create".equals(submitBtn)){
+        System.out.println("inside submit Questionnaire");
+        ResearcherSurveyDelegate rshrDelegate = new ResearcherSurveyDelegate();
+        System.out.println("Selected survey code "+getSurveyCode());
+        
+        SurveyDTO surveyObj = rshrDelegate.getSurvey(usrObj.getUsername(), getSurveyCode());
+        surveyObj.setState(ActivityTypes.SUBMIT);
+                
+        model.setCurrentSurvey(rshrDelegate.updateSurvey(usrObj.getUsername(), surveyObj));
+        
+        return openQuestionnaireList();
+    }
+    
+    public String createQuestionniare() throws Exception
+    {
+        
             System.out.println("inside create");
             ResearcherSurveyDelegate rshrDelegate = new ResearcherSurveyDelegate();
             System.out.println("Survey Model survey ID "+model.getCurrentSurvey().getSurveyID());
             System.out.println("Survey Model survey Title "+model.getCurrentSurvey().getTitle());
-            System.out.println("Survey Model survey Descriptioin "+model.getCurrentSurvey().getSurveyID());
-                    
-                 
+            System.out.println("Survey Model survey Descriptioin "+model.getCurrentSurvey().getDescription());
+            System.out.println("Survey Model start date "+model.getCurrentSurvey().getStartDate());
+            System.out.println("Survey Model end date "+model.getCurrentSurvey().getEndDate());
+            
+            model.setCurrentSurvey(rshrDelegate.createSurvey(usrObj.getUsername(), model.getCurrentSurvey()));
             
             return SurveyActionConstants.questionPage_list;
-        }else{
-            System.out.println("inside submit");
-            return SurveyActionConstants.questionnaire_List;
-        }
+        
     }   
+    
+    public String updateQuestionniare() throws Exception
+    { 
+        System.out.println("inside updateQuestionnaire");
+        ResearcherSurveyDelegate rshrDelegate = new ResearcherSurveyDelegate();
+        System.out.println("Selected survey code "+getSurveyCode());
+        
+        SurveyDTO surveyObj = rshrDelegate.getSurvey(usrObj.getUsername(), getSurveyCode());                
+        model.setCurrentSurvey(surveyObj);
+        
+        return SurveyActionConstants.questionnaire_New;
+    }
     
     public String deleteQuestionnaire() throws Exception
     {
-        return SurveyActionConstants.questionnaire_List;
+        System.out.println("inside deleteQuestionnaire");
+        ResearcherSurveyDelegate rshrDelegate = new ResearcherSurveyDelegate();
+        System.out.println("Selected survey code "+getSurveyCode());
+        
+        SurveyDTO surveyObj = rshrDelegate.getSurvey(usrObj.getUsername(), getSurveyCode());
+        surveyObj.setState(ActivityTypes.SUBMIT);
+                
+        model.setCurrentSurvey(rshrDelegate.updateSurvey(usrObj.getUsername(), surveyObj));
+        
+        return openQuestionnaireList();
     }
 
     public SurveyModel getModel() {        
@@ -89,63 +140,29 @@ public class QuestionnaireAction extends SurveyActionSupport implements
         if(usrObj==null){
             throw new NoLoginException("User not log in yet.");
         }
-        
-        
-        
-//        System.out.println("User is not null.");
-//        RoleDTO rDto = usrObj.getRole();
-
-//        if(rDto.getName().equalsIgnoreCase("researcher")){
-//            ResearcherSurveyDelegate rshrDelegate = new ResearcherSurveyDelegate();
-//            recentEditList = rshrDelegate.findSurveysByState(usrObj.getUsername(), ActivityTypes.DRAFT);
-//            recentSubmitList = rshrDelegate.findSurveysByState(usrObj.getUsername(), ActivityTypes.SUBMIT);
-//
-//            model.setSurveyEditList(recentEditList);
-//            model.setSurveySubmitList(recentSubmitList);
-//        }
     }
 
     /**
      * @return the surveyID
      */
-    public String getSurveyID() {
-        return surveyID;
+    public String getSurveyCode() {
+        return surveyCode;
     }
 
     /**
      * @param surveyID the surveyID to set
      */
-    public void setSurveyID(String surveyID) {
-        this.surveyID = surveyID;
+    public void setSurveyCode(String surveyCode) {
+        this.surveyCode = surveyCode;
     }
 
-    /**
-     * @return the surveyObj
-     */
-//    public SurveyDTO getSurveyObj() {
-//        if(surveyObj==null)
-//            surveyObj = new SurveyDTO();
-//        return surveyObj;
-//    }
 
-    /**
-     * @param surveyObj the surveyObj to set
-     */
-//    public void setSurveyObj(SurveyDTO surveyObj) {
-//        if(surveyObj!=null){
-//            System.out.println("setting surveyObj");
-//            surveyObj.setSurveyID(Integer.parseInt(surveyID));
-//            this.surveyObj = surveyObj;
-//        }else{
-//            System.out.println("surveyObj is null.");
-//        }        
-//    }
 
-    public ArrayList<SurveyDTO> getRecentEditList() {
+    public List<SurveyDTO> getRecentEditList() {
         return recentEditList;
     }
 
-    public ArrayList<SurveyDTO> getRecentSubmitList() {
+    public List<SurveyDTO> getRecentSubmitList() {
         return recentSubmitList;
     }
 

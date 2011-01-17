@@ -75,14 +75,14 @@
    </package>
 
    <package name="questionnairePackage" extends="survey" namespace="/questionnaire">
-        <action name="*_survey" class="survey.action.QuestionnaireAction" method="{1}">            
+        <action name="*_*" class="survey.action.QuestionnaireAction" method="{1}">            
+            <param name="surveyCode">{2}</param>
             <result name="QuestionnaireList"  type="tiles" >tiles.questionnairelist</result>
             <result name="QuestionnaireNewForm"  type="tiles" >tiles.questionnairenew</result>            
             <result name="QuestionPageList" type="redirectAction">
                 <param name="actionName">openQuestionPageList_list</param>
                 <param name="namespace">/question</param>
-            </result>
-             
+            </result>             
             <result name="failure"  type="tiles"    >tiles.login</result>
         </action>
    </package>
