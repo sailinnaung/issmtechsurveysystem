@@ -57,7 +57,8 @@ public class SurveyDAOImpl extends AbstractDAO implements SurveyDAO {
         
         SurveyDTO survey = null;
         String hql = "from SurveyDTO where code = :code";
-        Query q = this.createQuery(hql);
+        Query q = this.createQuery(hql)
+                .setString("code", code);
         survey = (SurveyDTO) this.find(q);
         if (survey != null) {
             
