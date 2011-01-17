@@ -8,21 +8,35 @@
             <result-type name="tiles" class="org.apache.struts2.views.tiles.TilesResult"/>
        </result-types>
        
+       <interceptors>
+           <interceptor-stack name="surveyStack">
+               <interceptor-ref name="validation">
+                  <param name="excludeMethods">input,back,cancel,browse</param>
+               </interceptor-ref>
+               <interceptor-ref name="workflow">
+                  <param name="excludeMethods">input,back,cancel,browse</param>
+               </interceptor-ref>
+               <interceptor-ref name="defaultStack" ></interceptor-ref>
+           </interceptor-stack>
+       </interceptors>
+ 
+ <default-interceptor-ref name="surveyStack" />
        <global-results>
             <result name="login" type="redirect">login</result>
             <result name="LogInError" type="redirect">/DataError.jsp</result>
        </global-results>
-       
+      
        <global-exception-mappings>
            <exception-mapping exception="survey.exception.UserNotFoundException" result="LogInError"/>
            <exception-mapping exception="survey.exception.UserNotAllowedException" result="LogInError"/>
            <exception-mapping exception="survey.exception.NoLoginException" result="LogInError"/>       
        </global-exception-mappings>
        
+       
    </package>
 
-   <package name="survey" extends="default" namespace="/">
-
+   <package name="survey" extends="default" namespace="/" >
+        
        <action name="login" class="survey.action.LogInAction">
             <result name="success" type="tiles" >tiles.login</result>            
             <result name="failure" type="tiles" >tiles.login</result>
@@ -32,8 +46,8 @@
             <result name="admin"  type="redirect" >UserManagement/openUserList_all</result>
             <result name="researcher"  type="redirect" >questionnaire/openQuestionnaireList_survey</result>
             <result name="respondent"  type="redirect" >questionnaire/openQuestionnaireList_survey</result>
-            <result name="input"    type="tiles"    >tiles.login</result>
-            <result name="failure"  type="tiles"    >tiles.login</result>            
+            <result name="failure"  type="tiles">tiles.login</result>
+            <result name="input"    type="tiles">tiles.login</result>
         </action>
         
         <action name="logout" class="survey.action.LogOutAction">
