@@ -1,0 +1,55 @@
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+
+<tiles-definitions>
+    <definition name="mainLayout" template="/MainLayout.jsp">
+        <put-attribute name="header"    value="/Header.jsp"/>
+        <put-attribute name="menu"      value="/LeftMenu.jsp"/>
+        <put-attribute name="footer"    value="/Footer.jsp"/>
+        <put-attribute name="bodyTitle" value="Body Title"/>
+    </definition>
+
+    <definition name="tiles.login" extends="mainLayout">
+        <put-attribute name="menu"        value="/Blank.jsp" />
+        <put-attribute name="body"        value="/Login.jsp"/>
+        <put-attribute name="bodyTitle"   value="survey.logintitle"/>
+    </definition>
+
+    <definition name="tiles.questionnairelist" extends="mainLayout">
+        <put-attribute name="body"        value="/Questionnaire_Lobby.jsp"/>
+        <put-attribute name="bodyTitle"   value="survey.questionnaire_list_title"/>
+    </definition>
+    
+    <definition name="tiles.userlist" extends="mainLayout">
+        <put-attribute name="body"        value="/Users.jsp"/>
+        <put-attribute name="bodyTitle"   value="survey.user_list_title"/>
+    </definition>
+    
+    <definition name="tiles.newuserform" extends="mainLayout">
+        <put-attribute name="body"        value="/NewUserForm.jsp"/>
+        <put-attribute name="bodyTitle"   value="survey.user_new_title"/>
+    </definition>
+    
+    <definition name="tiles.updateuserform" extends="mainLayout">
+        <put-attribute name="body"        value="/UpdateForm.jsp"/>
+        <put-attribute name="bodyTitle"   value="survey.user_update_title"/>
+    </definition>
+    
+    <definition name="tiles.questionnairenew" extends="mainLayout">
+        <put-attribute name="body"        value="/Questionnaire_new.jsp"/>
+        <put-attribute name="bodyTitle"   value="survey.questionnaire_new_title"/>
+    </definition>
+    
+    <definition name="tiles.questionpagelist" extends="mainLayout">
+        <put-attribute name="body"        value="/Question_list.jsp"/>
+        <put-attribute name="bodyTitle"   value="survey.question_list_title"/>
+    </definition>
+    
+    <definition name="tiles.findusers" extends="mainLayout">
+        <put-attribute name="body"        value="/FindUser.jsp"/>
+        <put-attribute name="bodyTitle"   value="survey.find_users"/>
+    </definition>
+    
+
+</tiles-definitions>
