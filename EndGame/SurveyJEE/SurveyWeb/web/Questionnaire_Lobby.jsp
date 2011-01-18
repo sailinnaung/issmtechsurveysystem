@@ -24,8 +24,7 @@
                               <tr>
                                     <th scope="col" class="col_header" width="5%">S/No</th>
                                     <th scope="col" class="col_header" width="15%">ID</th>
-                                    <th scope="col" class="col_header" width="20%">Title</th>
-                                    <th scope="col" class="col_header" width="30%">Description</th>                                    
+                                    <th scope="col" class="col_header" width="50%">Title</th>
                                     <th scope="col" class="col_header" width="15%">Action</th>
                               </tr>
                         <s:if test="recentEditList.size()==0">                            
@@ -40,8 +39,7 @@
                                   <tr class="<s:if test="#stat.odd == true">table_oddRow</s:if><s:else>table_evenRow</s:else>">
                                     <td align="center"><s:property value="#idx"/></td>
                                     <td align="center"><s:property value="code"/></td>
-                                    <td align="center"><s:property value="title"/></td>
-                                    <td align="center"><s:property value="description"/></td>                                    
+                                    <td align="center"><s:property value="title"/></td>                                    
                                     <td align="center"><a href="<s:url namespace="/questionnaire" action="updateQuestionniare_%{code}" />">Edit</a>&nbsp;|&nbsp;<a 
                                             href="<s:url namespace="/questionnaire" action="deleteQuestionnaire_%{code}" />">Delete</a>&nbsp;|&nbsp;<a
                                             href="<s:url namespace="/questionnaire" action="submitQuestionniare_%{code}" />">Submit</a></td>
@@ -60,8 +58,7 @@
                       <tr>
                             <th scope="col" class="col_header" width="5%">S/No</th>
                             <th scope="col" class="col_header" width="15%">ID</th>
-                            <th scope="col" class="col_header" width="20%">Title</th>
-                            <th scope="col" class="col_header" width="30%">Description</th>                            
+                            <th scope="col" class="col_header" width="50%">Title</th>
                             <th scope="col" class="col_header" width="15%">Action</th>
                       </tr>
                       <s:if test="recentSubmitList.size()==0"> 
@@ -77,7 +74,6 @@
                                     <td align="center"><s:property value="#idx"/></td>
                                     <td align="center"><s:property value="code"/></td>
                                     <td align="center"><s:property value="title"/></td>
-                                    <td align="center"><s:property value="description"/></td>
                                     <td align="center"><a href="<s:url namespace="/questionnaire" action="updateQuestionniare_%{code}" />">Edit</a>&nbsp;|&nbsp;<a href="<s:url namespace="/questionnaire" action="deleteQuestionnaire_%{code}" />">Delete</a></td>
                                   </tr>
                               </s:iterator>
