@@ -130,6 +130,13 @@ public class SurveyResponseDAOImpl extends AbstractDAO implements SurveyResponse
                 .setMaxResults(maxRecords);
         
         ArrayList<SurveyDTO> surveys = new ArrayList<SurveyDTO>(this.findList(q));
+        
+        for (SurveyDTO survey : surveys) {
+
+            Hibernate.initialize(survey);
+            Hibernate.initialize(survey.getOwner());
+        }
+        
         this.endOperation();
         
         return surveys;
@@ -146,6 +153,11 @@ public class SurveyResponseDAOImpl extends AbstractDAO implements SurveyResponse
                 .setString("username", username);
         
         ArrayList<SurveyAnswerDTO> answers = new ArrayList<SurveyAnswerDTO>(this.findList(q));
+        for (SurveyAnswerDTO answer : answers) {
+
+            Hibernate.initialize(answer.getSurvey());
+        }
+
         this.endOperation();
         
         return answers;
