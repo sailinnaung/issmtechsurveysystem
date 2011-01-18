@@ -39,7 +39,7 @@ public class SurveyResponseAction extends SurveyActionSupport {
 
     public String openHomePage() {
         username = ((UserDTO) session.get(USER)).getUsername();
-        draftSurvays = mgr.findSurveysByState(username, ActivityTypes.DRAFT);
+        draftSurvays = mgr.findSurveysByState(username, ActivityTypes.SUBMIT);
         openSurvays = mgr.findOpenSurveys(100);
         return SurveyActionConstants.Open_Home_Page;
 
