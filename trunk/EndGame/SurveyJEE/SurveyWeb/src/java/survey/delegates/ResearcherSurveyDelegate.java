@@ -56,6 +56,7 @@ public class ResearcherSurveyDelegate {
     public boolean deleteSurvey(String ownerName,int surveyID) throws UserNotFoundException, 
             UserNotAllowedException, RecordNotFoundException
     {
+        System.out.println("The survey ID when calling delete is " + surveyID );
         return rshrFacade.deleteSurvey(ownerName, surveyID);
     }
     

@@ -27,8 +27,7 @@ public class UserServiceLocator {
     private UserServiceLocator(){
         try{
             Properties props = new Properties();
-            props.put("org.omg.CORBA.ORBInitialHost", "127.0.0.1");
-            initCtx = new InitialContext(props);
+            initCtx = new InitialContext();
         }catch(Exception e){
             e.printStackTrace(); // later will use log4j for logging
         }
