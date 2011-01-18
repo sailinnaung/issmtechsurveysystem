@@ -42,7 +42,9 @@
                                     <td align="center"><s:property value="code"/></td>
                                     <td align="center"><s:property value="title"/></td>
                                     <td align="center"><s:property value="description"/></td>                                    
-                                    <td align="center"><a href="<s:url namespace="/questionnaire" action="updateQuestionniare_%{code}" />">Edit</a>&nbsp;|&nbsp;<a href="<s:url namespace="/questionnaire" action="deleteQuestionnaire_%{code}" />">Delete</a></td>
+                                    <td align="center"><a href="<s:url namespace="/questionnaire" action="updateQuestionniare_%{code}" />">Edit</a>&nbsp;|&nbsp;<a 
+                                            href="<s:url namespace="/questionnaire" action="deleteQuestionnaire_%{code}" />">Delete</a>&nbsp;|&nbsp;<a
+                                            href="<s:url namespace="/questionnaire" action="submitQuestionniare_%{code}" />">Submit</a></td>
                                   </tr>
                               </s:iterator>                            
                               </s:else>
@@ -76,7 +78,6 @@
                                     <td align="center"><s:property value="code"/></td>
                                     <td align="center"><s:property value="title"/></td>
                                     <td align="center"><s:property value="description"/></td>
-                                    <td align="center"><s:property value="state"/></td>
                                     <td align="center"><a href="<s:url namespace="/questionnaire" action="updateQuestionniare_%{code}" />">Edit</a>&nbsp;|&nbsp;<a href="<s:url namespace="/questionnaire" action="deleteQuestionnaire_%{code}" />">Delete</a></td>
                                   </tr>
                               </s:iterator>
