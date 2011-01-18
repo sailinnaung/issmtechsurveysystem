@@ -45,7 +45,7 @@
         <action name="authenticate" class="survey.action.AuthenticateAction">
             <result name="admin"  type="redirect" >UserManagement/openUserList_all</result>
             <result name="researcher"  type="redirect" >questionnaire/openQuestionnaireList_survey</result>
-            <result name="respondent"  type="redirect" >questionnaire/openQuestionnaireList_survey</result>
+            <result name="respondent"  type="redirect" >SurveyResponse/openHomePage_0</result>
             <result name="failure"  type="tiles">tiles.login</result>
             <result name="input"    type="tiles">tiles.login</result>
         </action>
@@ -112,5 +112,17 @@
             <result name="FindUsers" type="tiles">tiles.findusers</result>
         </action>
     </package>
+    <package name="SurveyResponse" namespace="/SurveyResponse" extends="survey">
+        <action name="*_*" class="survey.action.SurveyResponseAction" method="{1}">
+            <param name="surveyID">{2}</param>
+            <result name="OpenHomePage" type="tiles">tiles.respondenthomepage</result>
+            <result name="OpenServeyDescriptin" type="tiles">tiles.surveydescription</result>
+            <result name="OpenResponsePage" type="tiles">tiles.responsepage</result>
+            <result name="OpenEditProfile" type="tiles">tiles.editprofile</result>
+            <result name="LastPage" type="tiles">tiles.lastpage</result>
+            <result name="error" type="tiles">tiles.responseerror</result>
+        </action>
+    </package>
+
 
 </struts>

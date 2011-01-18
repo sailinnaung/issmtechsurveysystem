@@ -50,6 +50,29 @@
         <put-attribute name="body"        value="/FindUser.jsp"/>
         <put-attribute name="bodyTitle"   value="survey.find_users"/>
     </definition>
-    
+    <definition name="tiles.respondenthomepage" extends="mainLayout">
+        <put-attribute name="body"        value="/SurveyResponse/RespondentsHome.jsp"/>
+        <put-attribute name="bodyTitle"   value="survey.respondent_home"/>
+    </definition>
+    <definition name="tiles.surveydescription" extends="mainLayout">
+        <put-attribute name="body"        value="/SurveyResponse/SurveyDescription.jsp"/>
+        <put-attribute name="bodyTitle"   value="survey.description"/>
+    </definition>
+    <definition name="tiles.responsepage" extends="mainLayout">
+        <put-attribute name="body"        value="/SurveyResponse/ResponsePage.jsp"/>
+        <put-attribute name="bodyTitle"   value="survey.response_page"/>
+    </definition>
+    <definition name="tiles.editprofile" extends="mainLayout">
+        <put-attribute name="body"        value="/SurveyResponse/EditProfile.jsp"/>
+        <put-attribute name="bodyTitle"   value="survey.edit_profile"/>
+    </definition>
+    <definition name="tiles.lastpage" extends="mainLayout">
+        <put-attribute name="body"        value="/SurveyResponse/SubmitResponse.jsp"/>
+        <put-attribute name="bodyTitle"   value="survey.last_page"/>
+    </definition>
+    <definition name="tiles.responseerror" extends="mainLayout">
+        <put-attribute name="body"        value="/Error.jsp"/>
+        <put-attribute name="bodyTitle"   value="survey.response_error"/>
+    </definition>
 
 </tiles-definitions>
