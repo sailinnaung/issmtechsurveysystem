@@ -25,4 +25,12 @@ public class TextAnswerDTO extends AnswerDTO implements java.io.Serializable {
     public void setValue(String value) {
         this.value = value;
     }
+
+    public String toAnswerString() {
+
+        if (value == null)
+            return "";
+        
+        return value;
+    }
 }
