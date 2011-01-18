@@ -35,8 +35,6 @@ public class LeftMenuAction extends SurveyActionSupport implements
                 return SurveyActionConstants.find_users;
             }else if(linkAction.equalsIgnoreCase(SurveyActionConstants.RSH_HOME_CODE)){
                 return SurveyActionConstants.Researcher_Home;
-            }else if(linkAction.equalsIgnoreCase(SurveyActionConstants.RSP_HOME_CODE)){
-                System.out.println("Not done yet"); return "";
             }else if(linkAction.equalsIgnoreCase(SurveyActionConstants.EDT_PROFILE_CODE)){
                 System.out.println("Not done yet"); return "";
             }else if(linkAction.equalsIgnoreCase(SurveyActionConstants.NEW_USER_CODE)){
@@ -45,7 +43,9 @@ public class LeftMenuAction extends SurveyActionSupport implements
                 System.out.println("Not done yet"); return "";
             }else if(linkAction.equalsIgnoreCase(SurveyActionConstants.CREATE_SURVEY_CODE)){
                 return SurveyActionConstants.questionnaire_New;
-            }else{
+            }else if (linkAction.equalsIgnoreCase(SurveyActionConstants.RSP_HOME_CODE)) {
+                return SurveyActionConstants.Respondent_Home;
+            } else{
                 return SurveyActionSupport.ERROR;
             }                       
         }        

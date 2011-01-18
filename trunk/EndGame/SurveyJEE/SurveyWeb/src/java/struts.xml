@@ -61,6 +61,7 @@
                 <param name="namespace">/search</param>
             </result>
             <result name="researcher" type="redirect">questionnaire/openQuestionnaireList_survey</result>
+            <result name="respondent"  type="redirect" >SurveyResponse/openHomePage_0</result>
             <result name="RSPDHM" type="tiles"></result>
             <result name="EDTPRF" type="tiles"></result>
             <result name="NewUserForm" type="redirectAction">tiles.newuserform
