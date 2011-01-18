@@ -91,18 +91,16 @@ public class QuestionnaireAction extends SurveyActionSupport implements
             System.out.println("Survey Model start date "+model.getCurrentSurvey().getStartDate());
             System.out.println("Survey Model end date "+model.getCurrentSurvey().getEndDate());
             
-            model.setCurrentSurvey(rshrDelegate.createSurvey(usrObj.getUsername(), model.getCurrentSurvey()));
-
             System.out.println("isQuestionnaireUpdate "+isQuestionnaireUpdate());
 
             if(isQuestionnaireUpdate()){
-                return SurveyActionConstants.questionnaire_List;
-            }else{
+                model.setCurrentSurvey(rshrDelegate.updateSurvey(usrObj.getUsername(), model.getCurrentSurvey()));
                 return SurveyActionConstants.questionPage_list;
-            }
-            
-        
-    }   
+            }else{
+                model.setCurrentSurvey(rshrDelegate.createSurvey(usrObj.getUsername(), model.getCurrentSurvey()));
+                return SurveyActionConstants.questionPage_list;
+            }        
+    }
     
     public String updateQuestionniare() throws Exception
     { 
@@ -128,9 +126,11 @@ public class QuestionnaireAction extends SurveyActionSupport implements
         System.out.println("Selected survey code "+getSurveyCode());
         
         SurveyDTO surveyObj = rshrDelegate.getSurvey(usrObj.getUsername(), getSurveyCode());
-        surveyObj.setState(ActivityTypes.SUBMIT);
-                
-        model.setCurrentSurvey(rshrDelegate.updateSurvey(usrObj.getUsername(), surveyObj));
+        //surveyObj.setState(ActivityTypes.SUBMIT);
+
+        rshrDelegate.deleteSurvey(usrObj.getUsername(), surveyObj.getSurveyID());
+        model.setCurrentSurvey(surveyObj);
+        //model.setCurrentSurvey(rshrDelegate.updateSurvey(usrObj.getUsername(), surveyObj));
         
         return openQuestionnaireList();
     }
