@@ -52,15 +52,24 @@ public class QuestionnaireAction extends SurveyActionSupport implements
     public String newQuestionnaire() throws Exception
     {
         System.out.println("inside newQuestionnaire");
+        setQuestionnaireUpdate(false);
+        setCurrentSurveyDto(new SurveyDTO());
+        
         ResearcherSurveyDelegate rshrDelegate = new ResearcherSurveyDelegate();
-        if(getSurveyCode()!=null){
+        if(getSurveyCode()!=null) {
             if(!getSurveyCode().equals("new"))
             {
                 model.setCurrentSurvey(rshrDelegate.getSurvey(usrObj.getUsername(), getSurveyCode()));
                 
                 return SurveyActionConstants.questionnaire_New;
+            } else {
+                model.setCurrentSurvey(new SurveyDTO());
+                model.getCurrentSurvey().setSurveyID(0);
             }
             System.out.println("inside getSurveyCode "+getSurveyCode());            
+        } else {
+            model.setCurrentSurvey(new SurveyDTO());
+            model.getCurrentSurvey().setSurveyID(0);
         }
         
         return SurveyActionConstants.questionnaire_New;
@@ -97,6 +106,7 @@ public class QuestionnaireAction extends SurveyActionSupport implements
                 model.setCurrentSurvey(rshrDelegate.updateSurvey(usrObj.getUsername(), model.getCurrentSurvey()));
                 return SurveyActionConstants.questionPage_list;
             }else{
+                model.getCurrentSurvey().setSurveyID(0);
                 model.setCurrentSurvey(rshrDelegate.createSurvey(usrObj.getUsername(), model.getCurrentSurvey()));
                 return SurveyActionConstants.questionPage_list;
             }        
