@@ -84,7 +84,8 @@ public class SurveyDAOImpl extends AbstractDAO implements SurveyDAO {
                              "endDate = :endDate, " +
                              "startDate = :startDate, " +
                              "title = :title, " +
-                             "updateDate = :updateDate" +
+                             "updateDate = :updateDate, " +
+                             "state = :state " +
                       "where surveyID = :surveyID";
         Query q = this.createQuery(hql)
                 .setString("description", survey.getDescription())
@@ -92,6 +93,7 @@ public class SurveyDAOImpl extends AbstractDAO implements SurveyDAO {
                 .setCalendarDate("startDate", survey.getStartDate())
                 .setString("title", survey.getTitle())
                 .setCalendar("updateDate", survey.getUpdateDate())
+                .setInteger("state", survey.getState())
                 .setInteger("surveyID", survey.getSurveyID());
         this.executeUpdate(q);
         this.endOperation();
@@ -103,7 +105,7 @@ public class SurveyDAOImpl extends AbstractDAO implements SurveyDAO {
         
         String hql = "update SurveyDTO " +
                         "set state = :state, " +
-                            "updateDate = :updateDate" +
+                            "updateDate = :updateDate " +
                       "where surveyID = :surveyID";
         Query q = this.createQuery(hql)
                 .setInteger("state", ActivityTypes.INVALID)
