@@ -39,7 +39,7 @@ public class SurveyResponseAction extends SurveyActionSupport {
 
     public String openHomePage() {
         username = ((UserDTO) session.get(USER)).getUsername();
-        draftSurvays = mgr.findSurveysByState(username, ActivityTypes.SUBMIT);
+        draftSurvays = mgr.findSurveysByState(username, ActivityTypes.DRAFT);
         openSurvays = mgr.findOpenSurveys(100);
         return SurveyActionConstants.Open_Home_Page;
 
@@ -93,10 +93,11 @@ public class SurveyResponseAction extends SurveyActionSupport {
                 session.put(SurveyActionConstants.Session_SurveyPageAnswerMap, ansMap);
             }
             
-            if (survey.getPages() == null) {
+            if (survey.getPages() == null || survey.getPages().size() == 0) {
                 message = "No Question Found";
                 throw new Exception(message);
             }
+            
             session.put(SurveyActionConstants.Session_CurrentPageID, survey.getPages().get(0).getSurveyPageID());
             List<SurveyPageDTO> pageList = survey.getPages();
 

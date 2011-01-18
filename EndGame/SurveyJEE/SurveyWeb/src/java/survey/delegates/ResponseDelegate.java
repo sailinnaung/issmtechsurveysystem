@@ -100,6 +100,7 @@ public class ResponseDelegate {
             resps = new ArrayList<SurveyAnswerDTO>();
         ArrayList<SurveyDTO> surveys=new ArrayList<SurveyDTO>();
         for(SurveyAnswerDTO resp: resps){
+            System.out.println("SURVEYID: " + resp.getSurvey().getSurveyID());
             surveys.add(resp.getSurvey());
         }
         
