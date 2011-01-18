@@ -122,9 +122,11 @@ public class SurveyResponseDAOImpl extends AbstractDAO implements SurveyResponse
                 " where not exists ( " +
                 " from SurveyAnswerDTO as ans " +
                 " where ans.survey = s " +
-                " and ans.state <> :state)";
+                " and ans.state <> :state) " +
+                " and s.state = :submitState";
         Query q = this.createQuery(hql)
                 .setInteger("state", ActivityTypes.INVALID)
+                .setInteger("submitState", ActivityTypes.SUBMIT)
                 .setMaxResults(maxRecords);
         
         ArrayList<SurveyDTO> surveys = new ArrayList<SurveyDTO>(this.findList(q));
