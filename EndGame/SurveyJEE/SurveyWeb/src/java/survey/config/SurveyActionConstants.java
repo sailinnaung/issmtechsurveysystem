@@ -37,5 +37,19 @@ public interface SurveyActionConstants {
     
     //Search
     public static final String find_users = "FindUsers";
-
+    
+    
+    
+    public static final String Last_Page = "LastPage";
+    public static final String Open_Servey_Description = "OpenServeyDescription";
+    public static final String Open_Search_Questioner = "OpenSearchQuestioner";
+    public static final String Open_Edit_Profile = "OpenEditProfile";
+    public static final String Open_Home_Page = "OpenHomePage";
+    public static final String Open_Response_page = "OpenResponsePage";
+    public static final String Session_SurveyID = "SurveyID";
+    public static final String Session_CurrentPageID = "CurrentPageID";
+    public static final String Session_pageIDList = "PageIDList";
+    public static final String Session_SurveyAnswerID = "SurveyAnswerID";
+    public static final String Session_SurveyPageAnswerMap = "SurveyPageAnswerMap";
+    public String Error = "error";
 }
