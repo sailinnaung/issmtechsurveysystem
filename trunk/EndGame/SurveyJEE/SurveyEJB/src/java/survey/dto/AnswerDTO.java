@@ -42,4 +42,6 @@ public abstract class AnswerDTO implements java.io.Serializable {
     public void setOrder(int order) {
         this.order = order;
     }
+
+    public abstract String toAnswerString();
 }

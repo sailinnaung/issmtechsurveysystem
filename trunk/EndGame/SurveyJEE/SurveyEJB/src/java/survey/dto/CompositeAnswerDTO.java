@@ -27,4 +27,8 @@ public class CompositeAnswerDTO extends AnswerDTO implements java.io.Serializabl
     public void setAnswers(ArrayList<AnswerDTO> answers) {
         this.answers = answers;
     }
+
+    public String toAnswerString() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

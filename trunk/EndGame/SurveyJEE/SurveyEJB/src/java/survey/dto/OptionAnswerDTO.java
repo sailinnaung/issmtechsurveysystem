@@ -27,4 +27,21 @@ public class OptionAnswerDTO extends AnswerDTO implements java.io.Serializable {
     public void setOptions(List<OptionDTO> options) {
         this.options = options;
     }
+
+    public String toAnswerString() {
+
+        String s = "";
+        if (options == null)
+            return s;
+
+        for (OptionDTO option : options) {
+
+            if (!s.equals(""))
+                s += ", ";
+
+            s += option.getOptionID();
+        }
+
+        return s;
+    }
 }
